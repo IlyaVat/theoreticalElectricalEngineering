@@ -2369,6 +2369,14 @@ public:
 	{
 		return texID;
 	}
+	int gx()
+	{
+		return x;
+	}
+	int gy()
+	{
+		return y;
+	}
 	void resize(int _x, int _y)
 	{
 		if (_x > 100000)_x = 100000;
@@ -2429,6 +2437,20 @@ public:
 };
 
 
+EASY_TEX create_plot(int tx, int ty, vector<double> vx, vector<double> vy, double down_x, double up_x, double left_y, double right_y)
+{
+	EASY_TEX tex;
+	tex.resize(tx, ty);
+
+	for (int i = 0; i <tx+ty; i++)
+	{
+		tex.setpixel(i, i, 0, 255, 0);
+	}
+
+	return tex;
+}
+
+
 void task_graphix()
 {
 	OPENGL_WINDOW w;
@@ -2438,11 +2460,9 @@ void task_graphix()
 
 	w.enable();
 	tex.resize(128, 128);
+	tex = create_plot(512, 512, {0,1,2,3}, {2,0,1,4},-1,5,-1,4);
 
-	for (int i = 0; i < 128; i++)
-	{
-		tex.setpixel(i,i,0, 255, 0);
-	}
+
 
 	tex.gentex();
 
@@ -2464,8 +2484,8 @@ void task_graphix()
 
 		int tx, ty;
 
-		tx = 128;
-		ty = 128;
+		tx = tex.gx();
+		ty = tex.gy();
 		
 		glBegin(GL_POLYGON);
 		glTexCoord2d(0, 0); glVertex3f(-wx + 00, wy - 00, -wy);
