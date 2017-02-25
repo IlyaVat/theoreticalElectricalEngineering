@@ -20,7 +20,7 @@
 #define EL_C 6
 
 #define SIGN_T 0
-#define SIGN_V 0
+#define SIGN_V 1
 
 //using namespace itl;
 using namespace std;
@@ -239,18 +239,6 @@ public:
 	L_S str_l;
 };
 
-class IMAGE_PNG
-{
-public:
-	vector<unsigned char> buff;
-	int x, y;
-	IMAGE_PNG()
-	{
-		x = 0;
-		y = 0;
-
-	}
-};
 
 class EL_CHAIN
 {
@@ -258,7 +246,6 @@ public:
 	vector<POI> po;
 	vector<ELEM> el;
 	
-	IMAGE_PNG img;
 
 	UR_SOST ur_so;
 	vector<PER_S> per_s;
@@ -1535,96 +1522,6 @@ my_set_callback(PyObject *dummy, PyObject *args)
 
 void print_ku(const EL_CHAIN &cha);
 
-int main()
-{
-	setlocale(0, "RU");
-	cout << "Грузись питон";
-	sympy_init();
-
-	sympy_sim("1+3");
-	cout <<endl << "Грузись питон";
-	//call_python_sympy("sin(t)+1");
-	//puts("L: sin(t)");
-	//puts(sympy_lap("sin(t)").data());
-	//puts("S: (100*s-s**2)*(100+30*s-10)");
-	//puts(sympy_sim("(100*s-s**2)*(100+30*s-10)").data());
-
-	MATRIX<double> mm(4, 3);
-	mm[1][0] = 1;
-	//cout << mm;
-	//system("pause");
-
-
-
-	/*
-	for (auto i = A.begin_row(); i != A.end_row(); i++)
-	{
-	for (auto r = (*i).; r != res.end(); r++)
-	auto sch = *i;
-	printf("r:%lf i:%lf \n", sch.real(), sch.imag());
-	}
-	}
-	*/
-
-
-
-
-
-	//EL_CHAIN cha_t("1 1 3 R 4  2 1 2 R 2  3 3 2 U 8  4 1 4 R 2  5 2 5 R 4  6 4 5 R 2  7 3 5 K 0");I(U)=4 Rэ=2
-	//EL_CHAIN cha_t("1 1 5 R 4000  2 5 6 R 10000  3 2 6 R 11000  4 3 7 U 6  5 4 8 R 2000  6 2 1 K 0  7 3 2 K 0  8 3 4 K 0  9 6 7 K 0  10 8 7 K 0");
-	//EL_CHAIN cha_t("1 1 3 I 0.016 2 1 2 R 15000  3 2 3 R 9000  4 2 3 R 6000  5 2 3 R 17000 ");//idz3
-	//cha_t.comp_par_1_iu_uns();
-	//EL_CHAIN cha("1 1 4 U 0  2 2 4 R 1  3 1 3 R 1  4 3 2 R 1  6 3 4 C 1  5 4 2 C 0.25"); // v1 lin(62)
-	//EL_CHAIN cha("1 1 3 I 0.018  2 1 3 R 20000  3 3 4 R 8000  4 1 4 R 14000  5 4 5 R 7000  6 1 5 R 4000  7 1 2 L 0.004  8 5 2 C 0.000014 ");
-
-	//Сначала ввод входных данных
-
-	get_pol_coef("-s**2 - 33*s - 238");
-	//POLY p1, p2;
-	//	f = "(s**2 + 33*s + 238)/((1*s**3 +30*s**2 + 300*s + 1000))";
-	//p1 = get_pol_coef("s**2 + 33*s + 238");
-	//p2 = get_pol_coef("1*s**3 + 30*s**2 + 300*s + 1000");
-	//NEOPR_COEF d(p1,p2);
-
-
-	//EL_CHAIN cha("1 1 5 U 0  2 1 2 R 0.0625  3 2 5 R 0.25  4 2 3 L 0.025  5 3 5 C 0.4  6 3 4 R 0.25  7 4 5 R 1");//from MU
-
-	EL_CHAIN cha("1 4 1 I 0  2 3 4 R 0.5  3 1 4 R 2  4 1 2 L 2  5 2 3 R 1  6 3 4 C 4");//from MU
-	//EL_CHAIN cha("1 1 4 U 0  2 2 4 R 1  3 1 3 R 1  4 3 4 R 1  5 1 3 L 1  6 3 2 L 0.25");//from 14V
-
-	//подсчёт уравнений состояния 
-	cha.comp_ur_so();
-
-	//h1 аналитически
-	cha.comp_h1(2);
-
-	//h1 по лаплассовски
-	cha.comp_h1_l(2);
-
-	//(238 + 33 s + s^2)/(1000 + 300 s + 30 s^2 + s^3)
-	//cha.h1_2.str_l = ((L_S)("(409600.0*s**2 + 4915200.0*s + 49152000.0)/(s*(128000.0*s**2 + 512000.0*s + 13312000.0))") );
-	//cha.h1_2.sym_str = ((L_S)("(409600.0*s**2 + 4915200.0*s + 49152000.0)/(s*(128000.0*s**2 + 512000.0*s + 13312000.0))")).s;
-
-	//H1  и какойто сигнал
-	cha.comp_signl(SIGN_T,1,1);
-
-
-
-
-
-	print_ku(cha);
-
-
-	//EL_CHAIN_L cha1("1 4 1 I 1  2 3 4 R 0.5  3 1 4 R 2  4 1 2 R s*2  5 2 3 R 1  6 3 4 R 1/(s*4)");//from MU
-
-	//cha1.comp_par_1_iu_uns();
-	//cha1.comp_h1(2);
-	//cha.comp_ur_so();
-	//cha.comp_h1(0);
-
-	system("pause");
-	return 0;
-}
 
 
 void print_ku(const EL_CHAIN &cha)
@@ -1753,3 +1650,957 @@ void print_ku(const EL_CHAIN &cha)
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+struct W_MOUSE
+{
+	int x, y;
+	int mchl, mchr, mdol, mdor;
+};
+
+typedef struct													// Create A Structure
+{
+	GLubyte	*imageData;											// Image Data (Up To 32 Bits)
+	GLuint	bpp;												// Image Color Depth In Bits Per Pixel.
+	GLuint	x;													// Image Width
+	GLuint	y;													// Image Height
+	GLuint	texID;												// Texture ID Used To Select A Texture
+} TextureImage;													// Structure Name
+
+bool LoadTGA(TextureImage *texture, char *filename, int fff = GL_LINEAR/*GL_NEAREST*/)				// Loads A TGA File Into Memory
+{
+	GLubyte		TGAheader[12] = { 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0 };		// Uncompressed TGA Header
+	GLubyte		TGAcompare[12];									// Used To Compare TGA Header
+	GLubyte		header[6];										// First 6 Useful Bytes From The Header
+	GLuint		bytesPerPixel;									// Holds Number Of Bytes Per Pixel Used In The TGA File
+	GLuint		imageSize;										// Used To Store The Image Size When Setting Aside Ram
+	GLuint		temp;											// Temporary Variable
+	GLuint		type = GL_RGBA;									// Set The Default GL Mode To RBGA (32 BPP)
+
+	glEnable(GL_TEXTURE_2D);
+
+	FILE *file = fopen(filename, "rb");							// Open The TGA File
+
+	if (file == NULL ||											// Does File Even Exist?
+		fread(TGAcompare, 1, sizeof(TGAcompare), file) != sizeof(TGAcompare) ||	// Are There 12 Bytes To Read?
+		memcmp(TGAheader, TGAcompare, sizeof(TGAheader)) != 0 ||	// Does The Header Match What We Want?
+		fread(header, 1, sizeof(header), file) != sizeof(header))				// If So Read Next 6 Header Bytes
+	{
+		if (file == NULL)										// Did The File Even Exist? *Added Jim Strong*
+			return false;										// Return false
+		else													// Otherwise
+		{
+			fclose(file);										// If Anything Failed, Close The File
+			return false;										// Return false
+		}
+	}
+
+	texture->x = header[1] * 256 + header[0];				// Determine The TGA x	(highbyte*256+lowbyte)
+	texture->y = header[3] * 256 + header[2];				// Determine The TGA y	(highbyte*256+lowbyte)
+
+	if (texture->x <= 0 ||									// Is The x Less Than Or Equal To Zero
+		texture->y <= 0 ||									// Is The y Less Than Or Equal To Zero
+		(header[4] != 24 && header[4] != 32))						// Is The TGA 24 or 32 Bit?
+	{
+		fclose(file);											// If Anything Failed, Close The File
+		return false;											// Return false
+	}
+
+	texture->bpp = header[4];								// Grab The TGA's Bits Per Pixel (24 or 32)
+	bytesPerPixel = texture->bpp / 8;							// Divide By 8 To Get The Bytes Per Pixel
+	imageSize = (texture->x)*(texture->y)*bytesPerPixel;	// Calculate The Memory Required For The TGA Data
+	//imageSize	=128*128*128;	
+	texture->imageData = (GLubyte *)malloc(imageSize);			// Reserve Memory To Hold The TGA Data
+
+	if (texture->imageData == NULL ||								// Does The Storage Memory Exist?
+		fread(texture->imageData, 1, imageSize, file) != imageSize)	// Does The Image Size Match The Memory Reserved?
+	{
+		if (texture->imageData != NULL)							// Was Image Data Loaded
+			free(texture->imageData);							// If So, Release The Image Data
+
+		fclose(file);											// Close The File
+		return false;											// Return false
+	}
+
+	for (GLuint i = 0; i<int(imageSize); i += bytesPerPixel)			// Loop Through The Image Data
+	{															// Swaps The 1st And 3rd Bytes ('R'ed and 'B'lue)
+		temp = texture->imageData[i];								// Temporarily Store The Value At Image Data 'i'
+		texture->imageData[i] = texture->imageData[i + 2];		// Set The 1st Byte To The Value Of The 3rd Byte
+		texture->imageData[i + 2] = temp;						// Set The 3rd Byte To The Value In 'temp' (1st Byte Value)
+	}
+
+	fclose(file);												// Close The File
+
+	// Build A Texture From The Data
+	glGenTextures(1, &texture[0].texID);						// Generate OpenGL texture IDs
+	fff = GL_LINEAR;
+	glBindTexture(GL_TEXTURE_2D, texture[0].texID);				// Bind Our Texture
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, fff);	// Linear Filtered
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, fff);	// Linear Filtered
+
+	if (texture[0].bpp == 24)										// Was The TGA 24 Bits
+	{
+		type = GL_RGB;											// If So Set The 'type' To GL_RGB
+	}
+
+	glTexImage2D(GL_TEXTURE_2D, 0, type, texture[0].x, texture[0].y, 0, type, GL_UNSIGNED_BYTE, texture[0].imageData);
+
+	return true;												// Texture Building Went Ok, Return true
+}
+
+class GL_PTINT_TEXT
+{
+	GLuint base;
+	TextureImage tex;
+public:
+	~GL_PTINT_TEXT()										// Delete The Font List
+	{
+		free(tex.imageData);
+	}
+
+	void init()									// Build Our Bitmap Font
+	{
+		LoadTGA(&tex, "font.tga");
+	}
+
+
+	void operator ()(const char *fmt, ...)					// Custom GL "Print" Routine
+	{
+		char		text[512];								// Holds Our String
+		va_list		ap;										// Pointer To List Of Arguments
+
+		if (fmt == NULL)									// If There's No Text
+			return;											// Do Nothing
+
+		va_start(ap, fmt);									// Parses The String For Variables
+		vsprintf(text, fmt, ap);							// And Converts Symbols To Actual Numbers
+		va_end(ap);											// Results Are Stored In Text
+
+		int i;
+		char *s;
+		for (s = text, i = 0; *s; s++, i++)
+		{
+			int x, y;
+			x = *s % 16;
+			y = *s / 16;
+
+			glBindTexture(GL_TEXTURE_2D, tex.texID);
+			glBegin(GL_POLYGON);
+			glTexCoord2f((0 + x) / 16.0, (0 + y) / 16.0); glVertex3f(0 + i*0.8, 0, 0);
+			glTexCoord2f((0 + x) / 16.0, (1 + y) / 16.0); glVertex3f(0 + i*0.8, -1, 0);
+			glTexCoord2f((1 + x) / 16.0, (1 + y) / 16.0); glVertex3f(1 + i*0.8, -1, 0);
+			glTexCoord2f((1 + x) / 16.0, (0 + y) / 16.0); glVertex3f(1 + i*0.8, 0, 0);
+			glEnd();
+
+		}
+
+
+	}
+};
+
+GL_PTINT_TEXT glPrint;
+
+
+#define LOWORD(f) ((f)&0xffff) 
+#define HIWORD(f) (((f)>>16)&0xffff) 
+
+class OPENGL_WINDOW
+{
+private:
+
+	HDC			hDC = NULL;		// Private GDI Device Context
+	HGLRC		hRC = NULL;		// Permanent Rendering Context
+	HWND		hWnd = NULL;		// Holds Our Window Handle
+	HINSTANCE	hInstance;		// Holds The Instance Of The Application
+
+	bool	keys[256];			// Array Used For The Keyboard Routine
+	bool	active = true;		// Window Active Flag Set To true By Default
+	bool	fullscreen = true;	// Fullscreen Flag Set To Fullscreen Mode By Default
+
+	bool enabled;
+
+	bool initialise;
+
+	int razokx;
+	int razoky;
+	float pers_angle;
+	W_MOUSE mouse;
+
+	//static LRESULT CALLBACK WinMessage(HWND _window, unsigned int _message, WPARAM _wParam, LPARAM _lParam);	
+	//LRESULT CALLBACK WinMessage(HWND _window, unsigned int _message, WPARAM _wParam, LPARAM _lParam);
+
+	static LRESULT CALLBACK WndProcS(HWND _window, unsigned int _message, WPARAM _wParam, LPARAM _lParam)
+	{
+		OPENGL_WINDOW* application = 0;
+
+		if (_message == WM_NCCREATE)
+			application = (OPENGL_WINDOW*)(_lParam);
+		else
+			application = (OPENGL_WINDOW*)GetWindowLongPtr(_window, GWLP_USERDATA);
+
+		//application = (OPENGL_WINDOW*)((long)application & 0x00000000ffffffff);
+
+		return (application)->WndProc(_window, _message, _wParam, _lParam);
+	}
+	LRESULT CALLBACK WndProc(HWND	hWnd,			// Handle For This Window
+		UINT	uMsg,			// Message For This Window
+		WPARAM	wParam,			// Additional Message Information
+		LPARAM	lParam)			// Additional Message Information
+	{
+		if (this)
+		switch (uMsg)									// Check For Windows Messages
+		{
+		case WM_ACTIVATE:							// Watch For Window Activate Message
+		{
+			
+			if (!HIWORD(wParam))					// Check Minimization State
+			{
+				active = true;						// Program Is Active
+			}
+			else
+			{
+				disable();
+				enable();
+				active = false;						// Program Is No Longer Active
+			}
+
+			return 0;
+		}
+
+		case WM_SYSCOMMAND:							// Intercept System Commands
+		{
+			switch (wParam)							// Check System Calls
+			{
+			case SC_SCREENSAVE:					// Screensaver Trying To Start?
+			case SC_MONITORPOWER:				// Monitor Trying To Enter Powersave?
+				//rly this your problem....
+				return 0;
+			}
+			break;
+		}
+
+		case WM_CLOSE:								// Did We Receive A Close Message?
+		{
+			disable();
+			return 0;
+		}
+
+		case WM_KEYDOWN:							// Is A Key Being Held Down?
+		{
+			keys[wParam] = true;					// If So, Mark It As true
+			if (wParam == 910)
+			{
+				disable();
+				enable();
+			}
+			return 0;
+
+		}
+		case WM_ACTIVATEAPP:
+		{
+			break;
+		}
+
+		case WM_KEYUP:								// Has A Key Been Released?
+		{
+			keys[wParam] = false;					// If So, Mark It As false
+			return 0;
+		}
+
+		case WM_SIZE:								// Resize The OpenGL Window
+		{
+			int g = lParam;
+			razokx = (lParam)&&0xffff; 
+			razoky = HIWORD(lParam);
+			ReSizeGLScene(LOWORD(lParam), HIWORD(lParam));  // LoWord=Width, HiWord=Height
+			break;
+		}
+
+		case WM_MOUSEMOVE:
+			mouse.x = LOWORD(lParam);
+			mouse.y = HIWORD(lParam);
+			break;
+		case WM_LBUTTONDOWN:
+			mouse.mdol = 1;
+			mouse.mchl = 1;
+			break;
+		case WM_LBUTTONUP:
+			mouse.mchl = 0;
+			break;
+		case WM_RBUTTONDOWN:
+			mouse.mdor = 1;
+			mouse.mchr = 1;
+			break;
+		case WM_RBUTTONUP:
+			mouse.mchr = 0;
+			break;
+
+		}
+
+		// Pass All Unhandled Messages To DefWindowProc
+		return DefWindowProc(hWnd, uMsg, wParam, lParam);
+	}
+
+	GLvoid ReSizeGLScene(GLsizei width, GLsizei height)		// Resize And Initialize The GL Window
+	{
+		if (height == 0)										// Prevent A Divide By Zero By
+		{
+			height = 1;										// Making Height Equal One
+		}
+
+		glViewport(0, 0, width, height);						// Reset The Current Viewport
+
+		glMatrixMode(GL_PROJECTION);						// Select The Projection Matrix
+		glLoadIdentity();									// Reset The Projection Matrix
+
+		// Calculate The Aspect Ratio Of The Window
+		gluPerspective(90.0f, (GLfloat)width / (GLfloat)height, 0.1, 10000.0f);
+
+		glMatrixMode(GL_MODELVIEW);							// Select The Modelview Matrix
+		glLoadIdentity();									// Reset The Modelview Matrix
+	}
+
+	int InitGL(GLvoid)										// All Setup For OpenGL Goes Here
+	{
+		glShadeModel(GL_SMOOTH);							// Enable Smooth Shading
+		glClearColor(1.0f, 0.0f, 0.0f, 0.5f);				// Black Background
+		glClearDepth(1.0f);									// Depth Buffer Setup
+		glEnable(GL_DEPTH_TEST);							// Enables Depth Testing
+		glDepthFunc(GL_LEQUAL);								// The Type Of Depth Testing To Do
+		glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);	// Really Nice Perspective Calculations
+
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glEnable(GL_BLEND);
+		glAlphaFunc(GL_GREATER, 0.99f);
+		glDisable(GL_ALPHA_TEST);
+
+		return true;										// Initialization Went OK
+	}
+
+	int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
+	{
+
+		return true;										// Everything Went OK
+	}
+
+	GLvoid KillGLWindow(GLvoid)								// Properly Kill The Window
+	{
+		if (fullscreen)										// Are We In Fullscreen Mode?
+		{
+			ChangeDisplaySettings(NULL, 0);					// If So Switch Back To The Desktop
+			ShowCursor(true);								// Show Mouse Pointer
+		}
+
+		if (hRC)											// Do We Have A Rendering Context?
+		{
+			if (!wglMakeCurrent(NULL, NULL))					// Are We Able To Release The DC And RC Contexts?
+			{
+				MessageBox(NULL, L"Release Of DC And RC Failed.", L"SHUTDOWN ERROR", MB_OK | MB_ICONINFORMATION);
+			}
+
+			if (!wglDeleteContext(hRC))						// Are We Able To Delete The RC?
+			{
+				MessageBox(NULL, L"Release Rendering Context Failed.", L"SHUTDOWN ERROR", MB_OK | MB_ICONINFORMATION);
+			}
+			hRC = NULL;										// Set RC To NULL
+		}
+
+		if (hDC && !ReleaseDC(hWnd, hDC))					// Are We Able To Release The DC
+		{
+			MessageBox(NULL, L"Release Device Context Failed.", L"SHUTDOWN ERROR", MB_OK | MB_ICONINFORMATION);
+			hDC = NULL;										// Set DC To NULL
+		}
+
+		if (hWnd && !DestroyWindow(hWnd))					// Are We Able To Destroy The Window?
+		{
+			MessageBox(NULL, L"Could Not Release hWnd.", L"SHUTDOWN ERROR", MB_OK | MB_ICONINFORMATION);
+			hWnd = NULL;										// Set hWnd To NULL
+		}
+
+		if (!UnregisterClass(L"OpenGL", hInstance))			// Are We Able To Unregister Class
+		{
+			MessageBox(NULL, L"Could Not Unregister Class.", L"SHUTDOWN ERROR", MB_OK | MB_ICONINFORMATION);
+			hInstance = NULL;									// Set hInstance To NULL
+		}
+	}
+
+	/*	This Code Creates Our OpenGL Window.  Parameters Are:					*
+	*	title			- Title To Appear At The Top Of The Window				*
+	*	width			- Width Of The GL Window Or Fullscreen Mode				*
+	*	height			- Height Of The GL Window Or Fullscreen Mode			*
+	*	bits			- Number Of Bits To Use For Color (8/16/24/32)			*
+	*	fullscreenflag	- Use Fullscreen Mode (true) Or Windowed Mode (false)	*/
+
+	BOOL CreateGLWindow(char* title, int width, int height, int bits, bool fullscreenflag)
+	{
+		GLuint		PixelFormat;			// Holds The Results After Searching For A Match
+		WNDCLASS	wc;						// Windows Class Structure
+		DWORD		dwExStyle;				// Window Extended Style
+		DWORD		dwStyle;				// Window Style
+		RECT		WindowRect;				// Grabs Rectangle Upper Left / Lower Right Values
+		WindowRect.left = (long)0;			// Set Left Value To 0
+		WindowRect.right = (long)width;		// Set Right Value To Requested Width
+		WindowRect.top = (long)0;				// Set Top Value To 0
+		WindowRect.bottom = (long)height;		// Set Bottom Value To Requested Height
+
+		fullscreen = fullscreenflag;			// Set The Global Fullscreen Flag
+
+		hInstance = GetModuleHandle(NULL);				// Grab An Instance For Our Window
+		wc.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;	// Redraw On Size, And Own DC For Window.
+		wc.lpfnWndProc = (WNDPROC)WndProcS;					// WndProc Handles Messages
+		wc.cbClsExtra = 0;									// No Extra Window Data
+		wc.cbWndExtra = 0;									// No Extra Window Data
+		wc.hInstance = hInstance;							// Set The Instance
+		wc.hIcon = LoadIcon(NULL, IDI_WINLOGO);			// Load The Default Icon
+		wc.hCursor = LoadCursor(NULL, IDC_ARROW);			// Load The Arrow Pointer
+		wc.hbrBackground = NULL;									// No Background Required For GL
+		wc.lpszMenuName = NULL;									// We Don't Want A Menu
+		wc.lpszClassName = L"OpenGL";								// Set The Class Name
+
+		if (!RegisterClass(&wc))									// Attempt To Register The Window Class
+		{
+			MessageBox(NULL, L"Failed To Register The Window Class.", L"ERROR", MB_OK | MB_ICONEXCLAMATION);
+			return false;											// Return false
+		}
+
+		if (fullscreen)												// Attempt Fullscreen Mode?
+		{
+			DEVMODE dmScreenSettings;								// Device Mode
+			memset(&dmScreenSettings, 0, sizeof(dmScreenSettings));	// Makes Sure Memory's Cleared
+			dmScreenSettings.dmSize = sizeof(dmScreenSettings);		// Size Of The Devmode Structure
+			dmScreenSettings.dmPelsWidth = width;				// Selected Screen Width
+			dmScreenSettings.dmPelsHeight = height;				// Selected Screen Height
+			dmScreenSettings.dmBitsPerPel = bits;					// Selected Bits Per Pixel
+			dmScreenSettings.dmFields = DM_BITSPERPEL | DM_PELSWIDTH | DM_PELSHEIGHT;
+
+			// Try To Set Selected Mode And Get Results.  NOTE: CDS_FULLSCREEN Gets Rid Of Start Bar.
+			if (ChangeDisplaySettings(&dmScreenSettings, CDS_FULLSCREEN) != DISP_CHANGE_SUCCESSFUL)
+			{
+				// If The Mode Fails, Offer Two Options.  Quit Or Use Windowed Mode.
+				if (MessageBox(NULL, L"The Requested Fullscreen Mode Is Not Supported By\nYour Video Card. Use Windowed Mode Instead?", L"NeHe GL", MB_YESNO | MB_ICONEXCLAMATION) == IDYES)
+				{
+					fullscreen = false;		// Windowed Mode Selected.  Fullscreen = false
+				}
+				else
+				{
+					// Pop Up A Message Box Letting User Know The Program Is Closing.
+					MessageBox(NULL, L"Program Will Now Close.", L"ERROR", MB_OK | MB_ICONSTOP);
+					return false;									// Return false
+				}
+			}
+		}
+
+		if (fullscreen)												// Are We Still In Fullscreen Mode?
+		{
+			dwExStyle = WS_EX_APPWINDOW;								// Window Extended Style
+			dwStyle = WS_POPUP;										// Windows Style
+			ShowCursor(false);										// Hide Mouse Pointer
+		}
+		else
+		{
+			dwExStyle = WS_EX_APPWINDOW | WS_EX_WINDOWEDGE;			// Window Extended Style
+			dwStyle = WS_OVERLAPPEDWINDOW;							// Windows Style
+		}
+
+		AdjustWindowRectEx(&WindowRect, dwStyle, false, dwExStyle);		// Adjust Window To true Requested Size
+
+		// Create The Window
+		if (!(hWnd = CreateWindowEx(dwExStyle,							// Extended Style For The Window
+			L"OpenGL",							// Class Name
+			L"title not work",								// Window Title
+			dwStyle |							// Defined Window Style
+			WS_CLIPSIBLINGS |					// Required Window Style
+			WS_CLIPCHILDREN,					// Required Window Style
+			0, 0,								// Window Position
+			WindowRect.right - WindowRect.left,	// Calculate Window Width
+			WindowRect.bottom - WindowRect.top,	// Calculate Window Height
+			NULL,								// No Parent Window
+			NULL,								// No Menu
+			hInstance,							// Instance
+			this)))
+		{
+			KillGLWindow();								// Reset The Display
+			MessageBox(NULL, L"Window Creation Error.", L"ERROR", MB_OK | MB_ICONEXCLAMATION);
+			return false;								// Return false
+		}
+
+		SetWindowLongPtr(hWnd, GWLP_USERDATA, (long long)this);
+
+		static	PIXELFORMATDESCRIPTOR pfd =				// pfd Tells Windows How We Want Things To Be
+		{
+			sizeof(PIXELFORMATDESCRIPTOR),				// Size Of This Pixel Format Descriptor
+			1,											// Version Number
+			PFD_DRAW_TO_WINDOW |						// Format Must Support Window
+			PFD_SUPPORT_OPENGL |						// Format Must Support OpenGL
+			PFD_DOUBLEBUFFER,							// Must Support Double Buffering
+			PFD_TYPE_RGBA,								// Request An RGBA Format
+			bits,										// Select Our Color Depth
+			0, 0, 0, 0, 0, 0,							// Color Bits Ignored
+			0,											// No Alpha Buffer
+			0,											// Shift Bit Ignored
+			0,											// No Accumulation Buffer
+			0, 0, 0, 0,									// Accumulation Bits Ignored
+			16,											// 16Bit Z-Buffer (Depth Buffer)  
+			0,											// No Stencil Buffer
+			0,											// No Auxiliary Buffer
+			PFD_MAIN_PLANE,								// Main Drawing Layer
+			0,											// Reserved
+			0, 0, 0										// Layer Masks Ignored
+		};
+
+		if (!(hDC = GetDC(hWnd)))							// Did We Get A Device Context?
+		{
+			KillGLWindow();								// Reset The Display
+			MessageBox(NULL, L"Can't Create A GL Device Context.", L"ERROR", MB_OK | MB_ICONEXCLAMATION);
+			return false;								// Return false
+		}
+
+		if (!(PixelFormat = ChoosePixelFormat(hDC, &pfd)))	// Did Windows Find A Matching Pixel Format?
+		{
+			KillGLWindow();								// Reset The Display
+			MessageBox(NULL, L"Can't Find A Suitable PixelFormat.", L"ERROR", MB_OK | MB_ICONEXCLAMATION);
+			return false;								// Return false
+		}
+
+		if (!SetPixelFormat(hDC, PixelFormat, &pfd))		// Are We Able To Set The Pixel Format?
+		{
+			KillGLWindow();								// Reset The Display
+			MessageBox(NULL, L"Can't Set The PixelFormat.", L"ERROR", MB_OK | MB_ICONEXCLAMATION);
+			return false;								// Return false
+		}
+
+		if (!(hRC = wglCreateContext(hDC)))				// Are We Able To Get A Rendering Context?
+		{
+			KillGLWindow();								// Reset The Display
+			MessageBox(NULL, L"Can't Create A GL Rendering Context.", L"ERROR", MB_OK | MB_ICONEXCLAMATION);
+			return false;								// Return false
+		}
+
+		if (!wglMakeCurrent(hDC, hRC))					// Try To Activate The Rendering Context
+		{
+			KillGLWindow();								// Reset The Display
+			MessageBox(NULL, L"Can't Activate The GL Rendering Context.", L"ERROR", MB_OK | MB_ICONEXCLAMATION);
+			return false;								// Return false
+		}
+
+		ShowWindow(hWnd, SW_SHOW);						// Show The Window
+		SetForegroundWindow(hWnd);						// Slightly Higher Priority
+		SetFocus(hWnd);									// Sets Keyboard Focus To The Window
+		ReSizeGLScene(width, height);					// Set Up Our Perspective GL Screen
+
+		if (!InitGL())									// Initialize Our Newly Created GL Window
+		{
+			KillGLWindow();								// Reset The Display
+			MessageBox(NULL, L"Initialization Failed.", L"ERROR", MB_OK | MB_ICONEXCLAMATION);
+			return false;								// Return false
+		}
+
+		return true;									// Success
+	}
+
+
+
+
+public:
+	OPENGL_WINDOW()
+	{
+		enabled = 0;
+	}
+	~OPENGL_WINDOW()
+	{
+		disable();
+	}
+
+	void draw()
+	{
+		DrawGLScene();
+		SwapBuffers(hDC);
+	}
+	void upd()
+	{
+		mouse.mdol = 0;
+		mouse.mdor = 0;
+		MSG msg;
+		while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+		{
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
+		}
+	}
+
+	bool enable()
+	{
+		if (enabled)
+			return 0;
+
+		enabled = 1;
+
+		hDC = NULL;
+		hRC = NULL;
+		hWnd = NULL;
+
+		active = true;
+
+		fullscreen = false;
+		CreateGLWindow("NeHe's OpenGL Framework", 640, 480, 16, fullscreen);
+		razokx = 640; razoky = 480;
+
+		//fullscreen = true;
+		//CreateGLWindow("NeHe's OpenGL Framework", GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN), 16, fullscreen);
+
+
+		return 1;
+	}
+	bool is_enabled()
+	{
+		return enabled;
+	}
+	bool disable()
+	{
+		if (!enabled)
+			return 0;
+		enabled = 0;
+		KillGLWindow();
+		return 1;
+	}
+	int get_wx()
+	{
+		return razokx;
+	}
+	int get_wy()
+	{
+		return razoky;
+	}
+	float get_angle()
+	{
+		return 60;
+	}
+	const bool* get_keys()
+	{
+		return keys;
+	}
+	W_MOUSE get_mouse()
+	{
+		return mouse;
+	}
+
+};
+
+struct COLOR
+{
+	float r, g, b, a;
+};
+
+
+
+
+void put_icon()
+{
+	glDisable(GL_DEPTH_TEST);
+	static float angle = 1;
+
+
+	angle += 1;
+
+	glPushMatrix();
+	glRotatef(angle, 0, 1, 0);
+
+		glColor3f((rand() % 10) / 10.0, (rand() % 10) / 10.0, (rand() % 10) / 10.0);
+		//треугольник
+		glBegin(GL_POLYGON);
+		glVertex3f(0, 1, 0);
+		glVertex3f(-1, -1, 0);
+		glVertex3f(1, -1, 0);
+		glEnd();
+
+		glColor3f((rand() % 10) / 10.0, (rand() % 10) / 10.0, (rand() % 10) / 10.0);
+		for (int i = -90; i < 90; i += 10)
+		{
+			glBegin(GL_POLYGON);
+			glVertex3f(i / 180.0, cos(i / 180.0*3.1415926) / 4, 0);
+			glVertex3f(i / 180.0, -cos(i / 180.0 * 3.1415926) / 4, 0);
+			glVertex3f((i + 10) / 180.0, -cos((i + 10) / 180.0 * 3.1415926) / 4, 0);
+			glVertex3f((i + 10) / 180.0, cos((i + 10) / 180.0 * 3.1415926) / 4, 0);
+			glEnd();
+		}
+
+		glColor3f((rand() % 10) / 10.0, (rand() % 10) / 10.0, (rand() % 10) / 10.0);
+		for (int i = 0; i < 360; i += 10)
+		{
+			glBegin(GL_POLYGON);
+			glVertex3f(sin(i / 180.0*3.1415926) / 4, cos(i / 180.0*3.1415926) / 4, 0);
+			glVertex3f(sin((i + 10) / 180.0*3.1415926) / 4, cos((i + 10) / 180.0 * 3.1415926) / 4, 0);
+			glVertex3f(0, 0, 0);
+			glEnd();
+		}
+
+	glPopMatrix();
+}
+
+
+
+class EASY_TEX
+{
+private:
+	vector<byte> data;
+	GLuint texID;
+	int x, y;
+public:
+	EASY_TEX()
+	{
+		x = 0; y = 0; texID = 0;
+	}
+	GLuint ID()
+	{
+		return texID;
+	}
+	void resize(int _x, int _y)
+	{
+		if (_x > 100000)_x = 100000;
+		if (_y > 100000)_y = 100000;
+		int xx = 1;
+		int yy = 1;
+		while (xx<_x)
+			xx = xx << 1;
+		while (yy < _y)
+			yy = yy << 1;
+		x = xx;
+		y = yy;
+
+		data.resize(x * y * 3);
+
+		for (int i = 0; i < data.size(); i++)
+		{
+			data[i] = ((i/3+i/3/x)%2)<<7;//шахматное поле
+		}
+	}
+	void setpixel(int _x, int _y, byte _r, byte _g, byte _b)
+	{
+		if (_x < 0 || _y < 0 || _x >= x || _y >= y)
+		{
+			cout << "draw error";
+		}
+		else
+		{
+			data[(_x + _y*x) * 3+0] = _r;
+			data[(_x + _y*x) * 3+1] = _g;
+			data[(_x + _y*x) * 3+2] = _b;
+			stringstream ss;
+			int a = data[(_x + _y*x) * 3 + 0];
+			int b= data[(_x + _y*x) * 3 + 1];
+			int c = data[(_x + _y*x) * 3 +2];
+
+		}
+	}
+	void gentex()
+	{
+		if (texID)
+		{
+			glDeleteTextures(1, &texID);
+		}
+		// Build A Texture From The Data
+		glGenTextures(1, &texID);						// Generate OpenGL texture IDs
+		int fff = GL_LINEAR;
+		glBindTexture(GL_TEXTURE_2D, texID);				// Bind Our Texture
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, fff);	// Linear Filtered
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, fff);	// Linear Filtered
+
+
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, x, y, 0, GL_RGB, GL_UNSIGNED_BYTE, &data[0]);
+
+	}
+
+
+};
+
+
+void task_graphix()
+{
+	OPENGL_WINDOW w;
+
+	EASY_TEX tex;
+
+
+	w.enable();
+	tex.resize(128, 128);
+
+	for (int i = 0; i < 128; i++)
+	{
+		tex.setpixel(i,i,0, 255, 0);
+	}
+
+	tex.gentex();
+
+	while (1)
+	{
+		glColor3f(0.3, 0.3, 0.3);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glLoadIdentity();
+		glClearColor(0, 0, 0, 0);
+
+
+
+
+		glColor3f(1,1,1);
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, tex.ID());
+
+		int wx = w.get_wx(), wy = w.get_wy();
+
+		int tx, ty;
+
+		tx = 128;
+		ty = 128;
+		
+		glBegin(GL_POLYGON);
+		glTexCoord2d(0, 0); glVertex3f(-wx + 00, wy - 00, -wy);
+		glTexCoord2d(1, 0); glVertex3f(-wx + tx * 2, wy - 00, -wy);
+		glTexCoord2d(1, 1); glVertex3f(-wx + tx * 2, wy - ty * 2, -wy);
+		glTexCoord2d(0, 1); glVertex3f(-wx + 00, wy - ty * 2, -wy);
+		glEnd();
+		/*
+		glBegin(GL_POLYGON);
+		glTexCoord2d(0, 0); glVertex3f(-1, -1, -1);
+		glTexCoord2d(1, 0); glVertex3f(1, -1, -1);
+		glTexCoord2d(1, 1); glVertex3f(1, 1, -1);
+		glTexCoord2d(0, 1); glVertex3f(-1, 1, -1);
+		glEnd();
+		*/
+		glDisable(GL_TEXTURE_2D);
+
+		glPushMatrix();
+		glTranslatef(0, 0, -4);
+
+
+		//put_icon();
+		glPopMatrix();
+
+		Sleep(10);
+		w.draw();
+		w.upd();
+		w.enable();
+	}
+}
+
+int main()
+{
+	setlocale(0, "RU");
+	cout << "Грузись питон";
+	sympy_init();
+
+
+
+
+	thread th(task_graphix);
+	th.detach();
+
+
+	//th.join();
+
+	sympy_sim("1+3");
+	cout << endl << "Грузись питон";
+	//call_python_sympy("sin(t)+1");
+	//puts("L: sin(t)");
+	//puts(sympy_lap("sin(t)").data());
+	//puts("S: (100*s-s**2)*(100+30*s-10)");
+	//puts(sympy_sim("(100*s-s**2)*(100+30*s-10)").data());
+
+	MATRIX<double> mm(4, 3);
+	mm[1][0] = 1;
+	//cout << mm;
+	//system("pause");
+
+
+
+	/*
+	for (auto i = A.begin_row(); i != A.end_row(); i++)
+	{
+	for (auto r = (*i).; r != res.end(); r++)
+	auto sch = *i;
+	printf("r:%lf i:%lf \n", sch.real(), sch.imag());
+	}
+	}
+	*/
+
+
+
+
+
+	//EL_CHAIN cha_t("1 1 3 R 4  2 1 2 R 2  3 3 2 U 8  4 1 4 R 2  5 2 5 R 4  6 4 5 R 2  7 3 5 K 0");I(U)=4 Rэ=2
+	//EL_CHAIN cha_t("1 1 5 R 4000  2 5 6 R 10000  3 2 6 R 11000  4 3 7 U 6  5 4 8 R 2000  6 2 1 K 0  7 3 2 K 0  8 3 4 K 0  9 6 7 K 0  10 8 7 K 0");
+	//EL_CHAIN cha_t("1 1 3 I 0.016 2 1 2 R 15000  3 2 3 R 9000  4 2 3 R 6000  5 2 3 R 17000 ");//idz3
+	//cha_t.comp_par_1_iu_uns();
+	//EL_CHAIN cha("1 1 4 U 0  2 2 4 R 1  3 1 3 R 1  4 3 2 R 1  6 3 4 C 1  5 4 2 C 0.25"); // v1 lin(62)
+	//EL_CHAIN cha("1 1 3 I 0.018  2 1 3 R 20000  3 3 4 R 8000  4 1 4 R 14000  5 4 5 R 7000  6 1 5 R 4000  7 1 2 L 0.004  8 5 2 C 0.000014 ");
+
+	//Сначала ввод входных данных
+
+	get_pol_coef("-s**2 - 33*s - 238");
+	//POLY p1, p2;
+	//	f = "(s**2 + 33*s + 238)/((1*s**3 +30*s**2 + 300*s + 1000))";
+	//p1 = get_pol_coef("s**2 + 33*s + 238");
+	//p2 = get_pol_coef("1*s**3 + 30*s**2 + 300*s + 1000");
+	//NEOPR_COEF d(p1,p2);
+
+
+	//EL_CHAIN cha("1 1 5 U 0  2 1 2 R 0.0625  3 2 5 R 0.25  4 2 3 L 0.025  5 3 5 C 0.4  6 3 4 R 0.25  7 4 5 R 1");//from MU
+
+	EL_CHAIN cha("1 4 1 I 0  2 3 4 R 0.5  3 1 4 R 2  4 1 2 L 2  5 2 3 R 1  6 3 4 C 4");//from MU
+	///вход1
+
+
+
+
+	//EL_CHAIN cha("1 1 4 U 0  2 2 4 R 1  3 1 3 R 1  4 3 4 R 1  5 1 3 L 1  6 3 2 L 0.25");//from 14V
+
+	//подсчёт уравнений состояния 
+	cha.comp_ur_so();
+
+	//h1 аналитически
+	cha.comp_h1(2);
+
+	//h1 по лаплассовски
+	cha.comp_h1_l(2);
+
+	//(238 + 33 s + s^2)/(1000 + 300 s + 30 s^2 + s^3)
+	//cha.h1_2.str_l = ((L_S)("(409600.0*s**2 + 4915200.0*s + 49152000.0)/(s*(128000.0*s**2 + 512000.0*s + 13312000.0))") );
+	//cha.h1_2.sym_str = ((L_S)("(409600.0*s**2 + 4915200.0*s + 49152000.0)/(s*(128000.0*s**2 + 512000.0*s + 13312000.0))")).s;
+
+	//H1  и какойто сигнал
+	cha.comp_signl(SIGN_T, 10, 20);
+	///вход2
+
+
+
+
+
+	print_ku(cha);
+
+
+
+
+	//EL_CHAIN_L cha1("1 4 1 I 1  2 3 4 R 0.5  3 1 4 R 2  4 1 2 R s*2  5 2 3 R 1  6 3 4 R 1/(s*4)");//from MU
+
+	//cha1.comp_par_1_iu_uns();
+	//cha1.comp_h1(2);
+	//cha.comp_ur_so();
+	//cha.comp_h1(0);
+
+	system("pause");
+	return 0;
+}

@@ -7,6 +7,7 @@
 #pragma comment(lib, "opengl32.lib")
 #pragma comment(lib, "glu32.lib")
 
+#include <thread>
 #include <conio.h>
 #include <time.h>
 #include <iostream>

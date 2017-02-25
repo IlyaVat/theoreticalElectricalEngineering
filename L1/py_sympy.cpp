@@ -32,6 +32,7 @@ string sympy_roo(string f1);
 
 string sympy_sim(string funct)
 {
+	myreplace(funct, ",", ".");
 	if (PyCallable_Check(Fsim))
 	{
 		auto res = PyObject_CallObject(Fsim, Py_BuildValue("(s)", funct.data()));
@@ -52,6 +53,7 @@ string sympy_sim(string funct)
 }
 string sympy_lap(string funct)
 {
+	myreplace(funct, ",", ".");
 	if (PyCallable_Check(Flap))
 	{
 		auto res = PyObject_CallObject(Flap, Py_BuildValue("(s)", funct.data()));
