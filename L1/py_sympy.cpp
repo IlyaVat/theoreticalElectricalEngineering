@@ -36,6 +36,11 @@ string sympy_sim(string funct)
 	{
 		auto res = PyObject_CallObject(Fsim, Py_BuildValue("(s)", funct.data()));
 		//PyObject_CallObject(pFunc, Py_BuildValue("(O)", res));
+		if (!res)
+		{
+			cout << "\nsympy sim error at:\n"<<funct;
+			system("pause");
+		}
 		char *s;
 		s = PyUnicode_AsUTF8(res);
 		return s;

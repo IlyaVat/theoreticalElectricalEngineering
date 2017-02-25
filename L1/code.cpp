@@ -1538,9 +1538,11 @@ void print_ku(const EL_CHAIN &cha);
 int main()
 {
 	setlocale(0, "RU");
+	cout << "Грузись питон";
 	sympy_init();
 
-
+	sympy_sim("1+3");
+	cout <<endl << "Грузись питон";
 	//call_python_sympy("sin(t)+1");
 	//puts("L: sin(t)");
 	//puts(sympy_lap("sin(t)").data());
@@ -1549,8 +1551,8 @@ int main()
 
 	MATRIX<double> mm(4, 3);
 	mm[1][0] = 1;
-	cout << mm;
-	system("pause");
+	//cout << mm;
+	//system("pause");
 
 
 
@@ -1587,8 +1589,8 @@ int main()
 
 	//EL_CHAIN cha("1 1 5 U 0  2 1 2 R 0.0625  3 2 5 R 0.25  4 2 3 L 0.025  5 3 5 C 0.4  6 3 4 R 0.25  7 4 5 R 1");//from MU
 
-	//EL_CHAIN cha("1 4 1 I 0  2 3 4 R 0.5  3 1 4 R 2  4 1 2 L 2  5 2 3 R 1  6 3 4 C 4");//from MU
-	EL_CHAIN cha("1 1 4 U 0  2 2 4 R 1  3 1 3 R 1  4 3 4 R 1  5 1 3 L 1  6 3 2 L 0.25");//from 14V
+	EL_CHAIN cha("1 4 1 I 0  2 3 4 R 0.5  3 1 4 R 2  4 1 2 L 2  5 2 3 R 1  6 3 4 C 4");//from MU
+	//EL_CHAIN cha("1 1 4 U 0  2 2 4 R 1  3 1 3 R 1  4 3 4 R 1  5 1 3 L 1  6 3 2 L 0.25");//from 14V
 
 	//подсчёт уравнений состояния 
 	cha.comp_ur_so();
@@ -1604,7 +1606,7 @@ int main()
 	//cha.h1_2.sym_str = ((L_S)("(409600.0*s**2 + 4915200.0*s + 49152000.0)/(s*(128000.0*s**2 + 512000.0*s + 13312000.0))")).s;
 
 	//H1  и какойто сигнал
-	cha.comp_signl(SIGN_V,3,5);
+	cha.comp_signl(SIGN_T,1,1);
 
 
 
