@@ -85,13 +85,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>../l1/;C:\Python1\Python36\include;C:\Users\NikSam\Anaconda3\libs</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../l1/;C:\Python1\Python36\include;C:\Users\NikSam\Anaconda3\libs;C:\Anaconda3\include;C:\Anaconda3\libs</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\NikSam\Anaconda3\libs;C:\Users\NikSam\Anaconda3</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\NikSam\Anaconda3\libs;C:\Users\NikSam\Anaconda3;C:\Anaconda3\libs;C:\Anaconda3</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -101,13 +101,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>../l1/;C:\Python1\Python36\include;C:\Users\NikSam\Anaconda3\libs</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../l1/;C:\Python1\Python36\include;C:\Users\NikSam\Anaconda3\libs;C:\Anaconda3\include;C:\Anaconda3\libs</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\NikSam\Anaconda3\libs;C:\Users\NikSam\Anaconda3</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\NikSam\Anaconda3\libs;C:\Users\NikSam\Anaconda3;C:\Anaconda3\libs;C:\Anaconda3</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
