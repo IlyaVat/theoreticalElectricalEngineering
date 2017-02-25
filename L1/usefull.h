@@ -1,6 +1,22 @@
 #pragma once
 #undef _DEBUG
 
+#include <windows.h>
+#include <gl\gl.h>
+#include <gl\glu.h>
+#pragma comment(lib, "opengl32.lib")
+#pragma comment(lib, "glu32.lib")
+
+#include <conio.h>
+#include <time.h>
+#include <iostream>
+#include <queue>
+#include <deque>
+#include <list>
+#include <thread>
+#include <mutex>
+#include <string>
+
 #include <stdlib.h>
 #include <algorithm>
 #include <string>
