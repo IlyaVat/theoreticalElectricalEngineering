@@ -36,6 +36,12 @@ def sep(expr):
     import sympy
     return str(sympy.expand(expr))
 
+def im(expr):
+    import sympy
+    return str(sympy.im(expr))
+def re(expr):
+    import sympy
+    return str(sympy.re(expr))
 def l_acx(expr):
     import sympy
     fi=sympy.im(expr)
@@ -90,7 +96,7 @@ def eva(n,n1,n2):
     from sympy.parsing.sympy_parser import parse_expr
 
     #sympy.pprint(parse_expr(n).xreplace({parse_expr(n1):parse_expr(n2)}))
-    return str(parse_expr(n).xreplace({parse_expr(n1):parse_expr(n2)}))
+    return str((parse_expr(n).xreplace({parse_expr(n1):parse_expr(n2)})).evalf())
 def dif(n,n1):
     import sympy
     from sympy import sqrt, diff

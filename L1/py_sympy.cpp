@@ -25,6 +25,8 @@ PyObject *Fhello;
 PyObject *Fsim, *Flap, *Feva, *Fdif, *Falap;
 PyObject *Fsep;
 PyObject *Froo;
+PyObject *Fim;
+PyObject *Fre;
 PyObject *moD;
 
 string sympy_sep(string f1);
@@ -699,6 +701,42 @@ string sympy_roo(string f1)
 	}
 }
 
+string sympy_im(string f1)
+{
+
+	if (PyCallable_Check(Fim))
+	{
+		auto res = PyObject_CallObject(Fim, Py_BuildValue("(s)", f1.data()));
+		//PyObject_CallObject(pFunc, Py_BuildValue("(O)", res));
+		char *s = "";
+		if (res != nullptr)
+			s = PyUnicode_AsUTF8(res);
+		return s;
+	}
+	else
+	{
+		PyErr_Print();
+	}
+}
+
+string sympy_re(string f1)
+{
+
+	if (PyCallable_Check(Fre))
+	{
+		auto res = PyObject_CallObject(Fre, Py_BuildValue("(s)", f1.data()));
+		//PyObject_CallObject(pFunc, Py_BuildValue("(O)", res));
+		char *s = "";
+		if (res != nullptr)
+			s = PyUnicode_AsUTF8(res);
+		return s;
+	}
+	else
+	{
+		PyErr_Print();
+	}
+}
+
 void sympy_init()
 {
 	Py_Initialize();
@@ -722,6 +760,8 @@ void sympy_init()
 	Fdif = PyDict_GetItemString(moD, "dif");
 	Fsep = PyDict_GetItemString(moD, "sep");
 	Froo = PyDict_GetItemString(moD, "roo");
+	Fim = PyDict_GetItemString(moD, "im");
+	Fre = PyDict_GetItemString(moD, "re");
 
 }
 

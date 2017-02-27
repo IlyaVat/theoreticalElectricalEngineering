@@ -3,7 +3,7 @@
 #pragma comment( lib, "python36.lib" )
 
 #include <stdlib.h>
-
+#define _USE_MATH_DEFINES
 #include <cmath>
 
 #include "el_cha.h"
@@ -1925,7 +1925,7 @@ private:
 		case WM_SIZE:								// Resize The OpenGL Window
 		{
 			int g = lParam;
-			razokx = (lParam)&&0xffff; 
+			razokx = LOWORD(lParam);
 			razoky = HIWORD(lParam);
 			ReSizeGLScene(LOWORD(lParam), HIWORD(lParam));  // LoWord=Width, HiWord=Height
 			break;
@@ -2359,10 +2359,12 @@ class EASY_TEX
 private:
 	vector<byte> data;
 	GLuint texID;
+	int init;
 	int x, y;
 public:
 	EASY_TEX()
 	{
+		init = 0;
 		x = 0; y = 0; texID = 0;
 	}
 	GLuint ID()
@@ -2401,7 +2403,7 @@ public:
 	{
 		if (_x < 0 || _y < 0 || _x >= x || _y >= y)
 		{
-			cout << "draw error";
+			//cout << "draw error ";
 		}
 		else
 		{
@@ -2415,8 +2417,191 @@ public:
 
 		}
 	}
+
+	void numbers(int px, int py, string s)
+	{
+		vector<int> n_d[12][5];
+
+		int i;
+
+		i = 0;
+		n_d[i][0] = { 0, 1, 0 };
+		n_d[i][1] = { 1, 0, 1 };
+		n_d[i][2] = { 1, 0, 1 };
+		n_d[i][3] = { 1, 0, 1 };
+		n_d[i][4] = { 0, 1, 0 };
+
+		i++;
+		n_d[i][0] = { 0, 1, 0 };
+		n_d[i][1] = { 1, 1, 0 };
+		n_d[i][2] = { 0, 1, 0 };
+		n_d[i][3] = { 0, 1, 0 };
+		n_d[i][4] = { 1, 1, 1 };
+
+		i++;
+		n_d[i][0] = { 1, 1, 0 };
+		n_d[i][1] = { 0, 0, 1 };
+		n_d[i][2] = { 0, 0, 1 };
+		n_d[i][3] = { 0, 1, 0 };
+		n_d[i][4] = { 1, 1, 1 };
+
+		i++;
+		n_d[i][0] = { 1, 1, 0 };
+		n_d[i][1] = { 0, 0, 1 };
+		n_d[i][2] = { 0, 1, 0 };
+		n_d[i][3] = { 0, 0, 1 };
+		n_d[i][4] = { 1, 1, 0 };
+
+		i++;
+		n_d[i][0] = { 1, 0, 1 };
+		n_d[i][1] = { 1, 0, 1 };
+		n_d[i][2] = { 1, 1, 1 };
+		n_d[i][3] = { 0, 0, 1 };
+		n_d[i][4] = { 0, 0, 1 };
+
+		i++;
+		n_d[i][0] = { 1, 1, 1 };
+		n_d[i][1] = { 1, 0, 0 };
+		n_d[i][2] = { 1, 1, 0 };
+		n_d[i][3] = { 0, 0, 1 };
+		n_d[i][4] = { 1, 1, 0 };
+
+		i++;
+		n_d[i][0] = { 0, 1, 0 };
+		n_d[i][1] = { 1, 0, 0 };
+		n_d[i][2] = { 1, 1, 0 };
+		n_d[i][3] = { 1, 0, 1 };
+		n_d[i][4] = { 0, 1, 0 };
+
+		i++;
+		n_d[i][0] = { 1, 1, 1 };
+		n_d[i][1] = { 0, 0, 1 };
+		n_d[i][2] = { 0, 0, 1 };
+		n_d[i][3] = { 0, 1, 0 };
+		n_d[i][4] = { 0, 1, 0 };
+
+		i++;
+		n_d[i][0] = { 0, 1, 0 };
+		n_d[i][1] = { 1, 0, 1 };
+		n_d[i][2] = { 0, 1, 0 };
+		n_d[i][3] = { 1, 0, 1 };
+		n_d[i][4] = { 0, 1, 0 };
+
+		i++;
+		n_d[i][0] = { 0, 1, 0 };
+		n_d[i][1] = { 1, 0, 1 };
+		n_d[i][2] = { 0, 1, 1 };
+		n_d[i][3] = { 0, 0, 1 };
+		n_d[i][4] = { 0, 1, 0 };
+
+		i++;
+		n_d[i][0] = { 0, 0, 0 };
+		n_d[i][1] = { 0, 0, 0 };
+		n_d[i][2] = { 0, 0, 0 };
+		n_d[i][3] = { 0, 0, 0 };
+		n_d[i][4] = { 0, 0, 1 };
+
+		i++;
+		n_d[i][0] = { 0, 0, 0 };
+		n_d[i][1] = { 0, 0, 0 };
+		n_d[i][2] = { 1, 1, 1 };
+		n_d[i][3] = { 0, 0, 0 };
+		n_d[i][4] = { 0, 0, 0 };
+
+		int offs = 0;
+
+		for (int i = 0; i < s.length(); i++)
+		{
+			int id = s[i]-'0';
+			if (id < 0 || id >= 10)
+			{
+				id = -1;
+				if (s[i] == '.' || s[i] == ',')
+					id = 10,offs+=2;
+				if (s[i] == '-')
+					id = 11;
+			}
+			if (id>=0)
+			for (int r = 0; r < 10; r++)
+				for (int o = 0; o < 6; o++)
+					if (n_d[id][r/2][o/2])
+					{
+						setpixel(px+i*4*2+o-offs*2,py-r,255,255,255);
+					}
+		}
+
+
+	}
+
+	void line(double x1, double y1, double x2, double y2, int _r=255, int _g=255, int _b=255)
+	{
+		if (abs(x1 - x2) > abs(y1 - y2))//горизонтальная линия
+		{
+			double a = (y2-y1)/(x2-x1);
+			double b = y1-a*x1;
+
+
+
+			//y=ax+b
+
+			if (x1 < 0)
+			{
+				x1 = 0;
+				y1 = b;
+			}
+			if (x1 > x)
+			{
+				x1 = x;
+				y1 = a*x+b;
+			}
+
+
+			if (y1 < 0 && y2 < 0 || y1 > y && y2 > y)
+				return;
+			int maxi = abs(x1 - x2)+1;
+			for (int i = 0; i <= maxi; i++)
+			{
+				setpixel(x1*i / maxi + x2*(maxi - i) / maxi, y1*i / maxi + y2*(maxi - i) / maxi, _r, _g, _b);
+			}
+
+		}
+		else
+		{
+			double a = (x2 - x1) / (y2 - y1);
+			double b = x1 - a*y1;
+
+
+
+			//x=ay+b
+
+			if (y1 < 0)
+			{
+				y1 = 0;
+				x1 = b;
+			}
+			if (y1 > y)
+			{
+				y1 = y;
+				x1 = a*y + b;
+			}
+
+
+			if (x1 < 0 && x2 < 0 || x1 > x && x2 > x)
+				return;
+			int maxi = abs(y1 - y2)+1;
+			for (int i = 0; i <= maxi; i++)
+			{
+				setpixel(x1*i / maxi + x2*(maxi - i) / maxi, y1*i / maxi + y2*(maxi - i) / maxi, _r,_g,_b);
+			}
+
+		}
+	}
+
 	void gentex()
 	{
+		if (init)
+			return;
+		init = 1;
 		if (texID)
 		{
 			glDeleteTextures(1, &texID);
@@ -2436,20 +2621,131 @@ public:
 
 };
 
+mutex mtx;
 
-EASY_TEX create_plot(int tx, int ty, vector<double> vx, vector<double> vy, double down_x, double up_x, double left_y, double right_y)
+class OUTPUT_IMAGES
 {
+public:
+	vector < EASY_TEX > a;
+	void add(EASY_TEX& tt)
+	{
+		a.push_back(tt);
+	}
+};
+
+
+OUTPUT_IMAGES img;
+
+float pow1(double x, double y)
+{
+	return exp(y* log(x));
+}
+double pow10(int y)
+{
+	if (y >= 0)
+	{
+		double b = 1;
+		for (int i = 0; i < y; i++)
+			b=b*10;
+		return b;
+	}
+	else
+	{
+		return 1 / pow10(-y);
+	}
+}
+
+EASY_TEX create_plot(int tx, int ty, vector<double> vx, vector<double> vy, double min_x, double max_x, double min_y, double max_y)
+{
+
+
+	if (min_x == min_y)
+	{
+		max_x = vx[0];
+		min_x = vx[0];
+		max_y = vy[0];
+		min_y = vy[0];
+		for (int i = 0; i < vx.size(); i++)
+		{
+			if (vx[i] < min_x)
+				min_x = vx[i];
+			if (vx[i] > max_x)
+				max_x = vx[i];
+
+			if (vy[i] < min_y)
+				min_y = vy[i];
+			if (vy[i] > max_y)
+				max_y = vy[i];
+		}
+
+		min_x -= (max_x - min_x)*0.1;
+		min_y -= (max_y - min_y)*0.1;
+
+	}
+
+
 	EASY_TEX tex;
 	tex.resize(tx, ty);
 
-	for (int i = 0; i <tx+ty; i++)
+	for (int i = 0; i < tx; i++)
+		for (int r = 0; r < ty; r++)
+			tex.setpixel(i, r, 30, 30, 30);
+
+
+	//теперь выведем циферки и оси
+
+	double sx, sy;
+	int porx,pory;
+	sx = abs(max_x - min_x);
+	sy = abs(max_y - min_y);
+
+	porx = 10;//10^10
+	while (sx/pow1((double)10, porx) < 3 && porx < 100)
+		porx--;
+	pory = 10;//10^10
+	while (sy/pow1((double)10, pory) < 3 && pory < 100)
+		pory--;
+
+
+
+	float mnox = pow10(porx);
+	float mnoy = pow10(pory);
+
+	for (int i = min_x / mnox; i < max_x / mnox; i++)
 	{
-		tex.setpixel(i, i, 0, 255, 0);
+		tex.line((i * mnox - min_x) / sx * tx, 40, (i * mnox - min_x) / sx * tx, ty, 100, 100, 100);
+
+		if ((i * mnox - min_x) / sx * tx>20 && (i * mnox - min_x) / sx * tx < tx - 30)
+			tex.numbers((i * mnox - min_x) / sx * tx - 3, 20, ftos(i*mnox));
+	}
+	for (int i = min_y / mnoy; i < max_y / mnoy; i++)
+	{
+		tex.line(20, (i * mnoy - min_y) / sy * ty, tx, (i * mnoy - min_y) / sy * ty, 100, 100, 100);
+
+		if ((i * mnoy - min_y) / sy * ty>20 && (i * mnoy - min_y) / sy * ty < ty - 30)
+			tex.numbers(4, (i * mnoy - min_y) / sy * ty + 5, ftos(i*mnoy));
+	}
+	//tex.numbers(30, 20, "111111");
+
+
+	for (int i = 1; i <vx.size(); i++)
+	{
+		double rx[2], ry[2];
+		double px[2], py[2];
+
+		for (int r = 0; r < 2; r++)
+		{
+			rx[r] = vx[i - 1 + r];
+			ry[r] = vy[i - 1 + r];
+			px[r] = (rx[r] - min_x) / (max_x - min_x)*tx;
+			py[r] = (ry[r] - min_y) / (max_y - min_y)*ty;
+		}
+		tex.line(px[0], py[0], px[1], py[1]);
+		//tex.numbers(px[0], py[0],ftos(py[0]));
 	}
 
 	return tex;
 }
-
 
 void task_graphix()
 {
@@ -2460,7 +2756,7 @@ void task_graphix()
 
 	w.enable();
 	tex.resize(128, 128);
-	tex = create_plot(512, 512, {0,1,2,3}, {2,0,1,4},-1,5,-1,4);
+	//tex = create_plot(512, 512, {0,1,2,3}, {2,0,1,4},-1,4,-1,5);
 
 
 
@@ -2477,22 +2773,33 @@ void task_graphix()
 
 
 		glColor3f(1,1,1);
-		glEnable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, tex.ID());
 
-		int wx = w.get_wx(), wy = w.get_wy();
+		mtx.lock();
 
-		int tx, ty;
+		int yy = 0;
 
-		tx = tex.gx();
-		ty = tex.gy();
-		
-		glBegin(GL_POLYGON);
-		glTexCoord2d(0, 0); glVertex3f(-wx + 00, wy - 00, -wy);
-		glTexCoord2d(1, 0); glVertex3f(-wx + tx * 2, wy - 00, -wy);
-		glTexCoord2d(1, 1); glVertex3f(-wx + tx * 2, wy - ty * 2, -wy);
-		glTexCoord2d(0, 1); glVertex3f(-wx + 00, wy - ty * 2, -wy);
-		glEnd();
+		for (int i = 0; i < img.a.size(); i++)
+		{
+			img.a[i].gentex();
+			glEnable(GL_TEXTURE_2D);
+			glBindTexture(GL_TEXTURE_2D, img.a[i].ID());
+
+			int wx = w.get_wx(), wy = w.get_wy();
+
+			int tx, ty;
+
+			tx = img.a[i].gx();
+			ty = img.a[i].gy();
+
+			glBegin(GL_POLYGON);
+			glTexCoord2d(0, 1); glVertex3f(-wx + 000000, wy - 000000 - yy * 2, -wy);
+			glTexCoord2d(1, 1); glVertex3f(-wx + tx * 2, wy - 000000 - yy * 2, -wy);
+			glTexCoord2d(1, 0); glVertex3f(-wx + tx * 2, wy - ty * 2 - yy * 2, -wy);
+			glTexCoord2d(0, 0); glVertex3f(-wx + 000000, wy - ty * 2 - yy * 2, -wy);
+			glEnd();
+			yy += img.a[i].gy()+10;
+		}
+		mtx.unlock();
 		/*
 		glBegin(GL_POLYGON);
 		glTexCoord2d(0, 0); glVertex3f(-1, -1, -1);
@@ -2517,6 +2824,58 @@ void task_graphix()
 	}
 }
 
+void comp_4(L_S H_S)
+{
+	string H_JW,H_IM,H_RE;
+
+	H_JW = sympy_eva(H_S.s, "s", "I*w");
+	H_IM = sympy_im(H_JW);
+	H_RE = sympy_re(H_JW);
+
+	string ACH = "sqrt((" + H_IM + ")**2+(" + H_RE + ")**2)";
+	string FCH = "atan((" + H_IM + ")/(" + H_RE + "))-Heaviside(-(" + H_RE + "))*pi";
+
+	vector<double> vx, vy;
+	EASY_TEX tex;
+	vx.resize(200);
+	vy.resize(200);
+	for (int i = 0; i < vx.size(); i++)
+	{
+		vx[i] = i / 60.0;
+		string s = sympy_eva(ACH, "w", ftos(vx[i]));
+		cout << "st:" << s;
+		myreplace(s, ".", ",");
+		vy[i] = atof(s.c_str());
+	}
+
+
+	mtx.lock();
+	tex = create_plot(512, 256, vx, vy, 0, 0, 0, 0);
+	img.add(tex);
+	mtx.unlock();
+
+
+	for (int i = 0; i < vx.size(); i++)
+	{
+		vx[i] = i / 60.0;
+		string s = sympy_eva(FCH, "w", ftos(vx[i]));
+		cout << "st:" << s;
+		myreplace(s, ".", ",");
+		vy[i] = atof(s.c_str());
+		while (vy[i] > M_PI)
+			vy[i] -= M_PI * 2;
+		while (vy[i] < -M_PI)
+			vy[i] += M_PI * 2;
+	}
+
+
+	mtx.lock();
+	tex = create_plot(512, 256, vx, vy, 0, 0, 0, 0);
+	img.add(tex);
+	mtx.unlock();
+
+}
+
 int main()
 {
 	setlocale(0, "RU");
@@ -2529,9 +2888,10 @@ int main()
 	thread th(task_graphix);
 	th.detach();
 
-
+	//comp_4((string)"10/s*(1-2*exp(-10*s)+exp(-20*s))");
+	//comp_4((string)"2.0/(4.0*s**2 + 8.0*s + 3.5)");
 	//th.join();
-
+	//system("pause");
 	sympy_sim("1+3");
 	cout << endl << "Грузись питон";
 	//call_python_sympy("sin(t)+1");
@@ -2606,6 +2966,7 @@ int main()
 	///вход2
 
 
+	comp_4(cha.h1_2.str_l*(L_S)"s");
 
 
 
