@@ -1616,6 +1616,43 @@ void print_ku(const EL_CHAIN &cha)
 	for (int i = 0; i < cha.per_s.size(); i++)
 		cout << cha.per_s[i].cool_str << endl;
 
+	cout << "¬ыразим требуемое I через переменные состо€ни€ и источник" << endl;
+	cout << ("h1(t)=I(t)=");
+
+
+	for (int i = 0; i < cha.ur_so.id_ui.size(); i++)
+	{
+		string temp;
+		if (cha.el[cha.ur_so.id_ui[i]].t == EL_U)
+		{
+			temp = "U";
+		}
+		if (cha.el[cha.ur_so.id_ui[i]].t == EL_I)
+		{
+			temp = "I";
+		}
+		temp = temp + ftos(cha.ur_so.id_ui[i]) + "(t)*("+ftos(cha.h1_1.k_u)+")";
+		cout << temp;
+	}
+	for (int i = 0; i < cha.h1_1.k_per_s.size(); i++)
+	{
+		string temp;
+		if (cha.el[cha.ur_so.id_cl[i]].t == EL_C)
+		{
+			temp = "U";
+		}
+		if (cha.el[cha.ur_so.id_cl[i]].t == EL_L)
+		{
+			temp = "I";
+		}
+		temp = "+" + temp + ftos(cha.ur_so.id_cl[i]) + "(t)*(" + ftos(cha.h1_1.k_per_s[i]) + ")";
+		cout << temp;
+	}
+	cout << endl;
+	cout << ("h1(t)=") << "("<<cha.h1_1.sym_str<<")*b1(t)";
+	cout << endl;
+
+
 	cout << "2. јнализ цепи операторным методом при действии одиночного импульса на входе." << endl;
 	cout << "2.1. ¬ соответствии с номером выполн€емого варианта определить функцию передачи напр€жений или токов." << endl;
 	cout << "H1I(S):" << endl;
@@ -2945,6 +2982,10 @@ int main()
 
 
 
+	vector<double> vx, vy;
+	EASY_TEX tex;
+	vx.resize(200);
+	vy.resize(200);
 
 	//EL_CHAIN cha("1 1 4 U 0  2 2 4 R 1  3 1 3 R 1  4 3 4 R 1  5 1 3 L 1  6 3 2 L 0.25");//from 14V
 
@@ -2953,6 +2994,25 @@ int main()
 
 	//h1 аналитически
 	cha.comp_h1(2);
+
+
+	double t_3;
+	t_3 = -1 / cha.per_s[0].lamd[0].real();
+	for (int i = 0; i < cha.per_s[0].lamd.size(); i++)
+		t_3 = max(-1 / t_3, -1 / cha.per_s[1].lamd[0].real());
+
+	t_3 *= 3;
+
+	for (int i = 0; i < vx.size(); i++)
+	{
+		vx[i] = i*t_3 / vx.size();
+		vy[i] = atof1(sympy_eva(cha.h1_1.sym_str,"t",ftos(vx[i])));
+	}
+
+	mtx.lock();
+	tex = create_plot(512, 256, vx, vy, 0, 0, 0, 0);
+	img.add(tex);
+	mtx.unlock();
 
 	//h1 по лаплассовски
 	cha.comp_h1_l(2);
