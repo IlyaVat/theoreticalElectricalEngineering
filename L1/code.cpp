@@ -420,8 +420,7 @@ public:
 			f1_s = f1_s + "+(" + temp + ")";
 
 			temp = a_l[i];
-			myreplace(temp, "t", "(t-(" + ftos(t_sdv[i]) + "))");
-			f1_t = f1_t + "+(" + temp + ")";
+			f1_t = f1_t + "+(" + temp + ")*exp(-s*(" + ftos(t_sdv[i]) + "))";
 		}
 
 		L_S H;
@@ -2649,6 +2648,11 @@ public:
 		}
 	}
 
+	void gen_broken_tex()
+	{
+		init = 0;
+		gentex();
+	}
 	void gentex()
 	{
 		if (init)
@@ -2803,16 +2807,13 @@ void task_graphix()
 {
 	OPENGL_WINDOW w;
 
-	EASY_TEX tex;
 
 
 	w.enable();
-	tex.resize(128, 128);
 	//tex = create_plot(512, 512, {0,1,2,3}, {2,0,1,4},-1,4,-1,5);
 
 
 
-	tex.gentex();
 
 	while (1)
 	{
@@ -2872,7 +2873,13 @@ void task_graphix()
 		Sleep(10);
 		w.draw();
 		w.upd();
-		w.enable();
+		if (!w.is_enabled())
+		{
+			w.enable();
+			for (int i = 0; i < img.a.size(); i++)
+				img.a[i].gen_broken_tex();
+
+		}
 	}
 }
 
@@ -2941,6 +2948,8 @@ void comp_3(L_S H_S, string F1_T, string F1_S)
 
 void comp_4(L_S H_S, string F1_T, string F1_S, double T)
 {
+	cout << F1_T << endl;
+	cout << F1_S << endl;
 	//H_S это переходная функция тока в лапласе
 	string H_JW, H_IM, H_RE;
 

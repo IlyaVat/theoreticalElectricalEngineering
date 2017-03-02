@@ -36,12 +36,24 @@ def sep(expr):
     import sympy
     return str(sympy.expand(expr))
 
-def im(expr):
+def im(expr):   
+    from sympy.parsing.sympy_parser import parse_expr
     import sympy
-    return str(sympy.im(expr))
+    x=sympy.Symbol("s",real=True)
+    f=parse_expr(expr)
+    f=f.subs({parse_expr("s"):x})
+    x=sympy.Symbol("w",real=True)
+    f=f.subs({parse_expr("w"):x})
+    return str(sympy.im(f))
 def re(expr):
+    from sympy.parsing.sympy_parser import parse_expr
     import sympy
-    return str(sympy.re(expr))
+    x=sympy.Symbol("s",real=True)
+    f=parse_expr(expr)
+    f=f.subs({parse_expr("s"):x})
+    x=sympy.Symbol("w",real=True)
+    f=f.subs({parse_expr("w"):x})
+    return str(sympy.re(f))
 def l_acx(expr):
     import sympy
     fi=sympy.im(expr)
