@@ -379,7 +379,7 @@ public:
 			t_sdv[0] = 0;
 			a_t[1] = "-Heaviside(t) * t * 2 * (" + ftos(im / ti * 2) + ")";
 			t_sdv[1] = ti / 2;
-			a_t[2] = "+Heaviside(t)*t*(" + ftos(im / ti * 2) + ")";
+			a_t[2] = "Heaviside(t)*t*(" + ftos(im / ti * 2) + ")";
 			t_sdv[2] = ti;
 			//cout << "\n" << b_s;
 
@@ -417,10 +417,10 @@ public:
 
 			temp = a_t[i];
 			myreplace(temp, "t", "(t-(" + ftos(t_sdv[i]) + "))");
-			f1_s = f1_s + "+(" + temp + ")";
+			f1_t = f1_t + "+(" + temp + ")";
 
 			temp = a_l[i];
-			f1_t = f1_t + "+(" + temp + ")*exp(-s*(" + ftos(t_sdv[i]) + "))";
+			f1_s = f1_s + "+(" + temp + ")*exp(-s*(" + ftos(t_sdv[i]) + "))";
 		}
 
 		L_S H;
@@ -2586,6 +2586,9 @@ public:
 
 	void line(double x1, double y1, double x2, double y2, int _r=255, int _g=255, int _b=255)
 	{
+		if ((y1 - y2) * 0 != 0 || (x1 - x2) * 0 != 0)
+			return;
+
 		if (abs(x1 - x2) > abs(y1 - y2))//горизонтальная линия
 		{
 			double a = (y2-y1)/(x2-x1);
@@ -2736,6 +2739,8 @@ EASY_TEX create_plot(int tx, int ty, vector<double> vx, vector<double> vy, doubl
 
 		min_x -= (max_x - min_x)*0.1;
 		min_y -= (max_y - min_y)*0.1;
+		max_x += (max_x - min_x)*2/tx;
+		max_y += (max_y - min_y)*2/ty;
 
 	}
 
@@ -2767,6 +2772,7 @@ EASY_TEX create_plot(int tx, int ty, vector<double> vx, vector<double> vy, doubl
 	float mnox = pow10(porx);
 	float mnoy = pow10(pory);
 
+	if (mnox != 0)
 	for (int i = min_x / mnox; i < max_x / mnox; i++)
 	{
 		tex.line((i * mnox - min_x) / sx * tx, 40, (i * mnox - min_x) / sx * tx, ty, 100, 100, 100);
@@ -2774,6 +2780,7 @@ EASY_TEX create_plot(int tx, int ty, vector<double> vx, vector<double> vy, doubl
 		if ((i * mnox - min_x) / sx * tx>20 && (i * mnox - min_x) / sx * tx < tx - 30)
 			tex.numbers((i * mnox - min_x) / sx * tx - 3, 20, ftos(i*mnox));
 	}
+	if (mnoy!=0)
 	for (int i = min_y / mnoy; i < max_y / mnoy; i++)
 	{
 		tex.line(20, (i * mnoy - min_y) / sy * ty, tx, (i * mnoy - min_y) / sy * ty, 100, 100, 100);
@@ -2813,10 +2820,16 @@ void task_graphix()
 	//tex = create_plot(512, 512, {0,1,2,3}, {2,0,1,4},-1,4,-1,5);
 
 
-
+	double avg_time = 0;
+	double scroll = 0;
+	int tex_ssy = 0;
+	int lasttime = time(nullptr);
 
 	while (1)
 	{
+
+		avg_time = avg_time*0.9 + (GetTickCount() - lasttime)*0.1;
+		lasttime = GetTickCount();
 		glColor3f(0.3, 0.3, 0.3);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glLoadIdentity();
@@ -2830,7 +2843,6 @@ void task_graphix()
 		mtx.lock();
 
 		int yy = 0;
-
 		for (int i = 0; i < img.a.size(); i++)
 		{
 			img.a[i].gentex();
@@ -2840,18 +2852,21 @@ void task_graphix()
 			int wx = w.get_wx(), wy = w.get_wy();
 
 			int tx, ty;
-
+			atof("inf");
 			tx = img.a[i].gx();
 			ty = img.a[i].gy();
 
 			glBegin(GL_POLYGON);
-			glTexCoord2d(0, 1); glVertex3f(-wx + 000000, wy - 000000 - yy * 2, -wy);
-			glTexCoord2d(1, 1); glVertex3f(-wx + tx * 2, wy - 000000 - yy * 2, -wy);
-			glTexCoord2d(1, 0); glVertex3f(-wx + tx * 2, wy - ty * 2 - yy * 2, -wy);
-			glTexCoord2d(0, 0); glVertex3f(-wx + 000000, wy - ty * 2 - yy * 2, -wy);
+			glTexCoord2d(0, 1); glVertex3f(-wx + 000000, wy - 000000 - yy * 2 + scroll * 2, -wy);
+			glTexCoord2d(1, 1); glVertex3f(-wx + tx * 2, wy - 000000 - yy * 2 + scroll * 2, -wy);
+			glTexCoord2d(1, 0); glVertex3f(-wx + tx * 2, wy - ty * 2 - yy * 2 + scroll * 2, -wy);
+			glTexCoord2d(0, 0); glVertex3f(-wx + 000000, wy - ty * 2 - yy * 2 + scroll * 2, -wy);
 			glEnd();
+
 			yy += img.a[i].gy()+10;
+			
 		}
+		tex_ssy = yy-10;
 		mtx.unlock();
 		/*
 		glBegin(GL_POLYGON);
@@ -2873,6 +2888,23 @@ void task_graphix()
 		Sleep(10);
 		w.draw();
 		w.upd();
+		const bool *keys=w.get_keys();
+
+		if (keys[VK_UP])
+		{
+			scroll -= avg_time;
+			if (scroll < 0)
+				scroll = 0;
+		}
+		if (keys[VK_DOWN])
+		{
+			scroll += avg_time;
+			if (scroll + w.get_wy()>tex_ssy)
+				scroll = tex_ssy - w.get_wy();
+			if (scroll < 0)
+				scroll = 0;
+		}
+
 		if (!w.is_enabled())
 		{
 			w.enable();
@@ -3083,6 +3115,18 @@ int main()
 	cha.comp_signl(SIGN_T, 10, 20);
 	///вход2
 
+
+	for (int i = 0; i < vx.size(); i++)
+	{
+		vx[i] = i*40.0 / vx.size();
+		vy[i] = atof1(sympy_eva(cha.f1_t, "t", ftos(vx[i])));
+		//cout <<vx[i]<<"  "<< sympy_eva(cha.f1_t, "t", ftos(vx[i]))<<endl;
+	}
+
+	mtx.lock();
+	tex = create_plot(512, 256, vx, vy, 0, 0, 0, 0);
+	img.add(tex);
+	mtx.unlock();
 
 	comp_3(cha.h1_2.str_l*(L_S)"s", cha.f1_t, cha.f1_s);
 

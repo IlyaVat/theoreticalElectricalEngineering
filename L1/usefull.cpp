@@ -17,11 +17,25 @@ std::string ftos(float number)
 	return s;
 }
 
+double atof(string s)
+{
+	myreplace(s, ".", ",");
+	for (int i = 0; i < s.length(); i++)
+	{
+		if ((s[i]<'0' || s[i]>'9') && s[i] != ','&& s[i] != '-')
+		{
+			cout << "convert broken  " << s << " isnt number" << endl;
+			system("pause");
+		}
+
+	}
+	return std::atof(s.data());
+}
 
 double atof1(string s)
 {
 	myreplace(s,".",",");
-	return atof(s.data());
+	return std::atof(s.data());
 }
 
 

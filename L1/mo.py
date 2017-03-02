@@ -106,9 +106,10 @@ def alap(n):
 def eva(n,n1,n2):
     import sympy
     from sympy.parsing.sympy_parser import parse_expr
-
+    f=(parse_expr(n).xreplace({parse_expr(n1):parse_expr(n2)})).evalf();
+    f=f.xreplace({parse_expr("Heaviside(0)"):parse_expr("1")}).evalf();
     #sympy.pprint(parse_expr(n).xreplace({parse_expr(n1):parse_expr(n2)}))
-    return str((parse_expr(n).xreplace({parse_expr(n1):parse_expr(n2)})).evalf())
+    return str(f)
 def dif(n,n1):
     import sympy
     from sympy import sqrt, diff

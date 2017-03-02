@@ -633,8 +633,11 @@ string sympy_eva(string f1, string f2, string f3)
 	{
 		auto res = PyObject_CallObject(Feva, Py_BuildValue("(s,s,s)", f1.data(), f2.data(), f3.data()));
 		//PyObject_CallObject(pFunc, Py_BuildValue("(O)", res));
-		char *s;
-		s = PyUnicode_AsUTF8(res);
+		string s="-9999999";
+		if (res)
+		{
+			s = PyUnicode_AsUTF8(res);
+		}
 		return s;
 	}
 	else
