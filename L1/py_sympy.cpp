@@ -668,6 +668,11 @@ string sympy_sep(string f1)
 		auto res = PyObject_CallObject(Fsep, Py_BuildValue("(s)", f1.data()));
 		//PyObject_CallObject(pFunc, Py_BuildValue("(O)", res));
 		char *s = "";
+		if (!res)
+		{
+			cout << "\nsympy sep error at:\n" << f1;
+			system("pause");
+		}
 		if (res != nullptr)
 			s = PyUnicode_AsUTF8(res);
 		return s;

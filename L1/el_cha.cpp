@@ -175,56 +175,6 @@ void EL_CHAIN_L::comp_h1(int id_res)
 {
 	comp_par_1_iu_uns();
 	h1_l = sympy_sim("(" + el[id_res].I.s + ")/s");
-	h1_sympy = crazy_alap(h1_l);
-	if (h1_sympy=="")
-		h1_sympy = sympy_alap(h1_l);
-
-
-
-
-
-	string po1, po2;
-	string f = el[id_res].I.s;
-
-	for (int i = 0, tt = 0; i < f.length(); i++)
-	{
-		if (tt == 0)
-		{
-			if (f[i] == '/')
-			{
-				tt = 1;
-			}
-			else
-				po1 += f[i];
-		}
-		else
-		{
-			po2 += f[i];
-		}
-	}
-
-
-
-	po1 = sympy_sep(po1);
-	po2 = sympy_sep(po2);
-
-
-	cout << "\np1:\n" << po1;
-	cout << "\np2:\n" << po2;
-
-	POLY p1, p2;
-	p1 = get_pol_coef(po1);
-	p2 = get_pol_coef(po2);
-
-	auto roo1 = parse_roots(sympy_roo(po1));
-	auto roo2 = parse_roots(sympy_roo(po2));
-
-
-	v_polus = roo2;
-	v_zero = roo1;
-	cout << "\n" << h1_l;
-	cout << "\n" << h1_sympy;
-	cout << "\n";
 }
 
 void EL_CHAIN_L::comp_par_1_iu_uns()

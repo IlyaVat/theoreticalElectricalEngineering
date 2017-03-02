@@ -144,7 +144,6 @@ typedef vector<complex<double>> VecC;
 
 
 
-double atof(string s);
 string ftos(float number);
 double atof1(string s);
 string comp_to_s(complex<double> v);

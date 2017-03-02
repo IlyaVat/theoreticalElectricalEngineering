@@ -2,13 +2,13 @@
 #include <python.h>
 #pragma comment( lib, "python36.lib" )
 
-#include <stdlib.h>
 #define _USE_MATH_DEFINES
 #include <cmath>
+#include "usefull.h"
+#include <stdlib.h>
 
 #include "el_cha.h"
 #include "py_sympy.h"
-#include "usefull.h"
 
 
 #define _DEBUG
@@ -305,191 +305,6 @@ public:
 
 	}
 
-	void comp_signl(int t_s, double im, double ti)
-	{
-		/*
-		string b_s,b_l;
-		if (t_s == SIGN_T)
-		{
-			b_s.resize(3);
-			b_l.resize(3);
-			b_s = "Heaviside(t)*(" + to_string(im) + ")-Heaviside(t - (" + to_string(ti) + ") / 2) * 2 * (" + to_string(im) + ")+Heaviside(t - (" + to_string(ti) + "))*(" + to_string(im) + ")";
-			//cout << "\n" << b_s;
-
-			b_l = sympy_lap(b_s);
-			//cout << "\n" << b_l;
-		}
-
-		//ну теперь перемножим...
-
-		L_S res_l = sympy_sim((b_l * h1_2.str_l*(L_S)"s").s);
-		string res_s;
-		
-
-		res_s = sympy_sim(sympy_alap((b_l * h1_2.str_l*(L_S)"s").s));
-
-
-
-		cout << "\n" << res_l;
-		cout << "\n" << res_s;
-
-
-		//ну результат то получился но он не очень
-
-		*/
-
-		vector<string> a_t,a_l,a_res;
-		vector<double> t_sdv;
-
-		string res;
-
-		if (t_s == SIGN_T)
-		{
-			a_t.resize(3);
-			a_l.resize(3);
-			a_res.resize(3);
-			t_sdv.resize(3);
-			//сдвиг по времени на программном уровне для более красивого вывода
-			a_t[0] = "Heaviside(t)*(" + ftos(im) + ")";
-			t_sdv[0] = 0;
-			a_t[1] = "-Heaviside(t) * 2 * (" + ftos(im) + ")";
-			t_sdv[1] = ti / 2;
-			a_t[2] = "+Heaviside(t)*(" + ftos(im) + ")";
-			t_sdv[2] = ti;
-			//cout << "\n" << b_s;
-
-			res += "Исходный сигнал:\n";
-			res += "b1(t)*(" + ftos(im) + ")";
-			res += "-b1(t-" + ftos(ti / 2) + ") * 2 * (" + ftos(im) + ")";
-			res += "+b1(t-" + ftos(ti) + ")*(" + ftos(im) + ")";
-
-
-			//b_l = sympy_lap(b_s);
-			//cout << "\n" << b_l;
-		}
-
-		if (t_s == SIGN_V)
-		{
-			a_t.resize(3);
-			a_l.resize(3);
-			a_res.resize(3);
-			t_sdv.resize(3);
-			//сдвиг по времени на программном уровне для более красивого вывода
-			a_t[0] = "Heaviside(t)*t*(" + ftos(im / ti * 2) + ")";
-			t_sdv[0] = 0;
-			a_t[1] = "-Heaviside(t) * t * 2 * (" + ftos(im / ti * 2) + ")";
-			t_sdv[1] = ti / 2;
-			a_t[2] = "Heaviside(t)*t*(" + ftos(im / ti * 2) + ")";
-			t_sdv[2] = ti;
-			//cout << "\n" << b_s;
-
-			res += "Исходный сигнал:\n";
-			res += "b1(t)*(" + ftos(im) + ")";
-			res += "-b1(t-" + ftos(ti / 2) + ") * 2 * (" + ftos(im) + ")";
-			res += "+b1(t-" + ftos(ti) + ")*(" + ftos(im) + ")";
-
-
-			//b_l = sympy_lap(b_s);
-			//cout << "\n" << b_l;
-		}
-		res += "\nСигнал в операторной области:\n";
-
-		for (int i = 0; i < a_t.size(); i++)
-		{
-			a_l[i] = sympy_lap(a_t[i]);
-			string ts;
-			if (t_sdv[i] != 0)
-				ts = "(" + a_l[i] + ")*exp(-s*(" + ftos(t_sdv[i]) + "))";
-			else
-				ts = "(" + a_l[i] + ")";
-
-			if (i > 0)
-				res += "+";
-			res += ts;
-
-		}
-
-		f1_t = "0";
-		f1_s = "0";
-		for (int i = 0; i < a_t.size(); i++)
-		{
-			string temp;
-
-			temp = a_t[i];
-			myreplace(temp, "t", "(t-(" + ftos(t_sdv[i]) + "))");
-			f1_t = f1_t + "+(" + temp + ")";
-
-			temp = a_l[i];
-			f1_s = f1_s + "+(" + temp + ")*exp(-s*(" + ftos(t_sdv[i]) + "))";
-		}
-
-		L_S H;
-		res += "\nH(S)=H1(S)*S:\n";
-		H = h1_2.str_l*(L_S)"s";
-		res += H.s;
-
-
-		res += "\nF2(S)=H(S)*F1(S):\n";
-		f2_s = "";
-		for (int i = 0; i < a_t.size(); i++)
-		{
-			L_S temp;
-			temp = (a_l[i] * H).s;
-
-			//Формула сдвига лапласса
-			//f(t-a)=exp(-a*s)*F(s)
-
-			if (i > 0)
-				f2_s += "+";
-
-
-			if (t_sdv[i]!=0)
-				f2_s += "(" + temp.s + ")*exp(-s*(" + ftos(t_sdv[i]) + "))";
-			else
-				f2_s += "(" + temp.s + ")";
-			//
-			string rr = crazy_alap(temp.s);
-			if (rr == "")
-				rr = sympy_alap(temp.s);
-			a_res[i] = rr;
-		}
-
-		res += f2_s;
-
-		res += "\nf2(t):\n";
-
-		f2_t = "";
-
-		for (int i = 0; i < a_t.size(); i++)
-		{
-			string temp=a_res[i];
-			myreplace(temp, "exp", "hidden_exp");//этот симпи не должен изгаживать экспоненты
-			temp = sympy_sim(temp);
-			myreplace(temp, "hidden_exp", "exp");
-
-			//тэшку только в конце переписываем а то скобки раскроются
-			if (t_sdv[i] != 0)
-				myreplace(temp, "t", "(t-" + ftos(t_sdv[i]) + ")");
-
-			myreplace(temp, "((t-" + ftos(t_sdv[i]) + "))", "(t-" + ftos(t_sdv[i]) + ")");
-
-			myreplace(temp, "Heaviside", "b1");
-
-			if (i > 0)
-				f2_t += "+";
-			f2_t += "(" + temp + ")";
-
-
-			myreplace(a_res[i], "t", "(t-" + ftos(t_sdv[i]) + ")"); 
-		}
-
-		res+=f2_t;
-
-
-		cout << res;
-
-
-	}
 
 	void comp_ur_so()
 	{
@@ -647,7 +462,7 @@ public:
 
 	}
 
-	void comp_h1_l(int id_res)
+	string comp_h1_l(int id_res)
 	{
 		EL_CHAIN_L cha1;
 		cha1.el.resize(el.size());
@@ -680,10 +495,7 @@ public:
 		}
 		cha1.comp_h1(id_res);
 
-		h1_2.str_l = cha1.h1_l;
-		h1_2.sym_str = cha1.h1_sympy;
-		h1_2.v_polus = cha1.v_polus;
-		h1_2.v_zero = cha1.v_zero;
+		return cha1.h1_l;
 
 	}
 
@@ -2852,7 +2664,6 @@ void task_graphix()
 			int wx = w.get_wx(), wy = w.get_wy();
 
 			int tx, ty;
-			atof("inf");
 			tx = img.a[i].gx();
 			ty = img.a[i].gy();
 
@@ -2913,6 +2724,207 @@ void task_graphix()
 
 		}
 	}
+}
+
+class COMP_2_RES
+{
+public:
+	string f1_s, f1_t, f2_s, f2_t;
+	string h1_s, h1_t;
+	vector<complex<double>> v_polus, v_zero;
+};
+
+COMP_2_RES comp_2(EL_CHAIN cha,int id_res,int t_s, double im, double ti)
+{
+	COMP_2_RES res;
+
+
+	res.h1_s = cha.comp_h1_l(id_res);
+
+
+	res.h1_t = crazy_alap(res.h1_s);
+	if (res.h1_t == "")
+		res.h1_t = sympy_alap(res.h1_s);
+
+
+
+	string po1, po2;
+	string f = sympy_sim("("+res.h1_s+")*s");
+
+	for (int i = 0, tt = 0; i < f.length(); i++)
+	{
+		if (tt == 0)
+		{
+			if (f[i] == '/')
+			{
+				tt = 1;
+			}
+			else
+				po1 += f[i];
+		}
+		else
+		{
+			po2 += f[i];
+		}
+	}
+
+
+
+	po1 = sympy_sep(po1);
+	po2 = sympy_sep(po2);
+
+
+	cout << "\np1:\n" << po1;
+	cout << "\np2:\n" << po2;
+
+	POLY p1, p2;
+	p1 = get_pol_coef(po1);
+	p2 = get_pol_coef(po2);
+
+
+	auto roo1 = parse_roots(sympy_roo(po1));
+	auto roo2 = parse_roots(sympy_roo(po2));
+
+
+
+	res.v_polus = roo2;
+	res.v_zero = roo1;
+
+
+
+	vector<string> a_t, a_l, a_res;
+	vector<double> t_sdv;
+
+
+
+	if (t_s == SIGN_T)//2 анти ступени
+	{
+		a_t.resize(3);
+		a_l.resize(3);
+		a_res.resize(3);
+		t_sdv.resize(3);
+		//сдвиг по времени на программном уровне для более красивого вывода
+		a_t[0] = "Heaviside(t)*(" + ftos(im) + ")";
+		t_sdv[0] = 0;
+		a_t[1] = "-Heaviside(t) * 2 * (" + ftos(im) + ")";
+		t_sdv[1] = ti / 2;
+		a_t[2] = "Heaviside(t)*(" + ftos(im) + ")";
+		t_sdv[2] = ti;
+		//cout << "\n" << b_s;
+
+
+
+		//b_l = sympy_lap(b_s);
+		//cout << "\n" << b_l;
+	}
+
+	if (t_s == SIGN_V)//пирамидка
+	{
+		a_t.resize(3);
+		a_l.resize(3);
+		a_res.resize(3);
+		t_sdv.resize(3);
+		//сдвиг по времени на программном уровне для более красивого вывода
+		a_t[0] = "Heaviside(t)*t*(" + ftos(im / ti * 2) + ")";
+		t_sdv[0] = 0;
+		a_t[1] = "-Heaviside(t) * t * 2 * (" + ftos(im / ti * 2) + ")";
+		t_sdv[1] = ti / 2;
+		a_t[2] = "Heaviside(t)*t*(" + ftos(im / ti * 2) + ")";
+		t_sdv[2] = ti;
+		//cout << "\n" << b_s;
+
+
+
+		//b_l = sympy_lap(b_s);
+		//cout << "\n" << b_l;
+	}
+
+
+	for (int i = 0; i < a_t.size(); i++)
+	{
+		a_l[i] = sympy_lap(a_t[i]);
+		string ts;
+		if (t_sdv[i] != 0)
+			ts = "(" + a_l[i] + ")*exp(-s*(" + ftos(t_sdv[i]) + "))";
+		else
+			ts = "(" + a_l[i] + ")";
+
+
+	}
+
+	res.f1_t = "0";
+	res.f1_s = "0";
+	for (int i = 0; i < a_t.size(); i++)
+	{
+		string temp;
+
+		temp = a_t[i];
+		myreplace(temp, "t", "(t-(" + ftos(t_sdv[i]) + "))");
+		res.f1_t = res.f1_t + "+(" + temp + ")";
+
+		temp = a_l[i];
+		res.f1_s = res.f1_s + "+(" + temp + ")*exp(-s*(" + ftos(t_sdv[i]) + "))";
+	}
+
+	L_S H;
+	H = res.h1_s*(L_S)"s";
+
+
+	res.f2_s = "";
+	for (int i = 0; i < a_t.size(); i++)
+	{
+		L_S temp;
+		temp = (a_l[i] * H).s;
+
+		//Формула сдвига лапласса
+		//f(t-a)=exp(-a*s)*F(s)
+
+		if (i > 0)
+			res.f2_s += "+";
+
+
+		if (t_sdv[i] != 0)
+			res.f2_s += "(" + temp.s + ")*exp(-s*(" + ftos(t_sdv[i]) + "))";
+		else
+			res.f2_s += "(" + temp.s + ")";
+		//
+		string rr = crazy_alap(temp.s);
+		if (rr == "")
+			rr = sympy_alap(temp.s);
+		a_res[i] = rr;
+	}
+
+
+
+	res.f2_t = "";
+
+	for (int i = 0; i < a_t.size(); i++)
+	{
+		string temp = a_res[i];
+		myreplace(temp, "exp", "hidden_exp");//этот симпи не должен изгаживать экспоненты
+		temp = sympy_sim(temp);
+		myreplace(temp, "hidden_exp", "exp");
+
+		//тэшку только в конце переписываем а то скобки раскроются
+		if (t_sdv[i] != 0)
+			myreplace(temp, "t", "(t-" + ftos(t_sdv[i]) + ")");
+
+		myreplace(temp, "((t-" + ftos(t_sdv[i]) + "))", "(t-" + ftos(t_sdv[i]) + ")");
+
+		myreplace(temp, "Heaviside", "b1");
+
+		if (i > 0)
+			res.f2_t += "+";
+		res.f2_t += "(" + temp + ")";
+
+
+		myreplace(a_res[i], "t", "(t-" + ftos(t_sdv[i]) + ")");
+	}
+
+
+
+	return res;
+
 }
 
 void comp_3(L_S H_S, string F1_T, string F1_S)
@@ -3002,6 +3014,7 @@ void comp_4(L_S H_S, string F1_T, string F1_S, double T)
 	//выходного сигнала, найденного в п. 4.3 задания, в одном масштабе рядом с графиком аппроксимированного входного сигнала. 
 	//4.5.Дать заключение об искажении сигнала на выходе цепи.
 }
+
 
 int main()
 {
@@ -3105,21 +3118,20 @@ int main()
 	mtx.unlock();
 
 	//h1 по лаплассовски
-	cha.comp_h1_l(2);
-
+	
 	//(238 + 33 s + s^2)/(1000 + 300 s + 30 s^2 + s^3)
 	//cha.h1_2.str_l = ((L_S)("(409600.0*s**2 + 4915200.0*s + 49152000.0)/(s*(128000.0*s**2 + 512000.0*s + 13312000.0))") );
 	//cha.h1_2.sym_str = ((L_S)("(409600.0*s**2 + 4915200.0*s + 49152000.0)/(s*(128000.0*s**2 + 512000.0*s + 13312000.0))")).s;
-
+	sympy_lap("Heaviside(t)*(10)");
 	//H1  и какойто сигнал
-	cha.comp_signl(SIGN_T, 10, 20);
+	auto res2=comp_2(cha,2,SIGN_T, 10, 20);
 	///вход2
 
 
 	for (int i = 0; i < vx.size(); i++)
 	{
 		vx[i] = i*40.0 / vx.size();
-		vy[i] = atof1(sympy_eva(cha.f1_t, "t", ftos(vx[i])));
+		vy[i] = atof1(sympy_eva(res2.f1_t, "t", ftos(vx[i])));
 		//cout <<vx[i]<<"  "<< sympy_eva(cha.f1_t, "t", ftos(vx[i]))<<endl;
 	}
 
@@ -3128,13 +3140,13 @@ int main()
 	img.add(tex);
 	mtx.unlock();
 
-	comp_3(cha.h1_2.str_l*(L_S)"s", cha.f1_t, cha.f1_s);
+	comp_3(res2.h1_s*(L_S)"s", res2.f1_t, res2.f1_s);
 
-	comp_4(cha.h1_2.str_l*(L_S)"s", cha.f1_t, cha.f1_s, 40);
+	comp_4(res2.h1_s*(L_S)"s", res2.f1_t, res2.f1_s, 40);
 
 
 
-	print_ku(cha);
+	//print_ku(cha);
 
 
 

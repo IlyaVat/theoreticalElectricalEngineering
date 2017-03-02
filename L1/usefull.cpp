@@ -17,7 +17,7 @@ std::string ftos(float number)
 	return s;
 }
 
-double atof(string s)
+double atof2(string s)
 {
 	myreplace(s, ".", ",");
 	for (int i = 0; i < s.length(); i++)
