@@ -82,6 +82,10 @@ def roo(expr):
 def sim(n):
     import sympy
     return str(sympy.simplify(n, measure=my_measure1, ratio=10))
+def lim(f1,f2,f3,f4):
+    import sympy
+
+    return str(sympy.limit(f1,f2,f3,f4))
 def lap(n):
     import sympy
     return str(sympy.laplace_transform(n,'t','s')[0])

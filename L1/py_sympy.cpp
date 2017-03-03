@@ -27,6 +27,8 @@ PyObject *Fsep;
 PyObject *Froo;
 PyObject *Fim;
 PyObject *Fre;
+PyObject *Flim;
+
 PyObject *moD;
 
 string sympy_sep(string f1);
@@ -613,6 +615,7 @@ string crazy_alap(string f)
 
 string sympy_alap(string funct)
 {
+	myreplace(funct, ",", ".");
 	if (PyCallable_Check(Falap))
 	{
 		auto res1 = PyObject_CallObject(Falap, Py_BuildValue("(s)", funct.data()));
@@ -629,11 +632,19 @@ string sympy_alap(string funct)
 }
 string sympy_eva(string f1, string f2, string f3)
 {
+	myreplace(f1, ",", ".");
+	myreplace(f2, ",", ".");
+	myreplace(f3, ",", ".");
 	if (PyCallable_Check(Feva))
 	{
 		auto res = PyObject_CallObject(Feva, Py_BuildValue("(s,s,s)", f1.data(), f2.data(), f3.data()));
 		//PyObject_CallObject(pFunc, Py_BuildValue("(O)", res));
 		string s="-9999999";
+		if (!res)
+		{
+			cout << "\nsympy eva error at:\n" << f1 << "  ||  " << f2 << "  ||  " << f3;
+			system("pause");
+		}
 		if (res)
 		{
 			s = PyUnicode_AsUTF8(res);
@@ -647,6 +658,9 @@ string sympy_eva(string f1, string f2, string f3)
 }
 string sympy_dif(string f1, string f2)
 {
+	myreplace(f1, ",", ".");
+	myreplace(f2, ",", ".");
+
 	if (PyCallable_Check(Fdif))
 	{
 		auto res = PyObject_CallObject(Fdif, Py_BuildValue("(s,s)", f1.data(), f2.data()));
@@ -663,6 +677,8 @@ string sympy_dif(string f1, string f2)
 
 string sympy_sep(string f1)
 {
+	myreplace(f1, ",", ".");
+
 	if (PyCallable_Check(Fsep))
 	{
 		auto res = PyObject_CallObject(Fsep, Py_BuildValue("(s)", f1.data()));
@@ -711,6 +727,7 @@ string sympy_roo(string f1)
 
 string sympy_im(string f1)
 {
+	myreplace(f1, ",", ".");
 
 	if (PyCallable_Check(Fim))
 	{
@@ -729,10 +746,30 @@ string sympy_im(string f1)
 
 string sympy_re(string f1)
 {
+	myreplace(f1, ",", ".");
 
 	if (PyCallable_Check(Fre))
 	{
 		auto res = PyObject_CallObject(Fre, Py_BuildValue("(s)", f1.data()));
+		//PyObject_CallObject(pFunc, Py_BuildValue("(O)", res));
+		char *s = "";
+		if (res != nullptr)
+			s = PyUnicode_AsUTF8(res);
+		return s;
+	}
+	else
+	{
+		PyErr_Print();
+	}
+}
+
+string sympy_lim(string f1, string f2, string f3, string f4)
+{
+	myreplace(f1, ",", ".");
+
+	if (PyCallable_Check(Flim))
+	{
+		auto res = PyObject_CallObject(Flim, Py_BuildValue("(s,s,s,s)", f1.data(), f2.data(), f3.data(), f4.data()));
 		//PyObject_CallObject(pFunc, Py_BuildValue("(O)", res));
 		char *s = "";
 		if (res != nullptr)
@@ -770,6 +807,7 @@ void sympy_init()
 	Froo = PyDict_GetItemString(moD, "roo");
 	Fim = PyDict_GetItemString(moD, "im");
 	Fre = PyDict_GetItemString(moD, "re");
+	Flim = PyDict_GetItemString(moD, "lim");
 
 }
 

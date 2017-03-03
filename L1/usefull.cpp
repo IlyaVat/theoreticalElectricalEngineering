@@ -17,7 +17,7 @@ std::string ftos(float number)
 	return s;
 }
 
-double atof2(string s)
+double atof1(string s)
 {
 	myreplace(s, ".", ",");
 	for (int i = 0; i < s.length(); i++)
@@ -31,13 +31,13 @@ double atof2(string s)
 	}
 	return std::atof(s.data());
 }
-
+/*
 double atof1(string s)
 {
 	myreplace(s,".",",");
 	return std::atof(s.data());
 }
-
+*/
 
 string comp_to_s(complex<double> v)
 {

@@ -13,6 +13,8 @@
 
 #define _DEBUG
 
+#define EL_K 0
+#define EL_H 1
 #define EL_R 2
 #define EL_I 3
 #define EL_U 4
@@ -30,7 +32,7 @@ string sympy_lap(string funct);
 string sympy_eva(string f1, string f2, string f3);
 string sympy_dif(string f1, string f2);
 
-
+#define cout std::cout
 
 
 VecC get_l(Matrix A)
@@ -305,6 +307,17 @@ public:
 
 	}
 
+	void replace_el(int el1, int elnew, int zn=0)
+	{
+		for (int i = 0; i < el.size(); i++)
+		{
+			if (el[i].t == el1)
+			{
+				el[i].t = elnew;
+				el[i].zn = zn;
+			}
+		}
+	}
 
 	void comp_ur_so()
 	{
@@ -2741,6 +2754,57 @@ COMP_2_RES comp_2(EL_CHAIN cha,int id_res,int t_s, double im, double ti)
 
 	res.h1_s = cha.comp_h1_l(id_res);
 
+	EL_CHAIN cha_temp;
+
+	cha_temp = cha;
+	cha_temp.replace_el(EL_I, EL_I,1);
+	cha_temp.replace_el(EL_U, EL_U,1);
+	cha_temp.replace_el(EL_L, EL_K);
+	cha_temp.replace_el(EL_C, EL_H);
+	cha_temp.comp_par_1_iu_uns();
+
+	double HS_0 = (cha_temp.el[id_res].I);
+
+
+	cha_temp = cha;
+	cha_temp.replace_el(EL_I, EL_I, 1);
+	cha_temp.replace_el(EL_U, EL_U, 1);
+	cha_temp.replace_el(EL_L, EL_H);
+	cha_temp.replace_el(EL_C, EL_K);
+	cha_temp.comp_par_1_iu_uns();
+
+	double HS_9 = (cha_temp.el[id_res].I);
+
+	string HS_0S = sympy_lim("(" + res.h1_s + ")*s", "s", "0","+");
+	string HS_9S = sympy_lim("(" + res.h1_s + ")*s", "s", "oo","-");
+
+
+
+	if (HS_0S.find("nan") != -1 || HS_0S.find("oo") != -1)
+	{
+		cout << "HS_0S:" << HS_0S << endl;
+		system("pause");
+	}
+	if (HS_0S.find("nan") != -1 || HS_0S.find("oo") != -1)
+	{
+		cout << "HS_9S:" << HS_9S << endl;
+		system("pause");
+	}
+
+	if (HS_0 == 0 && (atof1(HS_0S) - HS_0)>0.000001 || (atof1(HS_0S) - HS_0) / HS_0>0.001)
+	{
+		cout << "err: h0!=H(0)" << endl;
+		cout << "h1:" << HS_0 << endl;
+		cout << "hs:" << HS_0S << endl;
+		system("pause");
+	}
+	if (HS_9 == 0 && (atof1(HS_9S) - HS_9)>0.000001 || (atof1(HS_9S) - HS_9) / HS_9>0.001)
+	{
+		cout << "err: h9!=H(9)" << endl;
+		cout << "h1:" << HS_9 << endl;
+		cout << "hs:" << HS_9S << endl;
+		system("pause");
+	}
 
 	res.h1_t = crazy_alap(res.h1_s);
 	if (res.h1_t == "")
@@ -2924,7 +2988,6 @@ COMP_2_RES comp_2(EL_CHAIN cha,int id_res,int t_s, double im, double ti)
 
 
 	return res;
-
 }
 
 void comp_3(L_S H_S, string F1_T, string F1_S)
@@ -3080,8 +3143,8 @@ int main()
 
 	//EL_CHAIN cha("1 1 5 U 0  2 1 2 R 0.0625  3 2 5 R 0.25  4 2 3 L 0.025  5 3 5 C 0.4  6 3 4 R 0.25  7 4 5 R 1");//from MU
 
-	EL_CHAIN cha("1 4 1 I 0  2 3 4 R 0.5  3 1 4 R 2  4 1 2 L 2  5 2 3 R 1  6 3 4 C 4");//from MU
-	///вход1
+	//EL_CHAIN cha("1 4 1 I 0  2 3 4 R 0.5  3 1 4 R 2  4 1 2 L 2  5 2 3 R 1  6 3 4 C 4");//from MU
+	EL_CHAIN cha("1 4 1 I 0 2 3 4 R 0.5 3 1 4 R 2 4 1 2 C 2 5 2 3 R 1 6 3 4 L 4");//from MU///вход1
 
 
 

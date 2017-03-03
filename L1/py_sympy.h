@@ -34,6 +34,7 @@ string sympy_sep(string f1);
 string sympy_roo(string f1);
 string sympy_im(string f1);
 string sympy_re(string f1);
+string sympy_lim(string f1, string f2, string f3, string f4);
 
 class NEOPR_COEF;
 
