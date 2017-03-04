@@ -22,7 +22,7 @@ double atof1(string s)
 	myreplace(s, ".", ",");
 	for (int i = 0; i < s.length(); i++)
 	{
-		if ((s[i]<'0' || s[i]>'9') && s[i] != ','&& s[i] != '-')
+		if ((s[i]<'0' || s[i]>'9') && s[i] != ','&& s[i] != 'e'&& s[i] != 'E'&& s[i] != '-')
 		{
 			cout << "convert broken  " << s << " isnt number" << endl;
 			system("pause");

@@ -23,6 +23,7 @@
 
 #define SIGN_T 0
 #define SIGN_V 1
+#define SIGN_Z 100
 
 //using namespace itl;
 using namespace std;
@@ -1137,7 +1138,10 @@ public:
 
 		cout << "------------------------------" << endl;
 		cout << "------------------------------" << endl;
-		auto res = solveAXB(A, B);
+		
+		Vec res;
+		if(id_uzl.size()>0)
+			res= solveAXB(A, B);
 
 		cout << "------------------------------" << endl;
 		//cout << endl << "Res vector" << endl << res;
@@ -1359,170 +1363,8 @@ my_set_callback(PyObject *dummy, PyObject *args)
 	return result;
 }
 
-void print_ku(const EL_CHAIN &cha);
 
 
-
-void print_ku(const EL_CHAIN &cha)
-{
-	system("cls");
-	cout << "1. Анализ цепи во временной области." << endl;
-	cout << "1.1. Составить уравнения состояния цепи для t >= 0. " << endl;
-	cout << "Для составления уравнений состояния следует заменить L->ИТ C->ИН и выразить через них U/I для заменённых элементов" << endl;
-	cout << "Получившиеся I(t)/U(t) надо разделить на C/L чтобы получить U'(t)/I'(t)" << endl;
-	cout << "Результат можно записать в матричном виде:" << endl;
-	cout << "[f'пс(t)]=[A][fпс(t)]+[B][f1(t)]" << endl;
-	cout << "[A]:" << endl;
-	cout << cha.ur_so.A << endl;
-	cout << "[B]:" << endl;
-	cout << cha.ur_so.B << endl;
-
-
-	M_S f_str;
-
-
-	f_str.resize(cha.ur_so.id_cl.size(),1);
-	for (int i = 0; i < cha.ur_so.id_cl.size(); i++)
-	{
-		if (cha.el[cha.ur_so.id_cl[i]].t == EL_C)
-		{
-			f_str[i][0] = "C";
-		}
-		if (cha.el[cha.ur_so.id_cl[i]].t == EL_L)
-		{
-			f_str[i][0] = "L";
-		}
-		f_str[i][0] = f_str[i][0] + ftos(cha.ur_so.id_cl[i]) + "'(t)";
-	}
-
-
-
-	cout << "[f'пс(t)]:" << endl;
-	cout << f_str << endl;
-
-	f_str.resize(cha.ur_so.id_cl.size(), 1);
-	for (int i = 0; i < cha.ur_so.id_cl.size(); i++)
-	{
-		if (cha.el[cha.ur_so.id_cl[i]].t == EL_C)
-		{
-			f_str[i][0] = "C";
-		}
-		if (cha.el[cha.ur_so.id_cl[i]].t == EL_L)
-		{
-			f_str[i][0] = "L";
-		}
-		f_str[i][0] = f_str[i][0] + ftos(cha.ur_so.id_cl[i]) + "(t)";
-	}
-
-	cout << "[fпс(t)]:" << endl;
-	cout << f_str << endl;
-
-
-	f_str.resize(cha.ur_so.id_ui.size(), 1);
-	for (int i = 0; i < cha.ur_so.id_ui.size(); i++)
-	{
-		if (cha.el[cha.ur_so.id_ui[i]].t == EL_U)
-		{
-			f_str[i][0] = "U";
-		}
-		if (cha.el[cha.ur_so.id_ui[i]].t == EL_I)
-		{
-			f_str[i][0] = "I";
-		}
-		f_str[i][0] = f_str[i][0] + ftos(cha.ur_so.id_ui[i]) + "(t)";
-	}
-
-	cout << "[f1(t)]:" << endl;
-	cout << f_str << endl;
-
-
-	cout << "1.2. По уравнениям состояния аналитическим расчетом во временной области найти переходную характеристику h1(t) для реакции и построить ее график." << endl;
-
-	cout << "Для начала находим собственные числа матрицы A" << endl;
-	for (int i = 0; i < cha.per_s[0].lamd.size(); i++)
-		cout << "l" + ftos(i + 1) << "=" << comp_to_s(cha.per_s[0].lamd[i]) << endl;
-
-	cout << "Теперь мы знаем что реакция на б(t) имеет такой вид:" << endl;
-	cout << cha.obs_vid << endl;
-
-	cout << "Соответственно зная что переходные процессы затухают можно из уравнения состояния можно вычислить fпс(inf):" << endl;
-	cout << "ННУ дают возможность также вычислить fпс(0) f'пс(0)" << endl;
-	cout << "и составить такую систему линейных уравнений:" << endl;
-	cout << "A*fl1(0)+B*fl2(0)=fпс(0)-fпс(inf)" << endl;
-	cout << "A*fl1'(0)+B*fl2'(0)=fпс'(0)" << endl;
-
-	cout << "Соответственно решив данную систему для всех переменных состояния получаем:" << endl;
-	for (int i = 0; i < cha.per_s.size(); i++)
-		cout << cha.per_s[i].cool_str << endl;
-
-	cout << "Выразим требуемое I через переменные состояния и источник" << endl;
-	cout << ("h1(t)=I(t)=");
-
-
-	for (int i = 0; i < cha.ur_so.id_ui.size(); i++)
-	{
-		string temp;
-		if (cha.el[cha.ur_so.id_ui[i]].t == EL_U)
-		{
-			temp = "U";
-		}
-		if (cha.el[cha.ur_so.id_ui[i]].t == EL_I)
-		{
-			temp = "I";
-		}
-		temp = temp + ftos(cha.ur_so.id_ui[i]) + "(t)*("+ftos(cha.h1_1.k_u)+")";
-		cout << temp;
-	}
-	for (int i = 0; i < cha.h1_1.k_per_s.size(); i++)
-	{
-		string temp;
-		if (cha.el[cha.ur_so.id_cl[i]].t == EL_C)
-		{
-			temp = "U";
-		}
-		if (cha.el[cha.ur_so.id_cl[i]].t == EL_L)
-		{
-			temp = "I";
-		}
-		temp = "+" + temp + ftos(cha.ur_so.id_cl[i]) + "(t)*(" + ftos(cha.h1_1.k_per_s[i]) + ")";
-		cout << temp;
-	}
-	cout << endl;
-	cout << ("h1(t)=") << "("<<cha.h1_1.sym_str<<")*b1(t)";
-	cout << endl;
-
-
-	cout << "2. Анализ цепи операторным методом при действии одиночного импульса на входе." << endl;
-	cout << "2.1. В соответствии с номером выполняемого варианта определить функцию передачи напряжений или токов." << endl;
-	cout << "H1I(S):" << endl;
-	cout << cha.h1_2.str_l << endl;
-	cout << "2.2. Найти нули и полюсы функции передачи и показать их расположение на плоскости комплексной частоты. По значениям полюсов функции передачи дать заключение о характере и практической длительности переходного процесса. " << endl;
-
-	cout << "POL:";
-	for (int i = 0; i < cha.h1_2.v_polus.size(); i++)
-		cout << comp_to_s(cha.h1_2.v_polus[i])<<"  ";
-	cout << endl;
-
-	cout << "ZER:";
-	for (int i = 0; i < cha.h1_2.v_zero.size(); i++)
-		cout << comp_to_s(cha.h1_2.v_zero[i]);
-	cout << endl;
-
-	cout << "2.3. Определить переходную h1(t) характеристику цепи, сравнить с найденной в п. 1.2 задания. Проверить h1(0) и h1(inf) по аналитическому выражению h1(t) и непосредственно по схеме цепи." << endl;
-	cout << cha.h1_2.sym_str << endl;
-	cout << "2.4. Определить изображение по Лапласу входного одиночного импульса." << endl;
-	//
-	cout << "2.5. Определить изображение выходного сигнала и далее найти реакцию I2(t) или U2(t) во временной области. Построить графики входного и выходного сигналов на одном рисунке." << endl;
-	cout << "F2(S):" << endl;
-	cout << cha.f2_s << endl;
-	cout << "f2(t):" << endl;
-	cout << cha.f2_t << endl;
-
-
-
-
-
-}
 
 
 
@@ -1750,8 +1592,8 @@ private:
 			}
 			else
 			{
-				disable();
-				enable();
+				//disable();
+				//enable();
 				active = false;						// Program Is No Longer Active
 			}
 
@@ -1778,11 +1620,12 @@ private:
 
 		case WM_KEYDOWN:							// Is A Key Being Held Down?
 		{
+			if (wParam >= 0 && wParam < 256)
 			keys[wParam] = true;					// If So, Mark It As true
 			if (wParam == 910)
 			{
-				disable();
-				enable();
+				//disable();
+				//enable();
 			}
 			return 0;
 
@@ -1853,6 +1696,9 @@ private:
 
 	int InitGL(GLvoid)										// All Setup For OpenGL Goes Here
 	{
+		for (int i = 0; i < 256;i++)
+			keys[i] = 0;
+
 		glShadeModel(GL_SMOOTH);							// Enable Smooth Shading
 		glClearColor(1.0f, 0.0f, 0.0f, 0.5f);				// Black Background
 		glClearDepth(1.0f);									// Depth Buffer Setup
@@ -2539,6 +2385,110 @@ double pow10(int y)
 	}
 }
 
+EASY_TEX create_double_plot(int tx, int ty, vector<double> vx, vector<double> vy, vector<double> vz)
+{
+	double min_x, max_x, min_y, max_y;
+	max_x = vx[0];
+	min_x = vx[0];
+	max_y = vy[0];
+	min_y = vy[0];
+	for (int i = 0; i < vx.size(); i++)
+	{
+		if (vx[i] < min_x)
+			min_x = vx[i];
+		if (vx[i] > max_x)
+			max_x = vx[i];
+
+		if (vy[i] < min_y)
+			min_y = vy[i];
+		if (vy[i] > max_y)
+			max_y = vy[i];
+		if (vz[i] < min_y)
+			min_y = vz[i];
+		if (vz[i] > max_y)
+			max_y = vz[i];
+	}
+
+	min_x -= (max_x - min_x)*0.1;
+	min_y -= (max_y - min_y)*0.1;
+	max_x += (max_x - min_x) * 2 / tx;
+	max_y += (max_y - min_y) * 2 / ty;
+
+	EASY_TEX tex;
+	tex.resize(tx, ty);
+
+	for (int i = 0; i < tx; i++)
+		for (int r = 0; r < ty; r++)
+			tex.setpixel(i, r, 30, 30, 30);
+
+
+	//теперь выведем циферки и оси
+
+	double sx, sy;
+	int porx, pory;
+	sx = abs(max_x - min_x);
+	sy = abs(max_y - min_y);
+
+	porx = 10;//10^10
+	while (sx / pow1((double)10, porx) < 3 && porx < 100)
+		porx--;
+	pory = 10;//10^10
+	while (sy / pow1((double)10, pory) < 3 && pory < 100)
+		pory--;
+
+
+
+	float mnox = pow10(porx);
+	float mnoy = pow10(pory);
+
+	if (mnox != 0)
+		for (int i = min_x / mnox; i < max_x / mnox; i++)
+		{
+			tex.line((i * mnox - min_x) / sx * tx, 40, (i * mnox - min_x) / sx * tx, ty, 100, 100, 100);
+
+			if ((i * mnox - min_x) / sx * tx>20 && (i * mnox - min_x) / sx * tx < tx - 30)
+				tex.numbers((i * mnox - min_x) / sx * tx - 3, 20, ftos(i*mnox));
+		}
+	if (mnoy != 0)
+		for (int i = min_y / mnoy; i < max_y / mnoy; i++)
+		{
+			tex.line(20, (i * mnoy - min_y) / sy * ty, tx, (i * mnoy - min_y) / sy * ty, 100, 100, 100);
+
+			if ((i * mnoy - min_y) / sy * ty>20 && (i * mnoy - min_y) / sy * ty < ty - 30)
+				tex.numbers(4, (i * mnoy - min_y) / sy * ty + 5, ftos(i*mnoy));
+		}
+	//tex.numbers(30, 20, "111111");
+
+
+	for (int i = 1; i <vx.size(); i++)
+	{
+		double rx[2], ry[2];
+		double px[2], py[2];
+
+		for (int r = 0; r < 2; r++)
+		{
+			rx[r] = vx[i - 1 + r];
+			ry[r] = vy[i - 1 + r];
+			px[r] = (rx[r] - min_x) / (max_x - min_x)*tx;
+			py[r] = (ry[r] - min_y) / (max_y - min_y)*ty;
+		}
+		tex.line(px[0], py[0], px[1], py[1]);
+
+		for (int r = 0; r < 2; r++)
+		{
+			rx[r] = vx[i - 1 + r];
+			ry[r] = vz[i - 1 + r];
+			px[r] = (rx[r] - min_x) / (max_x - min_x)*tx;
+			py[r] = (ry[r] - min_y) / (max_y - min_y)*ty;
+		}
+		tex.line(px[0], py[0], px[1], py[1]);
+		//tex.numbers(px[0], py[0],ftos(py[0]));
+	}
+
+	return tex;
+
+}
+
 EASY_TEX create_plot(int tx, int ty, vector<double> vx, vector<double> vy, double min_x, double max_x, double min_y, double max_y)
 {
 
@@ -2744,6 +2694,8 @@ class COMP_2_RES
 public:
 	string f1_s, f1_t, f2_s, f2_t;
 	string h1_s, h1_t;
+	string s0, s9, s0s, s9s;
+	string h1_0, h1_9, h1_0s, h1_9s;
 	vector<complex<double>> v_polus, v_zero;
 };
 
@@ -2805,6 +2757,11 @@ COMP_2_RES comp_2(EL_CHAIN cha,int id_res,int t_s, double im, double ti)
 		cout << "hs:" << HS_9S << endl;
 		system("pause");
 	}
+
+	res.s0 = ftos(HS_0);
+	res.s9 = ftos(HS_9);
+	res.s0s = HS_0S;
+	res.s9s = HS_9S;
 
 	res.h1_t = crazy_alap(res.h1_s);
 	if (res.h1_t == "")
@@ -2903,6 +2860,25 @@ COMP_2_RES comp_2(EL_CHAIN cha,int id_res,int t_s, double im, double ti)
 		//cout << "\n" << b_l;
 	}
 
+	if (t_s == SIGN_Z)//cтупенька
+	{
+		a_t.resize(2);
+		a_l.resize(2);
+		a_res.resize(2);
+		t_sdv.resize(2);
+		//сдвиг по времени на программном уровне для более красивого вывода
+		a_t[0] = "Heaviside(t)*(" + ftos(im ) + ")";
+		t_sdv[0] = 0;
+		a_t[1] = "-Heaviside(t)* (" + ftos(im) + ")";
+		t_sdv[1] = ti;
+		//cout << "\n" << b_s;
+
+
+
+		//b_l = sympy_lap(b_s);
+		//cout << "\n" << b_l;
+	}
+
 
 	for (int i = 0; i < a_t.size(); i++)
 	{
@@ -2975,7 +2951,7 @@ COMP_2_RES comp_2(EL_CHAIN cha,int id_res,int t_s, double im, double ti)
 
 		myreplace(temp, "((t-" + ftos(t_sdv[i]) + "))", "(t-" + ftos(t_sdv[i]) + ")");
 
-		myreplace(temp, "Heaviside", "b1");
+		//myreplace(temp, "Heaviside", "b1");
 
 		if (i > 0)
 			res.f2_t += "+";
@@ -2985,7 +2961,62 @@ COMP_2_RES comp_2(EL_CHAIN cha,int id_res,int t_s, double im, double ti)
 		myreplace(a_res[i], "t", "(t-" + ftos(t_sdv[i]) + ")");
 	}
 
+	//Определить переходную ( ) 1 h t характеристику цепи, сравнить с найденной в п. 1.2 задания. 
+	//Проверить ( ) 1 0h и ( ) 1h ? по аналитическому выражению ( ) 1 h t и непосредственно по схеме цепи. 
 
+
+	cha_temp = cha;
+
+	cha_temp.replace_el(EL_L, EL_H);
+	cha_temp.replace_el(EL_C, EL_K);
+	cha_temp.replace_el(EL_U, EL_U, 1);
+	cha_temp.replace_el(EL_I, EL_I, 1);
+
+	cha_temp.comp_par_1_iu_uns();
+	double h1_0=cha.el[id_res].I;
+
+
+	cha_temp = cha;
+	cha_temp.replace_el(EL_L, EL_K);
+	cha_temp.replace_el(EL_C, EL_H);
+	cha_temp.replace_el(EL_U, EL_U, 1);
+	cha_temp.replace_el(EL_I, EL_I, 1);
+
+	cha_temp.comp_par_1_iu_uns();
+	double h1_9 = cha_temp.el[id_res].I;
+
+
+	string h1_0s = sympy_lim(res.h1_t, "t", "0", "+");
+	string h1_9s = sympy_lim(res.h1_t, "t", "oo", "-");
+
+
+	res.h1_0 = ftos(h1_0);
+	res.h1_9 = ftos(h1_9);
+	res.h1_0s = h1_0s;
+	res.h1_9s = h1_9s;
+
+
+	vector<double> vx(200);
+	vector<double> vy;
+	vector<double> vz;
+
+	vz.resize(vx.size());
+	vy.resize(vx.size());
+
+	for (int i = 0; i < vx.size(); i++)
+	{
+		vx[i] = i*ti*2/vx.size();
+		string s;
+		s = sympy_eva(res.f1_t, "t", ftos(vx[i]));
+		vy[i] = atof1(s);
+		s = sympy_eva(res.f2_t, "t", ftos(vx[i]));
+		vz[i] = atof1(s);
+	}
+
+	auto tex=create_double_plot(512,512,vx,vy,vz);
+	mtx.lock();
+	img.add(tex);
+	mtx.unlock();
 
 	return res;
 }
@@ -3078,6 +3109,16 @@ void comp_4(L_S H_S, string F1_T, string F1_S, double T)
 	//4.5.Дать заключение об искажении сигнала на выходе цепи.
 }
 
+class KU_INP
+{
+public:
+	string cha_str;
+	int el_id;
+	int t_sign;
+	double ts, as, T;
+};
+
+void print_ku(const EL_CHAIN &cha, const COMP_2_RES &res2);
 
 int main()
 {
@@ -3107,7 +3148,23 @@ int main()
 	mm[1][0] = 1;
 	//cout << mm;
 	//system("pause");
+	KU_INP input;
 
+	input.cha_str = "1 4 1 I 0  2 3 4 R 0.5  3 1 4 R 2  4 1 2 L 2  5 2 3 R 1  6 3 4 C 4";
+	input.el_id = 2;
+	input.t_sign = SIGN_T;
+	input.ts = 20;
+	input.as = 10;
+	input.T = 40;
+
+	/** /
+	input.cha_str = "1 1 4 U 0  2 2 4 R 1  3 1 3 R 1  4 3 4 R 1  5 1 3 L 1  6 3 2 L 0.25";//14 var
+	input.el_id = 2;
+	input.t_sign = SIGN_V;
+	input.ts = 5;
+	input.as = 3;
+	input.T = 10;
+	/**/
 
 
 	/*
@@ -3133,7 +3190,6 @@ int main()
 
 	//Сначала ввод входных данных
 
-	get_pol_coef("-s**2 - 33*s - 238");
 	//POLY p1, p2;
 	//	f = "(s**2 + 33*s + 238)/((1*s**3 +30*s**2 + 300*s + 1000))";
 	//p1 = get_pol_coef("s**2 + 33*s + 238");
@@ -3143,9 +3199,8 @@ int main()
 
 	//EL_CHAIN cha("1 1 5 U 0  2 1 2 R 0.0625  3 2 5 R 0.25  4 2 3 L 0.025  5 3 5 C 0.4  6 3 4 R 0.25  7 4 5 R 1");//from MU
 
-	//EL_CHAIN cha("1 4 1 I 0  2 3 4 R 0.5  3 1 4 R 2  4 1 2 L 2  5 2 3 R 1  6 3 4 C 4");//from MU
-	EL_CHAIN cha("1 4 1 I 0 2 3 4 R 0.5 3 1 4 R 2 4 1 2 C 2 5 2 3 R 1 6 3 4 L 4");//from MU///вход1
-
+	EL_CHAIN cha(input.cha_str);//from MU
+	
 
 
 	vector<double> vx, vy;
@@ -3159,7 +3214,7 @@ int main()
 	cha.comp_ur_so();
 
 	//h1 аналитически
-	cha.comp_h1(2);
+	cha.comp_h1(input.el_id);
 
 
 	double t_3;
@@ -3169,16 +3224,7 @@ int main()
 
 	t_3 *= 3;
 
-	for (int i = 0; i < vx.size(); i++)
-	{
-		vx[i] = i*t_3 / vx.size();
-		vy[i] = atof1(sympy_eva(cha.h1_1.sym_str,"t",ftos(vx[i])));
-	}
 
-	mtx.lock();
-	tex = create_plot(512, 256, vx, vy, 0, 0, 0, 0);
-	img.add(tex);
-	mtx.unlock();
 
 	//h1 по лаплассовски
 	
@@ -3187,14 +3233,26 @@ int main()
 	//cha.h1_2.sym_str = ((L_S)("(409600.0*s**2 + 4915200.0*s + 49152000.0)/(s*(128000.0*s**2 + 512000.0*s + 13312000.0))")).s;
 	sympy_lap("Heaviside(t)*(10)");
 	//H1  и какойто сигнал
-	auto res2=comp_2(cha,2,SIGN_T, 10, 20);
+	auto res2 = comp_2(cha, input.el_id, input.t_sign, input.as, input.ts);
 	///вход2
+
+	for (int i = 0; i < vx.size(); i++)
+	{
+		vx[i] = i*t_3 / vx.size();
+		vy[i] = atof1(sympy_eva(cha.h1_1.sym_str, "t", ftos(vx[i])));
+	}
+
+	mtx.lock();
+	tex = create_plot(512, 256, vx, vy, 0, 0, 0, 0);
+	img.add(tex);
+	mtx.unlock();
+
 
 
 	for (int i = 0; i < vx.size(); i++)
 	{
-		vx[i] = i*40.0 / vx.size();
-		vy[i] = atof1(sympy_eva(res2.f1_t, "t", ftos(vx[i])));
+		vx[i] = i*t_3 / vx.size();
+		vy[i] = atof1(sympy_eva(res2.h1_t, "t", ftos(vx[i])));
 		//cout <<vx[i]<<"  "<< sympy_eva(cha.f1_t, "t", ftos(vx[i]))<<endl;
 	}
 
@@ -3203,14 +3261,14 @@ int main()
 	img.add(tex);
 	mtx.unlock();
 
+
 	comp_3(res2.h1_s*(L_S)"s", res2.f1_t, res2.f1_s);
 
-	comp_4(res2.h1_s*(L_S)"s", res2.f1_t, res2.f1_s, 40);
+	comp_4(res2.h1_s*(L_S)"s", res2.f1_t, res2.f1_s, input.T);
 
 
 
-	//print_ku(cha);
-
+	print_ku(cha, res2);
 
 
 
@@ -3221,6 +3279,208 @@ int main()
 	//cha.comp_ur_so();
 	//cha.comp_h1(0);
 
-	system("pause");
+	cout << "press Enter";
+	
+	char ch = 0;
+	do
+	{
+		if (kbhit())
+			ch = getch();
+	} while (ch != 13);
 	return 0;
+}
+
+
+
+
+void print_ku(const EL_CHAIN &cha, const COMP_2_RES &res2)
+{
+	system("cls");
+	cout << "1. Анализ цепи во временной области." << endl;
+	cout << "1.1. Составить уравнения состояния цепи для t >= 0. " << endl;
+	cout << "Для составления уравнений состояния следует заменить L->ИТ C->ИН и выразить через них U/I для заменённых элементов" << endl;
+	cout << "Получившиеся I(t)/U(t) надо разделить на C/L чтобы получить U'(t)/I'(t)" << endl;
+	cout << "Результат можно записать в матричном виде:" << endl;
+	cout << "[f'пс(t)]=[A][fпс(t)]+[B][f1(t)]" << endl;
+	cout << "[A]:" << endl;
+	cout << cha.ur_so.A << endl;
+	cout << "[B]:" << endl;
+	cout << cha.ur_so.B << endl;
+
+
+	M_S f_str;
+
+
+	f_str.resize(cha.ur_so.id_cl.size(), 1);
+	for (int i = 0; i < cha.ur_so.id_cl.size(); i++)
+	{
+		if (cha.el[cha.ur_so.id_cl[i]].t == EL_C)
+		{
+			f_str[i][0] = "C";
+		}
+		if (cha.el[cha.ur_so.id_cl[i]].t == EL_L)
+		{
+			f_str[i][0] = "L";
+		}
+		f_str[i][0] = f_str[i][0] + ftos(cha.ur_so.id_cl[i]) + "'(t)";
+	}
+
+
+
+	cout << "[f'пс(t)]:" << endl;
+	cout << f_str << endl;
+
+	f_str.resize(cha.ur_so.id_cl.size(), 1);
+	for (int i = 0; i < cha.ur_so.id_cl.size(); i++)
+	{
+		if (cha.el[cha.ur_so.id_cl[i]].t == EL_C)
+		{
+			f_str[i][0] = "C";
+		}
+		if (cha.el[cha.ur_so.id_cl[i]].t == EL_L)
+		{
+			f_str[i][0] = "L";
+		}
+		f_str[i][0] = f_str[i][0] + ftos(cha.ur_so.id_cl[i]) + "(t)";
+	}
+
+	cout << "[fпс(t)]:" << endl;
+	cout << f_str << endl;
+
+
+	f_str.resize(cha.ur_so.id_ui.size(), 1);
+	for (int i = 0; i < cha.ur_so.id_ui.size(); i++)
+	{
+		if (cha.el[cha.ur_so.id_ui[i]].t == EL_U)
+		{
+			f_str[i][0] = "U";
+		}
+		if (cha.el[cha.ur_so.id_ui[i]].t == EL_I)
+		{
+			f_str[i][0] = "I";
+		}
+		f_str[i][0] = f_str[i][0] + ftos(cha.ur_so.id_ui[i]) + "(t)";
+	}
+
+	cout << "[f1(t)]:" << endl;
+	cout << f_str << endl;
+
+
+	cout << "1.2. По уравнениям состояния аналитическим расчетом во временной области найти переходную характеристику h1(t) для реакции и построить ее график." << endl;
+
+	cout << "Для начала находим собственные числа матрицы A" << endl;
+	for (int i = 0; i < cha.per_s[0].lamd.size(); i++)
+		cout << "l" + ftos(i + 1) << "=" << comp_to_s(cha.per_s[0].lamd[i]) << endl;
+
+	cout << "Теперь мы знаем что реакция на б(t) имеет такой вид:" << endl;
+	cout << cha.obs_vid << endl;
+
+	cout << "Соответственно зная что переходные процессы затухают можно из уравнения состояния можно вычислить fпс(inf):" << endl;
+	cout << "ННУ дают возможность также вычислить fпс(0) f'пс(0)" << endl;
+	cout << "и составить такую систему линейных уравнений:" << endl;
+	cout << "A*fl1(0)+B*fl2(0)=fпс(0)-fпс(inf)" << endl;
+	cout << "A*fl1'(0)+B*fl2'(0)=fпс'(0)" << endl;
+
+	cout << "Соответственно решив данную систему для всех переменных состояния получаем:" << endl;
+	for (int i = 0; i < cha.per_s.size(); i++)
+		cout << cha.per_s[i].cool_str << endl;
+
+	cout << "Выразим требуемое I через переменные состояния и источник" << endl;
+	cout << ("h1(t)=I(t)=");
+
+
+	for (int i = 0; i < cha.ur_so.id_ui.size(); i++)
+	{
+		string temp;
+		if (cha.el[cha.ur_so.id_ui[i]].t == EL_U)
+		{
+			temp = "U";
+		}
+		if (cha.el[cha.ur_so.id_ui[i]].t == EL_I)
+		{
+			temp = "I";
+		}
+		temp = temp + ftos(cha.ur_so.id_ui[i]) + "(t)*(" + ftos(cha.h1_1.k_u) + ")";
+		cout << temp;
+	}
+	for (int i = 0; i < cha.h1_1.k_per_s.size(); i++)
+	{
+		string temp;
+		if (cha.el[cha.ur_so.id_cl[i]].t == EL_C)
+		{
+			temp = "U";
+		}
+		if (cha.el[cha.ur_so.id_cl[i]].t == EL_L)
+		{
+			temp = "I";
+		}
+		temp = "+" + temp + ftos(cha.ur_so.id_cl[i]) + "(t)*(" + ftos(cha.h1_1.k_per_s[i]) + ")";
+		cout << temp;
+	}
+	cout << endl;
+	cout << ("h1(t)=") << "(" << cha.h1_1.sym_str << ")*b1(t)";
+	cout << endl;
+
+
+	cout << "2. Анализ цепи операторным методом при действии одиночного импульса на входе." << endl;
+	cout << "2.1. В соответствии с номером выполняемого варианта определить функцию передачи напряжений или токов. Осуществить проверку функции передачи при s = 0 и ; s -> inf представить соответствующие этим значениям схемы замещения цепи. " << endl;
+	cout << "H1I(S):" << endl;
+	cout << res2.h1_s << endl;
+
+	cout << "H1I(0):" << endl;
+	cout << res2.s0 << endl;
+
+	cout << "H1I(0) по схеме:" << endl;
+	cout << res2.s0 << endl;
+
+	cout << "H1I(inf):" << endl;
+	cout << res2.s9s << endl;
+
+	cout << "H1I(inf) по схеме:" << endl;
+	cout << res2.s9 << endl;
+
+
+	cout << "2.2. Найти нули и полюсы функции передачи и показать их расположение на плоскости комплексной частоты. По значениям полюсов функции передачи дать заключение о характере и практической длительности переходного процесса. " << endl;
+
+	cout << "POL:";
+	for (int i = 0; i < res2.v_polus.size(); i++)
+		cout << comp_to_s(res2.v_polus[i]) << "  ";
+	cout << endl;
+
+	cout << "ZER:";
+	for (int i = 0; i < res2.v_zero.size(); i++)
+		cout << comp_to_s(res2.v_zero[i]);
+	cout << endl;
+
+	cout << "2.3. Определить переходную h1(t) характеристику цепи, сравнить с найденной в п. 1.2 задания. Проверить h1(0) и h1(inf) по аналитическому выражению h1(t) и непосредственно по схеме цепи." << endl;
+	cout << res2.h1_t << endl;
+
+	cout << "h1I(0):" << endl;
+	cout << res2.h1_0s << endl;
+
+	cout << "h1I(0) по схеме:" << endl;
+	cout << res2.h1_0 << endl;
+
+	cout << "h1I(inf):" << endl;
+	cout << res2.h1_9s << endl;
+
+	cout << "h1I(inf) по схеме:" << endl;
+	cout << res2.h1_9 << endl;
+
+	cout << "2.4. Определить изображение по Лапласу входного одиночного импульса." << endl;
+	cout << "F1(S):" << endl;
+	cout << res2.f1_s << endl;
+	cout << "f1(t):" << endl;
+	cout << res2.f1_t << endl;
+
+	cout << "2.5. Определить изображение выходного сигнала и далее найти реакцию I2(t) или U2(t) во временной области. Построить графики входного и выходного сигналов на одном рисунке." << endl;
+	cout << "F2(S):" << endl;
+	cout << res2.f2_s << endl;
+	cout << "f2(t):" << endl;
+	cout << res2.f2_t << endl;
+
+
+
+
+
 }
