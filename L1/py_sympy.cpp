@@ -774,7 +774,9 @@ string sympy_lim(string f1, string f2, string f3, string f4)
 		char *s = "";
 		if (res != nullptr)
 			s = PyUnicode_AsUTF8(res);
-		return s;
+		string ss = s;
+		myreplace(ss, "inf", "oo");
+		return ss;
 	}
 	else
 	{

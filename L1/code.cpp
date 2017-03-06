@@ -22,7 +22,11 @@
 #define EL_C 6
 
 #define SIGN_T 0
+#define SIGN_A 1
+#define SIGN_B 1
 #define SIGN_V 1
+#define SIGN_G 1
+#define SIGN_D 1
 #define SIGN_Z 100
 
 //using namespace itl;
@@ -2514,8 +2518,8 @@ EASY_TEX create_plot(int tx, int ty, vector<double> vx, vector<double> vy, doubl
 
 		min_x -= (max_x - min_x)*0.1;
 		min_y -= (max_y - min_y)*0.1;
-		max_x += (max_x - min_x)*2/tx;
-		max_y += (max_y - min_y)*2/ty;
+		max_x += (max_x - min_x) * 2 / tx;
+		max_y += (max_y - min_y) * 2 / ty;
 
 	}
 
@@ -2531,15 +2535,15 @@ EASY_TEX create_plot(int tx, int ty, vector<double> vx, vector<double> vy, doubl
 	//теперь выведем циферки и оси
 
 	double sx, sy;
-	int porx,pory;
+	int porx, pory;
 	sx = abs(max_x - min_x);
 	sy = abs(max_y - min_y);
 
 	porx = 10;//10^10
-	while (sx/pow1((double)10, porx) < 3 && porx < 100)
+	while (sx / pow1((double)10, porx) < 3 && porx < 100)
 		porx--;
 	pory = 10;//10^10
-	while (sy/pow1((double)10, pory) < 3 && pory < 100)
+	while (sy / pow1((double)10, pory) < 3 && pory < 100)
 		pory--;
 
 
@@ -2548,21 +2552,21 @@ EASY_TEX create_plot(int tx, int ty, vector<double> vx, vector<double> vy, doubl
 	float mnoy = pow10(pory);
 
 	if (mnox != 0)
-	for (int i = min_x / mnox; i < max_x / mnox; i++)
-	{
-		tex.line((i * mnox - min_x) / sx * tx, 40, (i * mnox - min_x) / sx * tx, ty, 100, 100, 100);
+		for (int i = min_x / mnox; i < max_x / mnox; i++)
+		{
+			tex.line((i * mnox - min_x) / sx * tx, 40, (i * mnox - min_x) / sx * tx, ty, 100, 100, 100);
 
-		if ((i * mnox - min_x) / sx * tx>20 && (i * mnox - min_x) / sx * tx < tx - 30)
-			tex.numbers((i * mnox - min_x) / sx * tx - 3, 20, ftos(i*mnox));
-	}
-	if (mnoy!=0)
-	for (int i = min_y / mnoy; i < max_y / mnoy; i++)
-	{
-		tex.line(20, (i * mnoy - min_y) / sy * ty, tx, (i * mnoy - min_y) / sy * ty, 100, 100, 100);
+			if ((i * mnox - min_x) / sx * tx>20 && (i * mnox - min_x) / sx * tx < tx - 30)
+				tex.numbers((i * mnox - min_x) / sx * tx - 3, 20, ftos(i*mnox));
+		}
+	if (mnoy != 0)
+		for (int i = min_y / mnoy; i < max_y / mnoy; i++)
+		{
+			tex.line(20, (i * mnoy - min_y) / sy * ty, tx, (i * mnoy - min_y) / sy * ty, 100, 100, 100);
 
-		if ((i * mnoy - min_y) / sy * ty>20 && (i * mnoy - min_y) / sy * ty < ty - 30)
-			tex.numbers(4, (i * mnoy - min_y) / sy * ty + 5, ftos(i*mnoy));
-	}
+			if ((i * mnoy - min_y) / sy * ty>20 && (i * mnoy - min_y) / sy * ty < ty - 30)
+				tex.numbers(4, (i * mnoy - min_y) / sy * ty + 5, ftos(i*mnoy));
+		}
 	//tex.numbers(30, 20, "111111");
 
 
@@ -2579,6 +2583,115 @@ EASY_TEX create_plot(int tx, int ty, vector<double> vx, vector<double> vy, doubl
 			py[r] = (ry[r] - min_y) / (max_y - min_y)*ty;
 		}
 		tex.line(px[0], py[0], px[1], py[1]);
+		//tex.numbers(px[0], py[0],ftos(py[0]));
+	}
+
+	return tex;
+}
+
+
+EASY_TEX create_diskr_plot(int tx, int ty, vector<double> vx, vector<double> vy, double min_x, double max_x, double min_y, double max_y)
+{
+
+
+	if (min_x == min_y)
+	{
+		max_x = vx[0];
+		min_x = vx[0];
+		max_y = vy[0];
+		min_y = vy[0];
+		for (int i = 0; i < vx.size(); i++)
+		{
+			if (vx[i] < min_x)
+				min_x = vx[i];
+			if (vx[i] > max_x)
+				max_x = vx[i];
+
+			if (vy[i] < min_y)
+				min_y = vy[i];
+			if (vy[i] > max_y)
+				max_y = vy[i];
+		}
+
+		if (min_y > 0)
+			min_y = 0;
+
+		max_x += 0.5;
+		min_x -= (max_x - min_x)*0.1;
+		min_y -= (max_y - min_y)*0.1;
+		max_x += (max_x - min_x) * 0.05;
+		max_y += (max_y - min_y) * 0.05;
+
+
+	}
+
+
+	EASY_TEX tex;
+	tex.resize(tx, ty);
+
+	for (int i = 0; i < tx; i++)
+		for (int r = 0; r < ty; r++)
+			tex.setpixel(i, r, 30, 30, 30);
+
+
+	//теперь выведем циферки и оси
+
+	double sx, sy;
+	int porx, pory;
+	sx = abs(max_x - min_x);
+	sy = abs(max_y - min_y);
+
+	porx = 10;//10^10
+	while (sx / pow1((double)10, porx) < 3 && porx < 100)
+		porx--;
+	pory = 10;//10^10
+	while (sy / pow1((double)10, pory) < 3 && pory < 100)
+		pory--;
+
+
+
+	float mnox = pow10(porx);
+	float mnoy = pow10(pory);
+
+	if (mnox != 0)
+		for (int i = min_x / mnox; i < max_x / mnox; i++)
+		{
+			tex.line((i * mnox - min_x) / sx * tx, 40, (i * mnox - min_x) / sx * tx, ty, 100, 100, 100);
+
+			if ((i * mnox - min_x) / sx * tx>20 && (i * mnox - min_x) / sx * tx < tx - 30)
+				tex.numbers((i * mnox - min_x) / sx * tx - 3, 20, ftos(i*mnox));
+		}
+	if (mnoy != 0)
+		for (int i = min_y / mnoy; i < max_y / mnoy; i++)
+		{
+			tex.line(20, (i * mnoy - min_y) / sy * ty, tx, (i * mnoy - min_y) / sy * ty, 100, 100, 100);
+
+			if ((i * mnoy - min_y) / sy * ty>20 && (i * mnoy - min_y) / sy * ty < ty - 30)
+				tex.numbers(4, (i * mnoy - min_y) / sy * ty + 5, ftos(i*mnoy));
+		}
+	//tex.numbers(30, 20, "111111");
+
+
+	for (int i = 0; i <vx.size(); i++)
+	{
+		double rx[2], ry[2];
+		double px[2], py[2];
+
+		for (int r = 1; r < 2; r++)
+		{
+			rx[r] = vx[i - 1 + r];
+			ry[r] = vy[i - 1 + r];
+			px[r] = (rx[r] - min_x) / (max_x - min_x)*tx;
+			py[r] = (ry[r] - min_y) / (max_y - min_y)*ty;
+		}
+		px[0] = (vx[i] - min_x) / (max_x - min_x)*tx;
+		py[0] = (0 - min_y) / (max_y - min_y)*ty;
+		tex.line(px[0], py[0], px[1], py[1]);
+		for (int r = 0; r < 12; r++)
+		{
+			tex.line(px[1] + sin(r / 12.0 * M_PI * 2) * 3, py[1] + cos(r / 12.0 * M_PI * 2) * 3,
+				px[1] + sin((r + 1) / 12.0 * M_PI * 2) * 3, py[1] + cos((r + 1) / 12.0 * M_PI * 2) * 3);
+		}
 		//tex.numbers(px[0], py[0],ftos(py[0]));
 	}
 
@@ -3021,7 +3134,7 @@ COMP_2_RES comp_2(EL_CHAIN cha,int id_res,int t_s, double im, double ti)
 	return res;
 }
 
-void comp_3(L_S H_S, string F1_T, string F1_S)
+void comp_3(L_S H_S, string F1_T, string F1_S,int sgn_t,int sgn_time)
 {
 	//H_S это переходная функция тока в лапласе
 
@@ -3084,8 +3197,27 @@ void comp_3(L_S H_S, string F1_T, string F1_S)
 
 }
 
-void comp_4(L_S H_S, string F1_T, string F1_S, double T)
+class COMP_4_RES
 {
+public:
+	string Ak;
+	string f1_A, f1_F;
+	string f2_A, f2_F;
+	string h1_A, h1_F;
+	string s0, s9, s0s, s9s;
+	string h1_0, h1_9, h1_0s, h1_9s;
+	vector<complex<double>> v_polus, v_zero;
+};
+
+COMP_4_RES comp_4(L_S H_S, string F1_T, string F1_S, double T)
+{
+	vector<double> vx;
+	vector<double> vy;
+	vector<double> vz;
+
+	EASY_TEX tex;
+	COMP_4_RES res;
+
 	cout << F1_T << endl;
 	cout << F1_S << endl;
 	//H_S это переходная функция тока в лапласе
@@ -3097,16 +3229,314 @@ void comp_4(L_S H_S, string F1_T, string F1_S, double T)
 
 	string ACH = "sqrt((" + H_IM + ")**2+(" + H_RE + ")**2)";
 	string FCH = "atan((" + H_IM + ")/(" + H_RE + "))-Heaviside(-(" + H_RE + "))*pi";
+
+	string F1_JW = sympy_eva(F1_S, "s", "I*w*k");
+	string F1_K = sympy_eva("("+ftos(2/T)+")*("+F1_JW+")", "w", ftos(2 * M_PI / T));
+
+	string A1_IM = sympy_im(F1_K);
+	string A1_RE = sympy_re(F1_K);
+
+
 	
+
 	//4.1.Разложить в ряд Фурье заданный входной периодический сигнал.Построить его амплитудный и фазовый дискретные спектры. 
+	res.f1_A = "sqrt((" + A1_IM + ")**2+(" + A1_RE + ")**2)";
+	res.f1_F = "atan((" + A1_IM + ")/(" + A1_RE + "))-Heaviside(-(" + A1_RE + "))*pi";
+
+	vector<double> arr_IM(50);
+	vector<double> arr_RE(50);
+	
+	for (int i = 0; i < arr_IM.size(); i++)
+	{
+		string temp;
+		if (i != 0)
+			temp = sympy_eva(F1_K, "k", ftos(i));
+		else
+			temp = sympy_lim(F1_K, "k", ftos(0.001),"+");//иногда степени ехр различаются на 0.0000001 и из-за этого вылезает оо
+
+		arr_RE[i] = atof1(sympy_re(temp));
+		if (arr_RE[i] != 0)
+			arr_IM[i] = atof1(sympy_im(temp));
+		else
+			arr_IM[i] = 0;
+
+	}
+
+	vector<double> arr_A1_A(50);
+	vector<double> arr_A1_F(50);
+
+	for (int i = 0; i < arr_IM.size(); i++)
+	{
+		arr_A1_A[i] = sqrt(arr_IM[i] * arr_IM[i] + arr_RE[i] * arr_RE[i]);
+		arr_A1_F[i] = atan(arr_IM[i] / arr_RE[i]);
+		if (arr_RE[i] < 0)
+			arr_A1_F[i] += M_PI;
+
+		float f = arr_A1_F[i];
+
+
+		if (f < 0)
+		{
+			int ss = 1;
+			while (f < 0)
+			{
+				f = f + M_PI * 2 * ss;
+				ss = ss << 1;
+			}
+		}
+
+		int shag = 1;
+		while (f > shag * 2 * M_PI)
+		{
+			shag <<= 1;
+		}
+
+		while (shag >= 1)
+		{
+			shag >>= 1;
+
+			if (f - M_PI * 2 * shag > 0)
+				f = f - M_PI * 2 * shag;
+		}
+
+		arr_A1_F[i] = f;
+	}
+
+
+	double Amax = 0;
+
+	for (int i = 1; i < arr_IM.size(); i++)
+	{
+		if (arr_A1_A[i]>Amax)
+			Amax = arr_A1_A[i];
+	}
+
+	int lev = 1;
+
+	for (int i = 0; i < arr_IM.size(); i++)
+	{
+		if (arr_A1_A[i] * 10 > Amax)
+			lev = i+1;
+		if (arr_A1_A[i] * 10000 < Amax)
+		{
+			arr_A1_A[i] = 0;
+			arr_A1_F[i] = 0;
+		}
+	}
+
+	vx.resize(lev);
+	for (int i = 0; i < lev; i++)
+		vx[i] = i;
+	tex = create_diskr_plot(512, 512, vx, arr_A1_A, 0, 0, 0, 0);
+	mtx.lock();
+	img.add(tex);
+	mtx.unlock();
+
+
+	vx.resize(lev);
+	for (int i = 0; i < lev; i++)
+		vx[i] = i;
+	tex = create_diskr_plot(512, 512, vx, arr_A1_F, 0, 0, 0, 0);
+	mtx.lock();
+	img.add(tex);
+	mtx.unlock();
 	//4.2.Построить на одном графике заданный входной периодический сигнал и его аппроксимацию отрезком ряда Фурье.Число гармоник 
 	//отрезка ряда Фурье определяется по уровню 0, 1 km A, где km A – максимальная составляющая амплитудного спектра, 
 	//или по другому критерию, предложенному преподавателем. 
+
+
+	vx.resize(200);
+
+	vz.resize(vx.size());
+	vy.resize(vx.size());
+
+	for (int i = 0; i < vx.size(); i++)
+	{
+		vx[i] = i*T / vx.size();
+		string s;
+		s = sympy_eva(F1_T, "t", ftos(vx[i]));
+		vy[i] = atof1(s);
+
+		double fr = arr_A1_A[0]/2;
+		for (int r = 1; r < lev; r++)//есть способ лучше но и так сойдёт ещё можно протейлорить косинус
+		{
+			double temp;
+			temp = 1 / T * 2 * r *M_PI* vx[i] + arr_A1_F[r];
+			temp= cos(1 / T * 2 * r *M_PI* vx[i] + arr_A1_F[r]);
+			fr = fr + arr_A1_A[r] * cos(1 / T * 2 * r *M_PI* vx[i] + arr_A1_F[r]);
+		}
+		//s = fr;
+		vz[i] = fr;
+	}
+
+	tex = create_double_plot(512, 512, vx, vy, vz);
+	mtx.lock();
+	img.add(tex);
+	mtx.unlock();
+
 	//4.3.Используя рассчитанные в п. 3.1 задания АЧХ и ФЧХ, найти реакцию цепи в виде отрезка ряда Фурье с 
 	//числом гармоник, определенным для входного сигнала. 
+
+	vector<double> arr_A2_A(50);
+	vector<double> arr_A2_F(50);
+
+	for (int r = 0; r < lev; r++)
+	{
+		double HA, HF;
+		HA = 0;
+		HF = 0;
+		if (r > 0)
+		{
+			HA = atof1(sympy_eva(ACH, "w", ftos(r*M_PI * 2 / T)));
+			HF = atof1(sympy_eva(FCH, "w", ftos(r*M_PI * 2 / T)));
+		}
+		else
+		{
+			HA = atof1(sympy_eva(ACH, "w", ftos(0.001*M_PI * 2 / T)));
+			HF = atof1(sympy_eva(FCH, "w", ftos(0.001*M_PI * 2 / T)));
+		}
+
+		float f = HF;
+
+
+		if (f < 0)
+		{
+			int ss = 1;
+			while (f < 0)
+			{
+				f = f + M_PI * 2 * ss;
+				ss = ss << 1;
+			}
+		}
+
+		int shag = 1;
+		while (f > shag * 2 * M_PI)
+		{
+			shag <<= 1;
+		}
+
+		while (shag >= 1)
+		{
+			shag >>= 1;
+
+			if (f - M_PI * 2 * shag > 0)
+				f = f - M_PI * 2 * shag;
+		}
+
+		HF = f;
+
+		//if (r > 0)
+		//{
+		//	arr_A2_A[r] = arr_A1_A[r] * HA;
+		//	arr_A2_F[r] = arr_A1_F[r] + HF;
+		//}
+		//else
+		{
+			arr_A2_A[r] = arr_A1_A[r] * HA;
+			arr_A2_F[r] = arr_A1_F[r] + HF;
+
+			float f = arr_A2_F[r];
+
+
+			if (f < 0)
+			{
+				int ss = 1;
+				while (f < 0)
+				{
+					f = f + M_PI * 2 * ss;
+					ss = ss << 1;
+				}
+			}
+
+			int shag = 1;
+			while (f > shag * 2 * M_PI)
+			{
+				shag <<= 1;
+			}
+
+			while (shag >= 1)
+			{
+				shag >>= 1;
+
+				if (f - M_PI * 2 * shag > 0)
+					f = f - M_PI * 2 * shag;
+			}
+
+			arr_A2_F[r] = f;
+			/*
+			double val = 0;
+			if (HF > M_PI / 2 && HF < 3 * M_PI / 2)
+				val = val - HA;
+			else
+				val = val + HA;
+
+			if (arr_A2_F[r] > M_PI / 2 && arr_A2_F[r] < 3 * M_PI / 2)
+				val = val - arr_A2_A[r];
+			else
+				val = val + arr_A2_A[r];
+
+			arr_A2_A[r] = abs(val);
+			if (val>=0)
+				arr_A2_F[r] = 0;
+			else
+				arr_A2_F[r] = M_PI;
+				*/
+
+		}
+
+	}
+
+
+	vx.resize(lev);
+	for (int i = 0; i < lev; i++)
+		vx[i] = i;
+	tex = create_diskr_plot(512, 512, vx, arr_A2_A, 0, 0, 0, 0);
+	mtx.lock();
+	img.add(tex);
+	mtx.unlock();
+
+
+	vx.resize(lev);
+	for (int i = 0; i < lev; i++)
+		vx[i] = i;
+	tex = create_diskr_plot(512, 512, vx, arr_A2_F, 0, 0, 0, 0);
+	mtx.lock();
+	img.add(tex);
+	mtx.unlock();
+
+	vx.resize(100);
+
+	for (int i = 0; i < vx.size(); i++)
+	{
+		vx[i] = i*T / vx.size();
+		//string s;
+		//s = sympy_eva(F2_T, "t", ftos(vx[i]));
+		//vy[i] = atof1(s);
+
+		double fr;
+		fr = arr_A2_A[0] / 2;
+		for (int r = 1; r < lev; r++)
+		{
+			double temp;
+			temp = 1 / T * 2 * r *M_PI* vx[i] + arr_A2_F[r];
+			temp = cos(1 / T * 2 * r *M_PI* vx[i] + arr_A2_F[r]);
+			fr = fr + arr_A2_A[r] * cos(1 / T * 2 * r *M_PI* vx[i] + arr_A2_F[r]);
+		}
+		//s = fr;
+		vz[i] = fr;
+	}
+
+	tex = create_plot(512, 512, vx, vz,0,0,0,0);
+	mtx.lock();
+	img.add(tex);
+	mtx.unlock();
+
 	//4.4.Построить амплитудный и фазовый дискретные спектры выходного сигнала.Построить график 
 	//выходного сигнала, найденного в п. 4.3 задания, в одном масштабе рядом с графиком аппроксимированного входного сигнала. 
 	//4.5.Дать заключение об искажении сигнала на выходе цепи.
+
+
+	return res;
 }
 
 class KU_INP
@@ -3150,6 +3580,14 @@ int main()
 	//system("pause");
 	KU_INP input;
 
+
+	//comp_4(
+	//	(string)"2.0/(4.0*s**2 + 8.0*s + 3.5)",
+	//	"0+(Heaviside((t-(0)))*(10))+(-Heaviside((t-(10))) * 2 * (10))+(Heaviside((t-(20)))*(10))",
+	//	"0+(10/s)*exp(-s*(0))+(-20/s)*exp(-s*(10))+(10/s)*exp(-s*(20))",
+	//	40);
+
+
 	input.cha_str = "1 4 1 I 0  2 3 4 R 0.5  3 1 4 R 2  4 1 2 L 2  5 2 3 R 1  6 3 4 C 4";
 	input.el_id = 2;
 	input.t_sign = SIGN_T;
@@ -3157,7 +3595,8 @@ int main()
 	input.as = 10;
 	input.T = 40;
 
-	/** /
+
+	/**/
 	input.cha_str = "1 1 4 U 0  2 2 4 R 1  3 1 3 R 1  4 3 4 R 1  5 1 3 L 1  6 3 2 L 0.25";//14 var
 	input.el_id = 2;
 	input.t_sign = SIGN_V;
@@ -3262,9 +3701,9 @@ int main()
 	mtx.unlock();
 
 
-	comp_3(res2.h1_s*(L_S)"s", res2.f1_t, res2.f1_s);
+	comp_3(res2.h1_s*(L_S)"s", res2.f1_t, res2.f1_s,input.t_sign,input.ts);
 
-	comp_4(res2.h1_s*(L_S)"s", res2.f1_t, res2.f1_s, input.T);
+	auto res4 = comp_4(res2.h1_s*(L_S)"s", res2.f1_t, res2.f1_s, input.T);
 
 
 
@@ -3486,3 +3925,7 @@ void print_ku(const EL_CHAIN &cha, const COMP_2_RES &res2)
 
 
 }
+
+
+
+
