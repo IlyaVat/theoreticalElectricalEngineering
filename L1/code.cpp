@@ -21,12 +21,12 @@
 #define EL_L 5
 #define EL_C 6
 
-#define SIGN_T 0
+#define SIGN_T 5
 #define SIGN_A 1
-#define SIGN_B 1
-#define SIGN_V 1
-#define SIGN_G 1
-#define SIGN_D 1
+#define SIGN_B 2
+#define SIGN_V 3
+#define SIGN_G 4
+#define SIGN_D 5
 #define SIGN_Z 100
 
 //using namespace itl;
@@ -447,7 +447,7 @@ public:
 			for (int r = 0; r < ur_so.id_cl.size(); r++)
 			{
 				int id2 = ur_so.id_cl[r];
-				int id = ur_so.id_cl[i];//unused
+				//int id = ur_so.id_cl[i];//unused
 
 				if (el[id2].t == 5)//I
 				{
@@ -1230,40 +1230,28 @@ public:
 				int count = 0;
 				for (int r = 0; r < el.size(); r++)
 					if (el[r].p1 != el[r].p2)
-					{
-						if (el[r].p1 == i)
+						if (el[r].p1 == i || el[r].p2 == i)
 						{
 
-							if (el[r].t == 0 && comp[r] == 0 || el[r].t == 4)
-								if (comp[r] == 0)
-								{
-									unk_el = r;
-									count++;
-								}
-
-							if (el[r].t == 2 || el[r].t == 0 && comp[r] == 1)
-							{
-								i_u += el[r].I;
-							}
-
-						}
-						if (el[r].p2 == i)
-						{
-
-							if (el[r].t == 0 && comp[r] == 0 || el[r].t == 4)
+							if (comp[r] == 0 && (el[r].t == EL_K || el[r].t == EL_U))
 							{
 								unk_el = r;
 								count++;
 							}
 
-							if (el[r].t == 2 || el[r].t == 3 || el[r].t == 0 && comp[r] == 1)
+							if (el[r].t == EL_R || el[r].t == EL_I || comp[r] == 1 && (el[r].t == EL_K || el[r].t == EL_U))
 							{
-								i_u -= el[r].I;
+								if (el[r].p1 == i)
+								{
+									i_u += el[r].I;
+								}
+								if (el[r].p2 == i)
+								{
+									i_u -= el[r].I;
+								}
 							}
 
-
 						}
-					}
 				if (count == 1)
 				{
 					comp[unk_el] = 1;
@@ -2931,7 +2919,7 @@ COMP_2_RES comp_2(EL_CHAIN cha,int id_res,int t_s, double im, double ti)
 
 
 
-	if (t_s == SIGN_T)//2 анти ступени
+	if (t_s == SIGN_D)//2 анти ступени
 	{
 		a_t.resize(3);
 		a_l.resize(3);
@@ -3596,7 +3584,7 @@ int main()
 	input.T = 40;
 
 
-	/**/
+	/** /
 	input.cha_str = "1 1 4 U 0  2 2 4 R 1  3 1 3 R 1  4 3 4 R 1  5 1 3 L 1  6 3 2 L 0.25";//14 var
 	input.el_id = 2;
 	input.t_sign = SIGN_V;
@@ -3605,6 +3593,32 @@ int main()
 	input.T = 10;
 	/**/
 
+	/** /
+	input.cha_str = "1 2 1 U 0  2 2 3 C 4  3 3 1 R 1  4 3 4 C 1  5 4 1 R 0.5  6 4 1 R 1";//2 v
+	input.el_id = 6;
+	input.t_sign = SIGN_D;
+	input.ts = 0.1;
+	input.as = 20;
+	input.T = input.ts * 2;
+	/**/
+
+	/**/
+	input.cha_str = "1 1 2 U 0  2 2 1 R 1  3 2 3 C 4  4 3 1 R 2  5 3 4 C 1  6 4 1 R 1";//13 v
+	input.el_id = 6;
+	input.t_sign = SIGN_D;
+	input.ts = 1;
+	input.as = 5;
+	input.T = input.ts * 2;
+	/**/
+
+	/**/
+	input.cha_str = "1 2 1 U 0  2 2 3 R 1  3 3 1 L 4  4 3 4 R 0.5  5 4 1 L 1  6 4 1 R 1";//2 v
+	input.el_id = 6;
+	input.t_sign = SIGN_V;
+	input.ts = 0.5;
+	input.as = 20;
+	input.T = input.ts * 2;
+	/**/
 
 	/*
 	for (auto i = A.begin_row(); i != A.end_row(); i++)

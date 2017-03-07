@@ -13,6 +13,9 @@
 
 #define _DEBUG
 
+#define EL_K 0
+#define EL_H 1
+#define EL_R 2
 #define EL_I 3
 #define EL_U 4
 #define EL_L 5
@@ -540,40 +543,29 @@ void EL_CHAIN_L::comp_par_1_iu_uns()
 			int count = 0;
 			for (int r = 0; r < el.size(); r++)
 				if (el[r].p1 != el[r].p2)
-				{
-					if (el[r].p1 == i)
+					if (el[r].p1 == i || el[r].p2 == i)
 					{
 
-						if (el[r].t == 0 && comp[r] == 0 || el[r].t == 4)
-							if (comp[r] == 0)
-							{
-								unk_el = r;
-								count++;
-							}
-
-						if (el[r].t == 2 || el[r].t == 0 && comp[r] == 1)
-						{
-							i_u += el[r].I;
-						}
-
-					}
-					if (el[r].p2 == i)
-					{
-
-						if (el[r].t == 0 && comp[r] == 0 || el[r].t == 4)
+						if (comp[r] == 0 && (el[r].t == EL_K || el[r].t == EL_U))
 						{
 							unk_el = r;
 							count++;
 						}
 
-						if (el[r].t == 2 || el[r].t == 3 || el[r].t == 0 && comp[r] == 1)
+						if (el[r].t == EL_R || el[r].t == EL_I || comp[r] == 1 && (el[r].t == EL_K || el[r].t == EL_U))
 						{
-							i_u -= el[r].I;
+							if (el[r].p1 == i)
+							{
+								i_u += el[r].I;
+							}
+							if (el[r].p2 == i)
+							{
+								i_u -= el[r].I;
+							}
 						}
 
-
 					}
-				}
+
 			if (count == 1)
 			{
 				comp[unk_el] = 1;
