@@ -155,11 +155,13 @@
     <ClCompile Include="code.cpp" />
     <ClCompile Include="el_cha.cpp" />
     <ClCompile Include="py_sympy.cpp" />
+    <ClCompile Include="samrrr_bibl.cpp" />
     <ClCompile Include="usefull.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="el_cha.h" />
     <ClInclude Include="py_sympy.h" />
+    <ClInclude Include="samrrr_bibl.h" />
     <ClInclude Include="usefull.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -9,6 +9,7 @@
 
 #include "el_cha.h"
 #include "py_sympy.h"
+#include "samrrr_bibl.h"
 
 
 #define _DEBUG
@@ -2411,7 +2412,7 @@ EASY_TEX create_double_plot(int tx, int ty, vector<double> vx, vector<double> vy
 
 	for (int i = 0; i < tx; i++)
 		for (int r = 0; r < ty; r++)
-			tex.setpixel(i, r, 30, 30, 30);
+			tex.setpixel(i, r, 0, 0, 0);
 
 
 	//теперь выведем циферки и оси
@@ -2436,7 +2437,7 @@ EASY_TEX create_double_plot(int tx, int ty, vector<double> vx, vector<double> vy
 	if (mnox != 0)
 		for (int i = min_x / mnox; i < max_x / mnox; i++)
 		{
-			tex.line((i * mnox - min_x) / sx * tx, 40, (i * mnox - min_x) / sx * tx, ty, 100, 100, 100);
+			tex.line((i * mnox - min_x) / sx * tx, 40, (i * mnox - min_x) / sx * tx, ty, 50, 50, 50);
 
 			if ((i * mnox - min_x) / sx * tx>20 && (i * mnox - min_x) / sx * tx < tx - 30)
 				tex.numbers((i * mnox - min_x) / sx * tx - 3, 20, ftos(i*mnox));
@@ -2444,7 +2445,7 @@ EASY_TEX create_double_plot(int tx, int ty, vector<double> vx, vector<double> vy
 	if (mnoy != 0)
 		for (int i = min_y / mnoy; i < max_y / mnoy; i++)
 		{
-			tex.line(20, (i * mnoy - min_y) / sy * ty, tx, (i * mnoy - min_y) / sy * ty, 100, 100, 100);
+			tex.line(20, (i * mnoy - min_y) / sy * ty, tx, (i * mnoy - min_y) / sy * ty, 50, 50, 50);
 
 			if ((i * mnoy - min_y) / sy * ty>20 && (i * mnoy - min_y) / sy * ty < ty - 30)
 				tex.numbers(4, (i * mnoy - min_y) / sy * ty + 5, ftos(i*mnoy));
@@ -2517,7 +2518,7 @@ EASY_TEX create_plot(int tx, int ty, vector<double> vx, vector<double> vy, doubl
 
 	for (int i = 0; i < tx; i++)
 		for (int r = 0; r < ty; r++)
-			tex.setpixel(i, r, 30, 30, 30);
+			tex.setpixel(i, r, 0, 0, 0);
 
 
 	//теперь выведем циферки и оси
@@ -2542,7 +2543,7 @@ EASY_TEX create_plot(int tx, int ty, vector<double> vx, vector<double> vy, doubl
 	if (mnox != 0)
 		for (int i = min_x / mnox; i < max_x / mnox; i++)
 		{
-			tex.line((i * mnox - min_x) / sx * tx, 40, (i * mnox - min_x) / sx * tx, ty, 100, 100, 100);
+			tex.line((i * mnox - min_x) / sx * tx, 40, (i * mnox - min_x) / sx * tx, ty, 50, 50, 50);
 
 			if ((i * mnox - min_x) / sx * tx>20 && (i * mnox - min_x) / sx * tx < tx - 30)
 				tex.numbers((i * mnox - min_x) / sx * tx - 3, 20, ftos(i*mnox));
@@ -2550,7 +2551,7 @@ EASY_TEX create_plot(int tx, int ty, vector<double> vx, vector<double> vy, doubl
 	if (mnoy != 0)
 		for (int i = min_y / mnoy; i < max_y / mnoy; i++)
 		{
-			tex.line(20, (i * mnoy - min_y) / sy * ty, tx, (i * mnoy - min_y) / sy * ty, 100, 100, 100);
+			tex.line(20, (i * mnoy - min_y) / sy * ty, tx, (i * mnoy - min_y) / sy * ty, 50, 50, 50);
 
 			if ((i * mnoy - min_y) / sy * ty>20 && (i * mnoy - min_y) / sy * ty < ty - 30)
 				tex.numbers(4, (i * mnoy - min_y) / sy * ty + 5, ftos(i*mnoy));
@@ -2619,7 +2620,7 @@ EASY_TEX create_diskr_plot(int tx, int ty, vector<double> vx, vector<double> vy,
 
 	for (int i = 0; i < tx; i++)
 		for (int r = 0; r < ty; r++)
-			tex.setpixel(i, r, 30, 30, 30);
+			tex.setpixel(i, r, 0, 0, 0);
 
 
 	//теперь выведем циферки и оси
@@ -2644,7 +2645,7 @@ EASY_TEX create_diskr_plot(int tx, int ty, vector<double> vx, vector<double> vy,
 	if (mnox != 0)
 		for (int i = min_x / mnox; i < max_x / mnox; i++)
 		{
-			tex.line((i * mnox - min_x) / sx * tx, 40, (i * mnox - min_x) / sx * tx, ty, 100, 100, 100);
+			tex.line((i * mnox - min_x) / sx * tx, 40, (i * mnox - min_x) / sx * tx, ty, 50, 50, 50);
 
 			if ((i * mnox - min_x) / sx * tx>20 && (i * mnox - min_x) / sx * tx < tx - 30)
 				tex.numbers((i * mnox - min_x) / sx * tx - 3, 20, ftos(i*mnox));
@@ -2652,7 +2653,7 @@ EASY_TEX create_diskr_plot(int tx, int ty, vector<double> vx, vector<double> vy,
 	if (mnoy != 0)
 		for (int i = min_y / mnoy; i < max_y / mnoy; i++)
 		{
-			tex.line(20, (i * mnoy - min_y) / sy * ty, tx, (i * mnoy - min_y) / sy * ty, 100, 100, 100);
+			tex.line(20, (i * mnoy - min_y) / sy * ty, tx, (i * mnoy - min_y) / sy * ty, 50, 50, 50);
 
 			if ((i * mnoy - min_y) / sy * ty>20 && (i * mnoy - min_y) / sy * ty < ty - 30)
 				tex.numbers(4, (i * mnoy - min_y) / sy * ty + 5, ftos(i*mnoy));
@@ -3122,7 +3123,28 @@ COMP_2_RES comp_2(EL_CHAIN cha,int id_res,int t_s, double im, double ti)
 	return res;
 }
 
-void comp_3(L_S H_S, string F1_T, string F1_S,int sgn_t,int sgn_time)
+class POl_PROPUSK
+{
+public:
+	int id; //0 - низких_ч, 1 - высоких_ч, 2 - полосовой, 3 - заграждающий
+	double dw, w0, w1; //-1 - бесконечность
+	void type()
+	{
+		switch (id)
+		{
+		case 0:
+			cout << "Фильтр низких частот"; break;
+		case 1:
+			cout << "Фильтр высоких частот"; break;
+		case 2:
+			cout << "Полосовой фильтр"; break;
+		case 3:
+			cout << "Заграждающий фильтр"; break;
+		}
+	}
+};
+
+void comp_3(L_S H_S, string F1_T, string F1_S, int sgn_t, int sgn_time)
 {
 	//H_S это переходная функция тока в лапласе
 
@@ -3134,8 +3156,8 @@ void comp_3(L_S H_S, string F1_T, string F1_S,int sgn_t,int sgn_time)
 	H_IM = sympy_im(H_JW);
 	H_RE = sympy_re(H_JW);
 
-	string ACH = "sqrt((" + H_IM + ")**2+(" + H_RE + ")**2)";
-	string FCH = "atan((" + H_IM + ")/(" + H_RE + "))-Heaviside(-(" + H_RE + "))*pi";
+	string ACH_H = "sqrt((" + H_IM + ")**2+(" + H_RE + ")**2)";
+	string FCH_H = "atan((" + H_IM + ")/(" + H_RE + "))-Heaviside(-(" + H_RE + "))*pi";
 
 	vector<double> vx, vy;
 	EASY_TEX tex;
@@ -3144,8 +3166,8 @@ void comp_3(L_S H_S, string F1_T, string F1_S,int sgn_t,int sgn_time)
 	for (int i = 0; i < vx.size(); i++)
 	{
 		vx[i] = i / 60.0;
-		string s = sympy_eva(ACH, "w", ftos(vx[i]));
-		cout << "st:" << s;
+		string s = sympy_eva(ACH_H, "w", ftos(vx[i]));
+		//cout << "st:" << s;
 		myreplace(s, ".", ",");
 		vy[i] = atof(s.c_str());
 	}
@@ -3160,8 +3182,8 @@ void comp_3(L_S H_S, string F1_T, string F1_S,int sgn_t,int sgn_time)
 	for (int i = 0; i < vx.size(); i++)
 	{
 		vx[i] = i / 60.0;
-		string s = sympy_eva(FCH, "w", ftos(vx[i]));
-		cout << "st:" << s;
+		string s = sympy_eva(FCH_H, "w", ftos(vx[i]));
+		//cout << "st:" << s;
 		myreplace(s, ".", ",");
 		vy[i] = atof(s.c_str());
 		while (vy[i] > M_PI)
@@ -3175,16 +3197,292 @@ void comp_3(L_S H_S, string F1_T, string F1_S,int sgn_t,int sgn_time)
 	tex = create_plot(512, 256, vx, vy, 0, 0, 0, 0);
 	img.add(tex);
 	mtx.unlock();
-	//3.2. Определить полосу пропускания цепи по уровню ( )max 0,707 H j? . 
-	//3.3. Найти и построить амплитудный и фазовый спектры входного одиночного импульса. 
-	//Найти ширину амплитудного спектра по уровню ( )1 max0,1 F j? или критерию, предложенному преподавателем.  
-	//3.4. Сопоставить спектры входного импульса с частотными характеристиками цепи. Дать предварительное заключение 
-	//об ожидаемых искажениях сигнала на выходе цепи. Сравнить эти качественные оценки с сигналом на выходе, полученным в п. 2.5 задания. 
-	//3.5. Построить графики амплитудного и фазового спектров выходного сигнала, используя графики пп. 3.1, 3.3 задания. 
-	//Проконтролировать площадь реакции по значению ее спектра при ? = 0. 
+
+	cout << "\n\nACH_H = " << ACH_H; //АЧХ
+	cout << "\n\nFCH_H = " << FCH_H; //ФЧХ
+
+	//проверка при w = 0
+	cout << "\n\nACH_H [w = 0] = " << atof1(sympy_eva(ACH_H, "w", "0.0000001"));
+
+	//проверка при w -> inf
+	cout << "\nACH_H [w -> inf] = " << atof1(sympy_lim(ACH_H, "w", "oo", "-")) << endl;
+
+	//3.2. Определить полосу пропускания цепи по уровню 0,707|H(jw)|[max].
+	double first, last, min = 1000000, max = 0, temp;
+
+	double x[193], x_max = 0.001, x_min = 0.001;
+	for (int i = 0; i < 193; i++)
+	{
+		if (i == 0)
+		{
+			x[i] = 0.001;
+			first = min = max = atof1(sympy_eva(ACH_H, "w", ftos(x[i])));
+		}
+		else
+		{
+			x[i] = x[i - 1] * 1.1;
+			temp = atof1(sympy_eva(ACH_H, "w", ftos(x[i])));
+			if (min > temp) { min = temp; x_min = x[i]; }
+			if (max < temp) { max = temp; x_max = x[i]; }
+		}
+
+		if (i == 192)
+			last = atof1(sympy_lim(ACH_H, "w", "oo", "-"));
+	}
+
+	//точное определение max и min
+	//определение max
+	double shag = 0.01;
+	for (; shag > 0.0001; shag /= 2)
+		if (atof1(sympy_eva(ACH_H, "w", ftos(x_max))) < atof1(sympy_eva(ACH_H, "w", ftos(x_max + shag))))
+			x_max += shag;
+		else
+			if ((x_max - shag) > 0) x_max -= shag;
+
+	max = atof1(sympy_eva(ACH_H, "w", ftos(x_max)));
+
+	//определение min
+	/*for(shag = 0.01; atof1(sympy_eva(ACH, "w", ftos(x_min))) > atof1(sympy_eva(ACH, "w", ftos(x_min + shag))); shag = x_min - x_min/1.1)
+	x_min += shag;*/
+	shag = 0.01;
+	for (; shag > 0.0001; shag /= 2)
+		if (atof1(sympy_eva(ACH_H, "w", ftos(x_min))) > atof1(sympy_eva(ACH_H, "w", ftos(x_min + shag))))
+			x_min += shag;
+		else
+			if ((x_min - shag) > 0) x_min -= shag;
+
+	min = atof1(sympy_eva(ACH_H, "w", ftos(x_min)));
+
+	cout << "\nx_max = " << x_max << " x_min = " << x_min << "\n";
+
+	/*if (first > last && (last - pogr < min && min < last + pogr) && (first - pogr < max && max < first + pogr))
+	POLOSA.id = 0;
+	if (first < last && (first - pogr < min && min < first + pogr) && (last - pogr < max && max < last + pogr))
+	POLOSA.id = 1;
+	if (first < max && (first - pogr < last && last < first + pogr) && ((first - pogr < min && min < first + pogr) || (last - pogr < min && min < last + pogr)))
+	POLOSA.id = 2;
+	if (first > min && (first - pogr < last && last < first + pogr) && ((first - pogr < max && max < first + pogr) || (last - pogr < max && max < last + pogr)))
+	POLOSA.id = 3;*/
+
+	POl_PROPUSK POLOSA;
+	bool b1 = (max / sqrt(2)) > first;
+	bool b2 = (max / sqrt(2)) > last;
+	if (b1 && b2) POLOSA.id = 2;
+	if (!b1 && b2) POLOSA.id = 0;
+	if (b1 && !b2) POLOSA.id = 1;
+	if (!b1 && !b2) POLOSA.id = 3;
+
+	double y = 0.707 * atof1(sympy_eva(ACH_H, "w", ftos(x_max)));
+	switch (POLOSA.id)
+	{
+	case 0:
+		POLOSA.w0 = 0;
+		for (shag = 0.01, POLOSA.w1 = x_max; atof1(sympy_eva(ACH_H, "w", ftos(POLOSA.w1))) > y; shag *= 1.1)
+			POLOSA.w1 += shag;
+		for (; shag > 0.0001; shag /= 2)
+			if (atof1(sympy_eva(ACH_H, "w", ftos(POLOSA.w1))) > y)
+				POLOSA.w1 += shag;
+			else
+				POLOSA.w1 -= shag;
+		break;
+
+	case 1:
+		POLOSA.w1 = -1;
+		for (shag = 0.01, POLOSA.w0 = 0.001; atof1(sympy_eva(ACH_H, "w", ftos(POLOSA.w0))) < y; shag *= 1.1)
+			POLOSA.w0 += shag;
+		for (; shag > 0.0001; shag /= 2)
+			if (atof1(sympy_eva(ACH_H, "w", ftos(POLOSA.w0))) < y)
+				POLOSA.w0 += shag;
+			else
+				POLOSA.w0 -= shag;
+		break;
+
+	case 2:
+		for (shag = 0.01, POLOSA.w0 = x_max; atof1(sympy_eva(ACH_H, "w", ftos(POLOSA.w0))) > y; shag *= 1.1)
+			POLOSA.w0 -= shag;
+		for (; shag > 0.0001; shag /= 2)
+			if (atof1(sympy_eva(ACH_H, "w", ftos(POLOSA.w0))) < y)
+				POLOSA.w0 += shag;
+			else
+				POLOSA.w0 -= shag;
+
+		for (shag = 0.01, POLOSA.w1 = x_max; atof1(sympy_eva(ACH_H, "w", ftos(POLOSA.w1))) > y; shag *= 1.1)
+			POLOSA.w1 += shag;
+		for (; shag > 0.0001; shag /= 2)
+			if (atof1(sympy_eva(ACH_H, "w", ftos(POLOSA.w1))) > y)
+				POLOSA.w1 += shag;
+			else
+				POLOSA.w1 -= shag;
+		break;
+
+	case 3:
+		for (shag = 0.01, POLOSA.w0 = 0.001; atof1(sympy_eva(ACH_H, "w", ftos(POLOSA.w0))) < y; shag *= 1.1)
+			POLOSA.w0 += shag;
+		for (; shag > 0.0001; shag /= 2)
+			if (atof1(sympy_eva(ACH_H, "w", ftos(POLOSA.w0))) > y)
+				POLOSA.w0 += shag;
+			else
+				POLOSA.w0 -= shag;
+
+		for (shag = 0.01, POLOSA.w1 = POLOSA.w0; atof1(sympy_eva(ACH_H, "w", ftos(POLOSA.w1))) < y; shag *= 1.1)
+			POLOSA.w1 += shag;
+		for (; shag > 0.0001; shag /= 2)
+			if (atof1(sympy_eva(ACH_H, "w", ftos(POLOSA.w1))) < y)
+				POLOSA.w1 += shag;
+			else
+				POLOSA.w1 -= shag;
+		break;
+	}
+
+	cout << " first = " << first << " last = " << last << " min = " << min << " max = " << max << endl;
+	POLOSA.type();
+	if (POLOSA.id != 1)
+	{
+		POLOSA.dw = POLOSA.w1 - POLOSA.w0;
+		cout << "\nПолоса пропускания dw = " << POLOSA.dw << " [ " << POLOSA.w0 << ", " << POLOSA.w1 << "]\n";
+	}
+	else
+	{
+		POLOSA.dw = -1;
+		cout << "\nПолоса пропускания dw = inf [ " << POLOSA.w0 << ", +inf ]\n";
+	}
+
+	//3.3. Найти и построить амплитудный и фазовый спектры входного одиночного импульса.
+	//Найти ширину амплитудного спектра по уровню ( )1 max0,1 F j? или критерию, предложенному преподавателем.
+	string F1_JW, F1_RE, F1_IM;
+	F1_JW = sympy_eva(F1_S, "s", "I*w");
+	F1_RE = sympy_re(F1_JW);
+	F1_IM = sympy_im(F1_JW);
+
+	string ACH_F1 = "sqrt((" + F1_IM + ")**2+(" + F1_RE + ")**2)";
+	string FCH_F1 = "atan((" + F1_IM + ")/(" + F1_RE + "))-Heaviside(-(" + F1_RE + "))*pi";
+
+	x_max = 0; y = 0;
+	for (int i = 0; i < vx.size(); i++)
+	{
+		vx[i] = i / 60.0;
+		if (i == 0) vx[i] += 0.001;
+		string s = sympy_eva(ACH_F1, "w", ftos(vx[i]));
+		//cout << "\nvx[i]: " << vx[i] << "\t| st: " << s;
+		myreplace(s, ".", ",");
+		vy[i] = atof(s.c_str());
+	}
+
+	mtx.lock();
+	tex = create_plot(512, 256, vx, vy, 0, 0, 0, 0);
+	img.add(tex);
+	mtx.unlock();
+
+	for (int i = 0; i < vx.size(); i++)
+	{
+		vx[i] = i / 60.0;
+		if (i == 0) vx[i] += 0.001;
+		string s = sympy_eva(FCH_F1, "w", ftos(vx[i]));
+		//cout << "\nvx[i]: " << vx[i] << "\t| st: " << s;
+		myreplace(s, ".", ",");
+		vy[i] = atof(s.c_str());
+		while (vy[i] > M_PI)
+			vy[i] -= M_PI * 2;
+		while (vy[i] < -M_PI)
+			vy[i] += M_PI * 2;
+	}
+
+	mtx.lock();
+	tex = create_plot(512, 256, vx, vy, 0, 0, 0, 0);
+	img.add(tex);
+	mtx.unlock();
+
+	for (int i = 0; i < 193; i++)
+	{
+		if (i == 0)
+		{
+			//x[i] = 0.001;
+			y = atof1(sympy_lim(ACH_F1, "w", "0.0001", "+"));
+			cout << "y = " << y << " x_max = " << x_max << "\n";
+		}
+		else
+		{
+			//x[i] = x[i - 1] * 1.1;
+			temp = atof1(sympy_eva(ACH_F1, "w", ftos(x[i])));
+			if (y < temp) { y = temp; x_max = x[i]; }
+		}
+	}
+
+	cout << "y = " << y << " x_max = " << x_max << "\n";
+
+	for (shag = 0.001; shag > 0.000001; shag /= 2)
+		if (atof1(sympy_eva(ACH_F1, "w", ftos(x_max))) < atof1(sympy_eva(ACH_F1, "w", ftos(x_max + shag))))
+			x_max += shag;
+		else
+			x_max -= shag;
+	y = atof1(sympy_eva(ACH_F1, "w", ftos(x_max)));
+	cout << "y = " << y << " x_max = " << x_max << "\n";
+
+	cout << "\n\nACH_F1 = " << ACH_F1;
+	cout << "\n\nFCH_F1 = " << FCH_F1 << endl;
+
+	double dw_ACH_F1;
+	y = 0.1*atof1(sympy_eva(ACH_F1, "w", ftos(x_max)));
+	cout << "0.1A = " << y << "\n";
+	dw_ACH_F1 = x_max;
+	do
+	{
+		temp = dw_ACH_F1;
+		cout << "ACH_max = " << atof1(sympy_eva(ACH_F1, "w", ftos(x_max))) << "\n";
+		for (shag = 0.01; atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1))) > atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1 + shag))); /*shag *= 1.1*/)
+		{
+			//cout << "ACH_F1_1 = " << atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1))) << "\tACH_F1_2 = " << atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1 + shag))) << "\n";
+			dw_ACH_F1 += shag;
+			//cout << "*dw_ACH_F1 = " << dw_ACH_F1 << "\n";
+			//_getch();
+		}
+		/*for(; shag > 0.0000001; shag /= 2)
+		{
+		if(atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1))) > atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1 + shag))))
+		dw_ACH_F1 += shag;
+		else
+		dw_ACH_F1 -= shag;
+		cout << "ACH_F1_1 = " << atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1))) << "\tACH_F1_2 = " << atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1 + shag))) << "\n";
+		cout << "*dw_ACH_F1 = " << dw_ACH_F1 << "\n";
+		}*/
+
+		cout << "----------\nACH_F1_1 = " << atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1))) << "\tACH_F1_2 = " << atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1 + 0.01))) << "\n";
+
+		for (shag = 0.01; atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1))) < atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1 + shag))); shag *= 1.1)
+		{
+			//cout << "ACH_F1_1 = " << atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1))) << "\tACH_F1_2 = " << atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1 + shag))) << "\n";
+			dw_ACH_F1 += shag;
+			//cout << "**dw_ACH_F1 = " << dw_ACH_F1 << "\n";
+			//_getch();
+		}
+		for (; shag > 0.000001; shag /= 2)
+			if (atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1))) < atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1 + shag))))
+				dw_ACH_F1 += shag;
+			else
+				dw_ACH_F1 -= shag;
+		if (atof1(sympy_eva(ACH_F1, "w", ftos(x_max))) < atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1)))) x_max = dw_ACH_F1;
+		cout << atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1))) << " | " << y << "\n";
+	} while (atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1))) > y);
+
+	dw_ACH_F1 = temp;
+	cout << "ACH_F1_1 = " << atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1))) << "\t dw_ACH_F1 = " << dw_ACH_F1 << "\n";
+	for (shag = 0.01; atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1))) > y; shag *= 1.1)
+	{
+		dw_ACH_F1 += shag;
+	}
+	for (; shag > 0.000001; shag /= 2)
+		if (atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1))) < y)
+			dw_ACH_F1 -= shag;
+		else
+			dw_ACH_F1 += shag;
+	cout << "ACH_max = " << atof1(sympy_eva(ACH_F1, "w", ftos(x_max))) << "\t0.1A = " << y << "\nШирина спектра dw_ACH_F1 = " << dw_ACH_F1 << "\tACH_F1 = " << atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1))) << "\n";
+	_getch();
+	//3.4. Сопоставить спектры входного импульса с частотными характеристиками цепи. Дать предварительное заключение
+	//об ожидаемых искажениях сигнала на выходе цепи. Сравнить эти качественные оценки с сигналом на выходе, полученным в п. 2.5 задания.
+	//3.5. Построить графики амплитудного и фазового спектров выходного сигнала, используя графики пп. 3.1, 3.3 задания.
+	//Проконтролировать площадь реакции по значению ее спектра при ? = 0.
 
 }
-
 class COMP_4_RES
 {
 public:
@@ -3492,7 +3790,9 @@ COMP_4_RES comp_4(L_S H_S, string F1_T, string F1_S, double T)
 	img.add(tex);
 	mtx.unlock();
 
-	vx.resize(100);
+	vx.resize(300);
+	vy.resize(300);
+	vz.resize(300);
 
 	for (int i = 0; i < vx.size(); i++)
 	{
@@ -3537,6 +3837,599 @@ public:
 };
 
 void print_ku(const EL_CHAIN &cha, const COMP_2_RES &res2);
+
+
+
+
+class GR_EL
+{
+public:
+	double x1, x2, y1, y2;
+	int t, n, p1, p2;////0-connect 1-no connect 2-R 3- ->; 4- +-; 5-L 6-C
+};
+
+void draw_el(EASY_TEX &tex, GR_EL &el)
+{
+	double c, v, xx, yy, x1, y1, x2, y2;
+	switch (el.t)
+	{
+	case EL_K:
+		tex.line(el.x1, el.y1, el.x2, el.y2);
+		break;
+	case EL_H:
+		c = ss(el.x1, el.y1, el.x2, el.y2);
+		v = ras(el.x1 - el.x2, el.y1 - el.y2);
+		//tex.line(el.x1, el.y1, el.x2, el.y2);
+
+		break;
+	case EL_U:
+		c = ss(el.x1, el.y1, el.x2, el.y2);
+		v = ras(el.x1 - el.x2, el.y1 - el.y2);
+		dd(xx, yy, c, v*0.3);
+		tex.line(el.x1, el.y1, el.x1 + xx, el.y1 + yy);
+		dd(xx, yy, c, -v*0.3);
+		tex.line(el.x2, el.y2, el.x2 + xx, el.y2 + yy);
+		dd(x1, y1, c, v*0.5);
+		x1 += el.x1;
+		y1 += el.y1;
+
+		for (int i = 0; i < 24; i++)
+		{
+			dd(xx, yy, c + (i + 0) / 24.0 * 2 * M_PI, v*0.2);
+			dd(x2, y2, c + (i + 1) / 24.0 * 2 * M_PI, v*0.2);
+			tex.line(x1 + x2, y1 + y2, x1 + xx, y1 + yy);
+		}
+
+		dd(x1, y1, c, v*0.45);
+		dd(x2, y2, c + M_PI / 2, v*0.1);
+		tex.line(el.x1 + x1 + x2, el.y1 + y1 + y2, el.x1 + x1 - x2, el.y1 + y1 - y2);
+		dd(x1, y1, c, v*0.61);
+		dd(x2, y2, c + M_PI / 2, v*0.1);
+		tex.line(el.x1 + x1 + x2, el.y1 + y1 + y2, el.x1 + x1 - x2, el.y1 + y1 - y2);
+		dd(x1, y1, c, v*0.45);
+		dd(x2, y2, c , v*0.1);
+		tex.line(el.x1 + x1 + x2, el.y1 + y1 + y2, el.x1 + x1 - x2, el.y1 + y1 - y2);
+
+
+		break;
+	case EL_I:
+		c = ss(el.x1, el.y1, el.x2, el.y2);
+		v = ras(el.x1 - el.x2, el.y1 - el.y2);
+		dd(xx, yy, c, v);
+		tex.line(el.x1, el.y1, el.x1 + xx, el.y1 + yy);
+		dd(x1, y1, c, v*0.5);
+		x1 += el.x1;
+		y1 += el.y1;
+
+		for (int i = 0; i < 24; i++)
+		{
+			dd(xx, yy, c + (i + 0) / 24.0 * 2 * M_PI, v*0.2);
+			dd(x2, y2, c + (i + 1) / 24.0 * 2 * M_PI, v*0.2);
+			tex.line(x1 + x2, y1 + y2, x1 + xx, y1 + yy);
+		}
+
+		break;
+	case EL_R:
+		c = ss(el.x1, el.y1, el.x2, el.y2);
+		v = ras(el.x1 - el.x2, el.y1 - el.y2);
+		dd(xx, yy, c, v*0.2);
+		tex.line(el.x1, el.y1, el.x1 + xx, el.y1 + yy);
+		dd(xx, yy, c, -v*0.2);
+		tex.line(el.x2, el.y2, el.x2 + xx, el.y2 + yy);
+
+		dd(x1, y1, c, v*0.2);
+		dd(x2, y2, c, v*0.8);
+		dd(xx, yy, c + M_PI / 2, v*0.1);
+
+		tex.line(el.x1 + x1 + xx, el.y1 + y1 + yy, el.x1 + x1 - xx, el.y1 + y1 - yy);
+		tex.line(el.x1 + x2 + xx, el.y1 + y2 + yy, el.x1 + x2 - xx, el.y1 + y2 - yy);
+		tex.line(el.x1 + x1 - xx, el.y1 + y1 - yy, el.x1 + x2 - xx, el.y1 + y2 - yy);
+		tex.line(el.x1 + x2 + xx, el.y1 + y2 + yy, el.x1 + x1 + xx, el.y1 + y1 + yy);
+
+
+		break;
+	case EL_C:
+		c = ss(el.x1, el.y1, el.x2, el.y2);
+		v = ras(el.x1 - el.x2, el.y1 - el.y2);
+		dd(xx, yy, c, v*0.45);
+		tex.line(el.x1, el.y1, el.x1 + xx, el.y1 + yy);
+		dd(xx, yy, c, -v*0.45);
+		tex.line(el.x2, el.y2, el.x2 + xx, el.y2 + yy);
+
+		dd(x1, y1, c, v*0.45);
+		dd(x2, y2, c, v*0.55);
+		dd(xx, yy, c + M_PI / 2, v*0.15);
+
+		tex.line(el.x1 + x1 + xx, el.y1 + y1 + yy, el.x1 + x1 - xx, el.y1 + y1 - yy);
+		tex.line(el.x1 + x2 + xx, el.y1 + y2 + yy, el.x1 + x2 - xx, el.y1 + y2 - yy);
+
+
+		break;
+	case EL_L:
+		c = ss(el.x1, el.y1, el.x2, el.y2);
+		v = ras(el.x1 - el.x2, el.y1 - el.y2);
+		dd(xx, yy, c, v*0.2);
+		tex.line(el.x1, el.y1, el.x1 + xx, el.y1 + yy);
+		dd(xx, yy, c, -v*0.2);
+		tex.line(el.x2, el.y2, el.x2 + xx, el.y2 + yy);
+		dd(x1, y1, c, v*0.5);
+		x1 += el.x1;
+		y1 += el.y1;
+
+		for (int i = 0; i < 12; i++)
+		{
+			dd(xx, yy, c + (i + 0) / 12.0 * M_PI, v*0.1);
+			dd(x2, y2, c + (i + 1) / 12.0 * M_PI, v*0.1);
+			tex.line(x1 + x2, y1 + y2, x1 + xx, y1 + yy);
+		}
+		dd(x1, y1, c, v*0.7);
+		x1 += el.x1;
+		y1 += el.y1;
+
+		for (int i = 0; i < 12; i++)
+		{
+			dd(xx, yy, c + (i + 0) / 12.0 * M_PI, v*0.1);
+			dd(x2, y2, c + (i + 1) / 12.0 * M_PI, v*0.1);
+			tex.line(x1 + x2, y1 + y2, x1 + xx, y1 + yy);
+		}
+		dd(x1, y1, c, v*0.3);
+		x1 += el.x1;
+		y1 += el.y1;
+
+		for (int i = 0; i < 12; i++)
+		{
+			dd(xx, yy, c + (i + 0) / 12.0 * M_PI, v*0.1);
+			dd(x2, y2, c + (i + 1) / 12.0 * M_PI, v*0.1);
+			tex.line(x1 + x2, y1 + y2, x1 + xx, y1 + yy);
+		}
+
+		dd(x1, y1, c, v*0.45);
+		dd(x2, y2, c + M_PI / 2, v*0.1);
+		tex.line(el.x1 + x1 + x2, el.y1 + y1 + y2, el.x1 + x1 - x2, el.y1 + y1 - y2);
+		dd(x1, y1, c, v*0.61);
+		dd(x2, y2, c + M_PI / 2, v*0.1);
+		tex.line(el.x1 + x1 + x2, el.y1 + y1 + y2, el.x1 + x1 - x2, el.y1 + y1 - y2);
+		dd(x1, y1, c, v*0.45);
+		dd(x2, y2, c, v*0.1);
+		tex.line(el.x1 + x1 + x2, el.y1 + y1 + y2, el.x1 + x1 - x2, el.y1 + y1 - y2);
+
+
+		break;
+	default:
+		c = ss(el.x1, el.y1, el.x2, el.y2);
+		v = ras(el.x1 - el.x2, el.y1 - el.y2);
+		dd(xx, yy, c, v);
+		tex.line(el.x1, el.y1, el.x1 + xx, el.y1 + yy);
+		dd(xx, yy, c+0.2, v);
+		tex.line(el.x1, el.y1, el.x1 + xx, el.y1 + yy);
+		dd(xx, yy, c - 0.2, v);
+		tex.line(el.x1, el.y1, el.x1 + xx, el.y1 + yy);
+
+		break;
+	}
+}
+
+void print_chem(EASY_TEX &tex, const EL_CHAIN &cha)
+{
+	if (tex.gx() == 0)
+	{
+		tex.resize(512, 512);
+	}
+
+	for (int r = 0; r < tex.gy(); r++)
+		for (int i = 0; i < tex.gx(); i++)
+		{
+			tex.setpixel(i, r, 0, 0, 0);
+		}
+	vector<GR_EL> el;
+
+	for (int i = 0; i < cha.el.size(); i++)
+		if (cha.el[i].p1 != cha.el[i].p2)
+		{
+			GR_EL elem;
+
+			elem.n = i;
+			elem.t = cha.el[i].t;
+			elem.p1 = cha.el[i].p1;
+			elem.p2 = cha.el[i].p2;
+
+			el.push_back(elem);
+		}
+
+
+	int ssx=5, ssy=2;
+
+	MATRIX<int> m(ssx * 2 - 1, ssy * 2 - 1);
+
+	vector<int> n(el.size());
+	vector<vector<vector<int>>> ppos(el.size());
+	for (int i = 0; i < el.size(); i++)
+	{
+		ppos[i].resize(2);
+		ppos[i][0].resize(2);
+		ppos[i][1].resize(2);
+	}
+
+	class H_POS
+	{
+	public:
+		int x, y, t;
+
+		H_POS()
+		{
+			x = 0;
+			y = 0;
+			t = 0;
+		}
+		void next_pos(int sx, int sy)
+		{
+			if (t == 0)
+			{
+				x++;
+				if (x >= sx)
+				{
+					x = 0;
+					y++;
+				}
+				if (y >= sy-1)
+				{
+					x = 0;
+					y = 0;
+					t = 1;
+					return;
+				}
+			}
+			if (t == 1)
+			{
+				x++;
+				if (x >= sx - 1)
+				{
+					x = 0;
+					y++;
+				}
+				if (y >= sy )
+				{
+					x = 0;
+					y = 1;
+					t = 2;
+					return;
+				}
+			}
+			if (t == 2)
+			{
+				x++;
+				if (x >= sx)
+				{
+					x = 0;
+					y++;
+				}
+				if (y >= sy)
+				{
+					x = 1;
+					y = 0;
+					t = 3;
+					return;
+				}
+			}
+			if (t == 3)
+			{
+				x++;
+				if (x >= sx)
+				{
+					x = 0;
+					y++;
+				}
+				if (y >= sy)
+				{
+					x = 0;
+					y = 0;
+					t = 4;
+				}
+			}
+		}
+	};
+
+	vector<H_POS> pos(el.size());
+	vector<int> is_see_pos(el.size());
+
+	int exi = 0;
+	int curr_t = 0;
+	pos[0].x--;
+
+	do
+	{
+		if (curr_t >= 0 && curr_t < el.size())
+		{
+			cout<<m;
+			cout << endl;
+			pos[curr_t].next_pos(ssx, ssy);
+			bool is_ok_sh = 1;
+			
+			vector<int> test_p1, test_p2;
+			vector<int> test_c_p;
+			vector<vector<int>> test_vecs;
+
+			test_vecs.resize(4);
+			test_vecs[0] = { 0, 1 };
+			test_vecs[1] = { 0, -1 };
+			test_vecs[2] = { 1, 0};
+			test_vecs[3] = { -1, 0};
+
+			if (pos[curr_t].t == 4)
+				is_ok_sh=0;
+			if (pos[curr_t].t == 0)
+			{
+				test_c_p = { 0, 1 };
+				test_p1 = { 0, 0 };
+				test_p2 = { 0, 1 };
+			}
+			if (pos[curr_t].t == 1)
+			{
+				test_c_p = { 1, 0 };
+				test_p1 = { 0, 0 };
+				test_p2 = { 1, 0 };
+			}
+			if (pos[curr_t].t == 2)
+			{
+				test_c_p = { 0, -1 };
+				test_p1 = { 0, 0 };
+				test_p2 = { 0, -1 };
+			}
+			if (pos[curr_t].t == 3)
+			{
+				test_c_p = { -1, 0 };
+				test_p1 = { 0, 0 };
+				test_p2 = { -1, 0 };
+			}
+
+			if (is_ok_sh)
+			if (m[pos[curr_t].x * 2 + test_c_p[0]][pos[curr_t].y * 2 + test_c_p[1]] != 0)
+				is_ok_sh = 0;
+
+			int b = 0;
+
+			if (is_ok_sh)
+			for (int i = 0; i < 4 && b != 1; i++)
+			{
+				int r = 0;
+				b = 0;
+				while (b == 0 && r < 2)
+				{
+					if (pos[curr_t].x * 2 + test_vecs[i][0] * 2 * r >= 0 && pos[curr_t].x * 2 + test_vecs[i][0] * 2 * r < ssx * 2 - 1)
+						if (pos[curr_t].y * 2 + test_vecs[i][1] * 2 * r >= 0 && pos[curr_t].y * 2 + test_vecs[i][1] * 2 * r < ssy * 2 - 1)
+						{
+							int va = m[pos[curr_t].x * 2 + test_vecs[i][0] * 2 * r][pos[curr_t].y * 2 + test_vecs[i][1] * 2 * r];
+							if (va == el[curr_t].p1)
+								b = 1;
+							if (va != el[curr_t].p1)
+								if (va != 0)
+									b = -1;
+						}
+					r++;
+				}
+			}
+			if (b != 1)
+				if (is_see_pos[el[curr_t].p1])
+					is_ok_sh = 0;
+			
+			
+			b = 0;
+
+			if (is_ok_sh)
+			for (int i = 0; i < 4 && b != 1; i++)
+			{
+				int r = 0;
+				b = 0;
+				while (b == 0 && r < 2)
+				{
+					if (pos[curr_t].x * 2 + test_p2[0] * 2 + test_vecs[i][0] * 2 * r >= 0 && pos[curr_t].x * 2 + test_p2[0] * 2 + test_vecs[i][0] * 2 * r < ssx * 2 - 1)
+						if (pos[curr_t].y * 2 + test_p2[1] * 2 + test_vecs[i][1] * 2 * r >= 0 && pos[curr_t].y * 2 + test_p2[1] * 2 + test_vecs[i][1] * 2 * r < ssy * 2 - 1)
+						{
+							int va = m[pos[curr_t].x * 2 + test_p2[0] * 2 + test_vecs[i][0] * 2 * r][pos[curr_t].y * 2 + test_p2[1] * 2 + test_vecs[i][1] * 2 * r];
+							if (va == el[curr_t].p2)
+								b = 1;
+							if (va != el[curr_t].p2)
+								if (va != 0)
+									b = -1;
+						}
+					r++;
+				}
+			}
+
+			if (is_ok_sh)
+			{
+				int va1 = m[pos[curr_t].x * 2 + test_p2[0] * 2][pos[curr_t].y * 2 + test_p2[1] * 2];
+				if (va1 != el[curr_t].p2)
+					if (va1 != 0)
+						is_ok_sh = 0;
+
+				va1 = m[pos[curr_t].x * 2][pos[curr_t].y * 2];
+				if (va1 != el[curr_t].p1)
+					if (va1 != 0)
+						is_ok_sh = 0;
+			}
+
+
+			if (b != 1)
+				if (is_see_pos[el[curr_t].p2])
+					is_ok_sh = 0;
+
+			if (is_ok_sh)
+			{
+				is_see_pos[el[curr_t].p1]++;
+				is_see_pos[el[curr_t].p2]++;
+
+				m[pos[curr_t].x * 2][pos[curr_t].y * 2] = el[curr_t].p1;
+				m[pos[curr_t].x * 2 + test_c_p[0]][pos[curr_t].y * 2 + test_c_p[1]] = 1;
+				m[pos[curr_t].x * 2 + test_p2[0] * 2][pos[curr_t].y * 2 + test_p2[1] * 2] = el[curr_t].p2;
+				ppos[curr_t][0] = { pos[curr_t].x * 2, pos[curr_t].y * 2 };
+				ppos[curr_t][1] = { pos[curr_t].x * 2 + test_p2[0] * 2, pos[curr_t].y * 2 + test_p2[1] * 2 };
+
+				curr_t++;
+				if (curr_t < el.size())
+				{
+					pos[curr_t].t = 0;
+					pos[curr_t].x = -1;
+					pos[curr_t].y = 0;
+				}
+			}
+			else
+			{
+				//pos[curr_t].next_pos(ssx,ssy);
+				if (pos[curr_t].t == 4)
+				{
+					curr_t--;
+
+					is_see_pos[el[curr_t].p1]--;
+					is_see_pos[el[curr_t].p2]--;
+
+
+					if (pos[curr_t].t == 0)
+					{
+						test_c_p = { 0, 1 };
+						test_p1 = { 0, 0 };
+						test_p2 = { 0, 1 };
+					}
+					if (pos[curr_t].t == 1)
+					{
+						test_c_p = { 1, 0 };
+						test_p1 = { 0, 0 };
+						test_p2 = { 1, 0 };
+					}
+					if (pos[curr_t].t == 2)
+					{
+						test_c_p = { 0, -1 };
+						test_p1 = { 0, 0 };
+						test_p2 = { 0, -1 };
+					}
+					if (pos[curr_t].t == 3)
+					{
+						test_c_p = { -1, 0 };
+						test_p1 = { 0, 0 };
+						test_p2 = { -1, 0 };
+					}
+
+
+					int px, py;
+					int kol;
+
+
+					m[pos[curr_t].x * 2 + test_c_p[0]][pos[curr_t].y * 2 + test_c_p[1]] = 0;
+
+					kol = 0;
+					px = pos[curr_t].x * 2;
+					py = pos[curr_t].y * 2;
+					for (int i = 0; i < 4; i++)
+						if (test_vecs[i][0] + px >= 0 && test_vecs[i][0] + px < ssx * 2 - 1)
+							if (test_vecs[i][1] + py >= 0 && test_vecs[i][1] + py < ssy * 2 - 1)
+							{
+								if (m[test_vecs[i][0] + px][test_vecs[i][1] + py])
+								{
+									kol++;
+								}
+							}
+					if (kol == 0)
+						m[pos[curr_t].x * 2][pos[curr_t].y * 2] = 0;
+
+
+					kol = 0;
+					px = pos[curr_t].x * 2 + test_p2[0]*2;
+					py = pos[curr_t].y * 2 + test_p2[1]*2;
+					for (int i = 0; i < 4; i++)
+						if (test_vecs[i][0] + px >= 0 && test_vecs[i][0] + px < ssx * 2 - 1)
+							if (test_vecs[i][1] + py >= 0 && test_vecs[i][1] + py < ssy * 2 - 1)
+							{
+								if (m[test_vecs[i][0] + px][test_vecs[i][1] + py])
+								{
+									kol++;
+								}
+							}
+					if (kol == 0)
+						m[pos[curr_t].x * 2 + test_p2[0] * 2][pos[curr_t].y * 2 + test_p2[1] * 2] = 0;
+
+
+				}
+
+
+			}
+
+
+		}
+		else
+			exi = 1;
+
+	} while (exi==0);
+
+	for (int i = 0; i < el.size(); i++)
+	{
+		//dd(el[i].x1, el[i].y1, i / (double)el.size()*2*M_PI, 200);
+		//dd(el[i].x2, el[i].y2, (i + 0.5) / (double)el.size() * 2 * M_PI, 200);
+
+		vector<int> test_p1, test_p2;
+		vector<int> test_c_p;
+
+
+		if (pos[i].t == 0)
+		{
+			test_c_p = { 0, 1 };
+			test_p1 = { 0, 0 };
+			test_p2 = { 0, 1 };
+		}
+		if (pos[i].t == 1)
+		{
+			test_c_p = { 1, 0 };
+			test_p1 = { 0, 0 };
+			test_p2 = { 1, 0 };
+		}
+		if (pos[i].t == 2)
+		{
+			test_c_p = { 0, -1 };
+			test_p1 = { 0, 0 };
+			test_p2 = { 0, -1 };
+		}
+		if (pos[i].t == 3)
+		{
+			test_c_p = { -1, 0 };
+			test_p1 = { 0, 0 };
+			test_p2 = { -1, 0 };
+		}
+
+		el[i].x1 = 100 + 100 * (pos[i].x);
+		el[i].y1 = 100 + 100 * (pos[i].y);
+		el[i].x2 = 100 + 100 * (pos[i].x + test_c_p[0]);
+		el[i].y2 = 100 + 100 * (pos[i].y + test_c_p[1]);
+	}
+
+	for (int i = 0; i < el.size(); i++)
+	{
+		draw_el(tex, el[i]);
+	}
+
+	for (int i = 0; i < el.size(); i++)
+	{
+		for (int r = 0; r < el.size(); r++)
+		{
+			if (el[i].p1 == el[r].p1)
+			{
+				tex.line(el[i].x1, el[i].y1, el[r].x1, el[r].y1);
+			}
+			if (el[i].p1 == el[r].p2)
+			{
+				tex.line(el[i].x1, el[i].y1, el[r].x2, el[r].y2);
+			}
+			if (el[i].p2 == el[r].p1)
+			{
+				tex.line(el[i].x2, el[i].y2, el[r].x1, el[r].y1);
+			}
+			if (el[i].p2 == el[r].p2)
+			{
+				tex.line(el[i].x2, el[i].y2, el[r].x2, el[r].y2);
+			}
+		}
+	}
+
+}
+
 
 int main()
 {
@@ -3593,7 +4486,7 @@ int main()
 	input.T = 10;
 	/**/
 
-	/** /
+	/**/
 	input.cha_str = "1 2 1 U 0  2 2 3 C 4  3 3 1 R 1  4 3 4 C 1  5 4 1 R 0.5  6 4 1 R 1";//2 v
 	input.el_id = 6;
 	input.t_sign = SIGN_D;
@@ -3602,7 +4495,7 @@ int main()
 	input.T = input.ts * 2;
 	/**/
 
-	/**/
+	/** /
 	input.cha_str = "1 1 2 U 0  2 2 1 R 1  3 2 3 C 4  4 3 1 R 2  5 3 4 C 1  6 4 1 R 1";//13 v
 	input.el_id = 6;
 	input.t_sign = SIGN_D;
@@ -3611,7 +4504,7 @@ int main()
 	input.T = input.ts * 2;
 	/**/
 
-	/**/
+	/** /
 	input.cha_str = "1 2 1 U 0  2 2 3 R 1  3 3 1 L 4  4 3 4 R 0.5  5 4 1 L 1  6 4 1 R 1";//2 v
 	input.el_id = 6;
 	input.t_sign = SIGN_V;
@@ -3661,6 +4554,13 @@ int main()
 	vx.resize(200);
 	vy.resize(200);
 
+
+	tex.resize(1024, 1024);
+
+	print_chem(tex, cha);
+	mtx.lock();
+	img.add(tex);
+	mtx.unlock();
 	//EL_CHAIN cha("1 1 4 U 0  2 2 4 R 1  3 1 3 R 1  4 3 4 R 1  5 1 3 L 1  6 3 2 L 0.25");//from 14V
 
 	//подсчёт уравнений состояния 
@@ -3669,7 +4569,7 @@ int main()
 	//h1 аналитически
 	cha.comp_h1(input.el_id);
 
-
+	/*
 	double t_3;
 	t_3 = -1 / cha.per_s[0].lamd[0].real();
 	for (int i = 0; i < cha.per_s[0].lamd.size(); i++)
@@ -3684,11 +4584,13 @@ int main()
 	//(238 + 33 s + s^2)/(1000 + 300 s + 30 s^2 + s^3)
 	//cha.h1_2.str_l = ((L_S)("(409600.0*s**2 + 4915200.0*s + 49152000.0)/(s*(128000.0*s**2 + 512000.0*s + 13312000.0))") );
 	//cha.h1_2.sym_str = ((L_S)("(409600.0*s**2 + 4915200.0*s + 49152000.0)/(s*(128000.0*s**2 + 512000.0*s + 13312000.0))")).s;
-	sympy_lap("Heaviside(t)*(10)");
+	//sympy_lap("Heaviside(t)*(10)");
+	*/
 	//H1  и какойто сигнал
 	auto res2 = comp_2(cha, input.el_id, input.t_sign, input.as, input.ts);
 	///вход2
 
+	/*
 	for (int i = 0; i < vx.size(); i++)
 	{
 		vx[i] = i*t_3 / vx.size();
@@ -3713,16 +4615,15 @@ int main()
 	tex = create_plot(512, 256, vx, vy, 0, 0, 0, 0);
 	img.add(tex);
 	mtx.unlock();
+*/
 
-
-	comp_3(res2.h1_s*(L_S)"s", res2.f1_t, res2.f1_s,input.t_sign,input.ts);
+	//comp_3(res2.h1_s*(L_S)"s", res2.f1_t, res2.f1_s,input.t_sign,input.ts);
 
 	auto res4 = comp_4(res2.h1_s*(L_S)"s", res2.f1_t, res2.f1_s, input.T);
 
 
 
 	print_ku(cha, res2);
-
 
 
 	//EL_CHAIN_L cha1("1 4 1 I 1  2 3 4 R 0.5  3 1 4 R 2  4 1 2 R s*2  5 2 3 R 1  6 3 4 R 1/(s*4)");//from MU
@@ -3744,7 +4645,6 @@ int main()
 
 	return 0;
 }
-
 
 
 
@@ -3935,6 +4835,60 @@ void print_ku(const EL_CHAIN &cha, const COMP_2_RES &res2)
 	cout << res2.f2_t << endl;
 
 
+
+	double t_3;
+
+	t_3 = -1 / cha.per_s[0].lamd[0].real();
+	for (int i = 0; i < cha.per_s[0].lamd.size(); i++)
+		t_3 = max(-1 / t_3, -1 / cha.per_s[1].lamd[0].real());
+
+	t_3 *= 3;
+
+
+
+	//h1 по лаплассовски
+
+	//(238 + 33 s + s^2)/(1000 + 300 s + 30 s^2 + s^3)
+	//cha.h1_2.str_l = ((L_S)("(409600.0*s**2 + 4915200.0*s + 49152000.0)/(s*(128000.0*s**2 + 512000.0*s + 13312000.0))") );
+	//cha.h1_2.sym_str = ((L_S)("(409600.0*s**2 + 4915200.0*s + 49152000.0)/(s*(128000.0*s**2 + 512000.0*s + 13312000.0))")).s;
+	//sympy_lap("Heaviside(t)*(10)");
+	//H1  и какойто сигнал
+	///вход2
+
+	vector<double> vx, vy, vz;
+	EASY_TEX tex;
+
+
+	vx.resize(200);
+	vy.resize(vx.size());
+	vz.resize(vx.size());
+
+	for (int i = 0; i < vx.size(); i++)
+	{
+		vx[i] = i*t_3 / vx.size();
+		vy[i] = atof1(sympy_eva(cha.h1_1.sym_str, "t", ftos(vx[i])));
+	}
+
+
+	tex = create_plot(1024, 512, vx, vy, 0, 0, 0, 0);
+	mtx.lock();
+	img.add(tex);
+	mtx.unlock();
+
+
+
+	for (int i = 0; i < vx.size(); i++)
+	{
+		vx[i] = i*t_3 / vx.size();
+		vy[i] = atof1(sympy_eva(res2.h1_t, "t", ftos(vx[i])));
+		//cout <<vx[i]<<"  "<< sympy_eva(cha.f1_t, "t", ftos(vx[i]))<<endl;
+	}
+
+	tex = create_plot(1024, 512, vx, vy, 0, 0, 0, 0);
+	mtx.lock();
+	img.add(tex);
+	mtx.unlock();
+ 
 
 
 
