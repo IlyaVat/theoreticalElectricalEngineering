@@ -38,6 +38,7 @@ string sympy_lap(string funct);
 string sympy_eva(string f1, string f2, string f3);
 string sympy_dif(string f1, string f2);
 
+
 #define cout std::cout
 
 
@@ -1157,11 +1158,13 @@ public:
 		}
 		if (check_id != -1)
 			po[check_id].U = check_zn;
+
 		for (int i = 0; i < prop_uzl.size(); i++)
 			if (prop_uzl[i].id_ss == prop_uzl[i].id_uz)
 			{
 				po[prop_uzl[i].id_ss].U = 0;
-				prop_uzl.erase(prop_uzl.begin() + i);
+				//prop_uzl.erase(prop_uzl.begin() + i);
+				//i--;
 			}
 
 		int reps = prop_uzl.size();
@@ -1170,15 +1173,7 @@ public:
 			for (int r = 0; r < prop_uzl.size(); r++)
 				if (prop_uzl[r].id_ss != prop_uzl[r].id_uz)
 				{
-					int b = 1;
-					for (int o = 0; o < prop_uzl.size(); o++)
-						if (prop_uzl[o].id_uz == prop_uzl[r].id_ss)
-							b = 0;
-					if (b == 1)
-					{
-						po[prop_uzl[r].id_uz].U = po[prop_uzl[r].id_ss].U;
-						prop_uzl.erase(prop_uzl.begin() + r);
-					}
+					po[prop_uzl[i].id_uz].U = po[get_r_uzl(prop_uzl, prop_uzl[i].id_uz)].U;
 				}
 
 
@@ -1291,6 +1286,7 @@ public:
 	}
 
 };
+
 
 static struct PyModuleDef spammodule = {
 	PyModuleDef_HEAD_INIT,
@@ -2356,6 +2352,7 @@ public:
 	}
 };
 
+void print_chem(EASY_TEX &tex, const EL_CHAIN &cha);
 
 OUTPUT_IMAGES img;
 
@@ -2804,7 +2801,7 @@ public:
 COMP_2_RES comp_2(EL_CHAIN cha,int id_res,int t_s, double im, double ti)
 {
 	COMP_2_RES res;
-
+	EASY_TEX tex;
 
 	res.h1_s = cha.comp_h1_l(id_res);
 
@@ -3074,8 +3071,15 @@ COMP_2_RES comp_2(EL_CHAIN cha,int id_res,int t_s, double im, double ti)
 	cha_temp.replace_el(EL_U, EL_U, 1);
 	cha_temp.replace_el(EL_I, EL_I, 1);
 
+	tex.resize(512, 256);
+	print_chem(tex, cha_temp);
+	mtx.lock();
+	img.add(tex);
+	mtx.unlock();
+
 	cha_temp.comp_par_1_iu_uns();
-	double h1_0=cha.el[id_res].I;
+	double h1_0=cha_temp.el[id_res].I;
+
 
 
 	cha_temp = cha;
@@ -3086,6 +3090,12 @@ COMP_2_RES comp_2(EL_CHAIN cha,int id_res,int t_s, double im, double ti)
 
 	cha_temp.comp_par_1_iu_uns();
 	double h1_9 = cha_temp.el[id_res].I;
+
+	tex.resize(512, 256);
+	print_chem(tex, cha_temp);
+	mtx.lock();
+	img.add(tex);
+	mtx.unlock();
 
 
 	string h1_0s = sympy_lim(res.h1_t, "t", "0", "+");
@@ -3115,7 +3125,7 @@ COMP_2_RES comp_2(EL_CHAIN cha,int id_res,int t_s, double im, double ti)
 		vz[i] = atof1(s);
 	}
 
-	auto tex=create_double_plot(512,512,vx,vy,vz);
+	tex=create_double_plot(512,512,vx,vy,vz);
 	mtx.lock();
 	img.add(tex);
 	mtx.unlock();
@@ -3926,7 +3936,7 @@ void draw_el(EASY_TEX &tex, GR_EL &el)
 		tex.line(el.x1 + x1 - xx, el.y1 + y1 - yy, el.x1 + x2 - xx, el.y1 + y2 - yy);
 		tex.line(el.x1 + x2 + xx, el.y1 + y2 + yy, el.x1 + x1 + xx, el.y1 + y1 + yy);
 
-
+		tex.numbers((el.x1 + el.x2) / 2, (el.y1 + el.y2) / 2, ftos(el.n));
 		break;
 	case EL_C:
 		c = ss(el.x1, el.y1, el.x2, el.y2);
@@ -3943,6 +3953,9 @@ void draw_el(EASY_TEX &tex, GR_EL &el)
 		tex.line(el.x1 + x1 + xx, el.y1 + y1 + yy, el.x1 + x1 - xx, el.y1 + y1 - yy);
 		tex.line(el.x1 + x2 + xx, el.y1 + y2 + yy, el.x1 + x2 - xx, el.y1 + y2 - yy);
 
+		dd(xx, yy, c + M_PI / 4, v*0.2);
+
+		tex.numbers((el.x1 + el.x2) / 2+xx, (el.y1 + el.y2) / 2+yy, ftos(el.n));
 
 		break;
 	case EL_L:
@@ -3993,6 +4006,7 @@ void draw_el(EASY_TEX &tex, GR_EL &el)
 		dd(x2, y2, c, v*0.1);
 		tex.line(el.x1 + x1 + x2, el.y1 + y1 + y2, el.x1 + x1 - x2, el.y1 + y1 - y2);
 
+		tex.numbers((el.x1 + el.x2) / 2, (el.y1 + el.y2) / 2, ftos(el.n));
 
 		break;
 	default:
@@ -4140,8 +4154,8 @@ void print_chem(EASY_TEX &tex, const EL_CHAIN &cha)
 	{
 		if (curr_t >= 0 && curr_t < el.size())
 		{
-			cout<<m;
-			cout << endl;
+			//cout<<m;
+			//cout << endl;
 			pos[curr_t].next_pos(ssx, ssy);
 			bool is_ok_sh = 1;
 			
@@ -4395,9 +4409,9 @@ void print_chem(EASY_TEX &tex, const EL_CHAIN &cha)
 		}
 
 		el[i].x1 = 100 + 100 * (pos[i].x);
-		el[i].y1 = 100 + 100 * (pos[i].y);
+		el[i].y1 = tex.gy()-100 - 100 * (pos[i].y);
 		el[i].x2 = 100 + 100 * (pos[i].x + test_c_p[0]);
-		el[i].y2 = 100 + 100 * (pos[i].y + test_c_p[1]);
+		el[i].y2 = tex.gy() - 100 - 100 * (pos[i].y + test_c_p[1]);
 	}
 
 	for (int i = 0; i < el.size(); i++)
@@ -4555,8 +4569,7 @@ int main()
 	vy.resize(200);
 
 
-	tex.resize(1024, 1024);
-
+	tex.resize(512, 256);
 	print_chem(tex, cha);
 	mtx.lock();
 	img.add(tex);

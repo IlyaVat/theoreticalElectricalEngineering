@@ -473,7 +473,7 @@ void EL_CHAIN_L::comp_par_1_iu_uns()
 		if (prop_uzl[i].id_ss == prop_uzl[i].id_uz)
 		{
 			po[prop_uzl[i].id_ss].U = 0;
-			prop_uzl.erase(prop_uzl.begin() + i);
+			//prop_uzl.erase(prop_uzl.begin() + i);
 		}
 
 	int reps = prop_uzl.size();
@@ -482,15 +482,7 @@ void EL_CHAIN_L::comp_par_1_iu_uns()
 		for (int r = 0; r < prop_uzl.size(); r++)
 			if (prop_uzl[r].id_ss != prop_uzl[r].id_uz)
 			{
-				int b = 1;
-				for (int o = 0; o < prop_uzl.size(); o++)
-					if (prop_uzl[o].id_uz == prop_uzl[r].id_ss)
-						b = 0;
-				if (b == 1)
-				{
-					po[prop_uzl[r].id_uz].U = po[prop_uzl[r].id_ss].U;
-					prop_uzl.erase(prop_uzl.begin() + r);
-				}
+				po[prop_uzl[i].id_uz].U = po[get_r_uzl(prop_uzl, prop_uzl[i].id_uz)].U;
 			}
 
 
