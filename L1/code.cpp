@@ -3864,12 +3864,31 @@ void draw_el(EASY_TEX &tex, GR_EL &el)
 	switch (el.t)
 	{
 	case EL_K:
+		c = ss(el.x1, el.y1, el.x2, el.y2);
+		v = ras(el.x1 - el.x2, el.y1 - el.y2);
+
 		tex.line(el.x1, el.y1, el.x2, el.y2);
+
+		dd(xx, yy, c + M_PI / 4, v*0.15);
+
+		tex.numbers((el.x1 + el.x2) / 2 + xx, (el.y1 + el.y2) / 2 + yy, ftos(el.n));
 		break;
 	case EL_H:
 		c = ss(el.x1, el.y1, el.x2, el.y2);
 		v = ras(el.x1 - el.x2, el.y1 - el.y2);
-		//tex.line(el.x1, el.y1, el.x2, el.y2);
+		dd(xx, yy, c, v*0.35);
+		tex.line(el.x1, el.y1, el.x1 + xx, el.y1 + yy);
+
+		dd(x1, y1, c+M_PI*3/4, v*0.2);
+		tex.line(el.x1+xx+x1, el.y1+yy+y1, el.x1 + xx, el.y1 + yy);
+
+		dd(xx, yy, c, -v*0.35);
+		tex.line(el.x2, el.y2, el.x2 + xx, el.y2 + yy);
+
+		dd(x1, y1, c + M_PI * 1 / 4, v*0.2);
+		tex.line(el.x2+xx+x1, el.y2+yy+y1, el.x2 + xx, el.y2 + yy);
+
+		tex.numbers((el.x1 + el.x2) / 2, (el.y1 + el.y2) / 2, ftos(el.n));
 
 		break;
 	case EL_U:
@@ -4500,7 +4519,7 @@ int main()
 	input.T = 10;
 	/**/
 
-	/**/
+	/** /
 	input.cha_str = "1 2 1 U 0  2 2 3 C 4  3 3 1 R 1  4 3 4 C 1  5 4 1 R 0.5  6 4 1 R 1";//2 v
 	input.el_id = 6;
 	input.t_sign = SIGN_D;
@@ -4509,7 +4528,7 @@ int main()
 	input.T = input.ts * 2;
 	/**/
 
-	/** /
+	/**/
 	input.cha_str = "1 1 2 U 0  2 2 1 R 1  3 2 3 C 4  4 3 1 R 2  5 3 4 C 1  6 4 1 R 1";//13 v
 	input.el_id = 6;
 	input.t_sign = SIGN_D;
@@ -4519,7 +4538,7 @@ int main()
 	/**/
 
 	/** /
-	input.cha_str = "1 2 1 U 0  2 2 3 R 1  3 3 1 L 4  4 3 4 R 0.5  5 4 1 L 1  6 4 1 R 1";//2 v
+	input.cha_str = "1 2 1 U 0  2 2 3 R 1  3 3 1 L 4  4 3 4 R 0.5  5 4 1 L 1  6 4 1 R 1";//14 v
 	input.el_id = 6;
 	input.t_sign = SIGN_V;
 	input.ts = 0.5;
