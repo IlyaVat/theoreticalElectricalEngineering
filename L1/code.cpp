@@ -2132,8 +2132,249 @@ public:
 	void numbers(int px, int py, string s)
 	{
 		vector<int> n_d[12][5];
+		string ru_d[40][5];
 
 		int i;
+
+		i = 0;
+
+		ru_d[i][0] = " 111 ";
+		ru_d[i][1] = "1   1";
+		ru_d[i][2] = "11111";
+		ru_d[i][3] = "1   1";
+		ru_d[i][4] = "1   1";
+
+		i++;
+		ru_d[i][0] = "11111";
+		ru_d[i][1] = "1    ";
+		ru_d[i][2] = "1111 ";
+		ru_d[i][3] = "1   1";
+		ru_d[i][4] = "1111 ";
+
+		i++;
+		ru_d[i][0] = "1111 ";
+		ru_d[i][1] = "1   1";
+		ru_d[i][2] = "1111 ";
+		ru_d[i][3] = "1   1";
+		ru_d[i][4] = "1111 ";
+
+		i++;
+		ru_d[i][0] = "11111";
+		ru_d[i][1] = "1    ";
+		ru_d[i][2] = "1    ";
+		ru_d[i][3] = "1    ";
+		ru_d[i][4] = "1    ";
+
+		i++;
+		ru_d[i][0] = " 111 ";
+		ru_d[i][1] = " 1 1 ";
+		ru_d[i][2] = " 1 1 ";
+		ru_d[i][3] = "11111";
+		ru_d[i][4] = "1   1";
+
+		i++;
+		ru_d[i][0] = "11111";
+		ru_d[i][1] = "1    ";
+		ru_d[i][2] = "11111";
+		ru_d[i][3] = "1    ";
+		ru_d[i][4] = "11111";
+
+		i++;
+		ru_d[i][0] = "11111";
+		ru_d[i][1] = "1    ";
+		ru_d[i][2] = "11111";
+		ru_d[i][3] = "1    ";
+		ru_d[i][4] = "11111";
+
+		i++;
+		ru_d[i][0] = "1 1 1";
+		ru_d[i][1] = " 111 ";
+		ru_d[i][2] = "  1  ";
+		ru_d[i][3] = " 111 ";
+		ru_d[i][4] = "1 1 1";
+
+		i++;
+		ru_d[i][0] = "1111 ";
+		ru_d[i][1] = "    1";
+		ru_d[i][2] = " 111 ";
+		ru_d[i][3] = "    1";
+		ru_d[i][4] = "1111 ";
+
+		i++;
+		ru_d[i][0] = "1   1";
+		ru_d[i][1] = "1  11";
+		ru_d[i][2] = "1 1 1";
+		ru_d[i][3] = "11  1";
+		ru_d[i][4] = "1   1";
+
+		i++;
+		ru_d[i][0] = "1   1";
+		ru_d[i][1] = "1  11";
+		ru_d[i][2] = "1 1 1";
+		ru_d[i][3] = "11  1";
+		ru_d[i][4] = "1   1";
+
+		i++;
+		ru_d[i][0] = "1   1";
+		ru_d[i][1] = "1 11 ";
+		ru_d[i][2] = "11   ";
+		ru_d[i][3] = "1 11 ";
+		ru_d[i][4] = "1   1";
+
+		i++;
+		ru_d[i][0] = " 1111";
+		ru_d[i][1] = " 1  1";
+		ru_d[i][2] = " 1  1";
+		ru_d[i][3] = " 1  1";
+		ru_d[i][4] = "1   1";
+
+		i++;
+		ru_d[i][0] = "1   1";
+		ru_d[i][1] = "11 11";
+		ru_d[i][2] = "1 1 1";
+		ru_d[i][3] = "1   1";
+		ru_d[i][4] = "1   1";
+
+		i++;
+		ru_d[i][0] = "1   1";
+		ru_d[i][1] = "1   1";
+		ru_d[i][2] = "11111";
+		ru_d[i][3] = "1   1";
+		ru_d[i][4] = "1   1";
+
+		i++;
+		ru_d[i][0] = " 111 ";
+		ru_d[i][1] = "1   1";
+		ru_d[i][2] = "1   1";
+		ru_d[i][3] = "1   1";
+		ru_d[i][4] = " 111 ";
+
+		i++;
+		ru_d[i][0] = "11111";
+		ru_d[i][1] = "1   1";
+		ru_d[i][2] = "1   1";
+		ru_d[i][3] = "1   1";
+		ru_d[i][4] = "1   1";
+
+		i++;
+		ru_d[i][0] = "1111 ";
+		ru_d[i][1] = "1   1";
+		ru_d[i][2] = "1111 ";
+		ru_d[i][3] = "1    ";
+		ru_d[i][4] = "1    ";
+
+		i++;
+		ru_d[i][0] = " 1111";
+		ru_d[i][1] = "1    ";
+		ru_d[i][2] = "1    ";
+		ru_d[i][3] = "1    ";
+		ru_d[i][4] = " 1111";
+
+		i++;
+		ru_d[i][0] = "11111";
+		ru_d[i][1] = "  1  ";
+		ru_d[i][2] = "  1  ";
+		ru_d[i][3] = "  1  ";
+		ru_d[i][4] = "  1  ";
+
+		i++;
+		ru_d[i][0] = "1   1";
+		ru_d[i][1] = "1   1";
+		ru_d[i][2] = " 1111";
+		ru_d[i][3] = "    1";
+		ru_d[i][4] = "  11 ";
+
+		i++;
+		ru_d[i][0] = "  1  ";
+		ru_d[i][1] = " 111 ";
+		ru_d[i][2] = "1 1 1";
+		ru_d[i][3] = " 111 ";
+		ru_d[i][4] = "  1  ";
+
+		i++;
+		ru_d[i][0] = "1   1";
+		ru_d[i][1] = " 1 1 ";
+		ru_d[i][2] = "  1  ";
+		ru_d[i][3] = " 1 1 ";
+		ru_d[i][4] = "1   1";
+
+		i++;
+		ru_d[i][0] = "1  1 ";
+		ru_d[i][1] = "1  1 ";
+		ru_d[i][2] = "1  1 ";
+		ru_d[i][3] = "11111";
+		ru_d[i][4] = "    1";
+
+		i++;
+		ru_d[i][0] = "1   1";
+		ru_d[i][1] = "1   1";
+		ru_d[i][2] = "11111";
+		ru_d[i][3] = "    1";
+		ru_d[i][4] = "    1";
+
+		i++;
+		ru_d[i][0] = "1 1 1";
+		ru_d[i][1] = "1 1 1";
+		ru_d[i][2] = "1 1 1";
+		ru_d[i][3] = "1 1 1";
+		ru_d[i][4] = "11111";
+
+		i++;
+		ru_d[i][0] = "1 1 1";
+		ru_d[i][1] = "1 1 1";
+		ru_d[i][2] = "1 1 1";
+		ru_d[i][3] = "11111";
+		ru_d[i][4] = "    1";
+
+		i++;
+		ru_d[i][0] = "1    ";
+		ru_d[i][1] = "1    ";
+		ru_d[i][2] = "1111 ";
+		ru_d[i][3] = "1   1";
+		ru_d[i][4] = "1111 ";
+
+		i++;
+		ru_d[i][0] = "1   1";
+		ru_d[i][1] = "1   1";
+		ru_d[i][2] = "11  1";
+		ru_d[i][3] = "1 1 1";
+		ru_d[i][4] = "11  1";
+
+		i++;
+		ru_d[i][0] = "11   ";
+		ru_d[i][1] = " 1   ";
+		ru_d[i][2] = " 111 ";
+		ru_d[i][3] = " 1  1";
+		ru_d[i][4] = " 111 ";
+
+		i++;
+		ru_d[i][0] = "1111 ";
+		ru_d[i][1] = "    1";
+		ru_d[i][2] = "11111";
+		ru_d[i][3] = "    1";
+		ru_d[i][4] = "1111 ";
+
+		i++;
+		ru_d[i][0] = "1  1 ";
+		ru_d[i][1] = "1 1 1";
+		ru_d[i][2] = "111 1";
+		ru_d[i][3] = "1 1 1";
+		ru_d[i][4] = "1  1 ";
+
+		i++;
+		ru_d[i][0] = " 1111";
+		ru_d[i][1] = "1   1";
+		ru_d[i][2] = " 1111";
+		ru_d[i][3] = " 1  1";
+		ru_d[i][4] = "1   1";
+
+		i++;
+		ru_d[i][0] = "     ";
+		ru_d[i][1] = "     ";
+		ru_d[i][2] = "     ";
+		ru_d[i][3] = "     ";
+		ru_d[i][4] = "     ";
+
 
 		i = 0;
 		n_d[i][0] = { 0, 1, 0 };
@@ -2232,13 +2473,83 @@ public:
 				if (s[i] == '-')
 					id = 11;
 			}
-			if (id>=0)
-			for (int r = 0; r < 10; r++)
-				for (int o = 0; o < 6; o++)
-					if (n_d[id][r/2][o/2])
+			if (id >= 0 && id <= 11)
+			{
+				if (id >= 0)
+					for (int r = 0; r < 10; r++)
+						for (int o = 0; o < 6; o++)
+							if (n_d[id][r / 2][o / 2])
+							{
+								setpixel(px + i * 4 * 2 + o - offs * 2, py - r, 255, 255, 255);
+							}
+			}
+			else
+			{
+				//ё= -72
+				switch (s[i])
+				{
+				case 'а':id = 0; break;
+				case 'б':id = 1; break;
+				case 'в':id = 2; break;
+				case 'г':id = 3; break;
+				case 'д':id = 4; break;
+				case 'е':id = 5; break;
+				case 'ё':id = 6; break;
+				case 'ж':id = 7; break;
+				case 'з':id = 8; break;
+				case 'и':id = 9; break;
+				case 'й':id = 10; break;
+				case 'к':id = 11; break;
+				case 'л':id = 12; break;
+				case 'м':id = 13; break;
+				case 'н':id = 14; break;
+				case 'о':id = 15; break;
+				case 'п':id = 16; break;
+				case 'р':id = 17; break;
+				case 'с':id = 18; break;
+				case 'т':id = 19; break;
+				case 'у':id = 20; break;
+				case 'ф':id = 21; break;
+				case 'х':id = 22; break;
+				case 'ц':id = 23; break;
+				case 'ч':id = 24; break;
+				case 'ш':id = 25; break;
+				case 'щ':id = 26; break;
+				case 'ь':id = 27; break;
+				case 'ы':id = 28; break;
+				case 'ъ':id = 29; break;
+				case 'э':id = 30; break;
+				case 'ю':id = 31; break;
+				case 'я':id = 32; break;
+				}
+
+
+				if (id >= 0 && id <= 32)
+				{
+					for (int r = 0; r < 10; r++)
+						for (int o = 0; o < 10; o++)
+							if (ru_d[id][r / 2][o / 2]!=' ')
+							{
+								setpixel(px + i * 4 * 2 + o - offs * 2, py - r, 255, 255, 255);
+							}
+					if (id == 6)
 					{
-						setpixel(px+i*4*2+o-offs*2,py-r,255,255,255);
+						for (int r = -4; r < -2; r++)
+							for (int o = 2; o < 4; o++)
+								setpixel(px + i * 4 * 2 + o - offs * 2, py - r, 255, 255, 255);
+						for (int r = -4; r < -2; r++)
+							for (int o = 6; o < 8; o++)
+								setpixel(px + i * 4 * 2 + o - offs * 2, py - r, 255, 255, 255);
 					}
+					if (id == 10)
+					{
+						for (int r = -4; r < -2; r++)
+							for (int o = 2; o < 8; o++)
+								setpixel(px + i * 4 * 2 + o - offs * 2, py - r, 255, 255, 255);
+					}
+					offs -= 2;
+				}
+			}
 		}
 
 
@@ -2814,6 +3125,13 @@ COMP_2_RES comp_2(EL_CHAIN cha,int id_res,int t_s, double im, double ti)
 	cha_temp.replace_el(EL_C, EL_H);
 	cha_temp.comp_par_1_iu_uns();
 
+	tex.resize(512, 256);
+	print_chem(tex, cha_temp);
+	tex.numbers(10, tex.gy() - 20, "это схема при эс равному нулю");
+	mtx.lock();
+	img.add(tex);
+	mtx.unlock();
+
 	double HS_0 = (cha_temp.el[id_res].I);
 
 
@@ -2823,6 +3141,14 @@ COMP_2_RES comp_2(EL_CHAIN cha,int id_res,int t_s, double im, double ti)
 	cha_temp.replace_el(EL_L, EL_H);
 	cha_temp.replace_el(EL_C, EL_K);
 	cha_temp.comp_par_1_iu_uns();
+
+	tex.resize(512, 256);
+	print_chem(tex, cha_temp);
+	tex.numbers(10, tex.gy() - 20, "это схема при эс стремящемуся");
+	tex.numbers(10, tex.gy() - 20-18, "к бесконечности");
+	mtx.lock();
+	img.add(tex);
+	mtx.unlock();
 
 	double HS_9 = (cha_temp.el[id_res].I);
 
@@ -3073,6 +3399,7 @@ COMP_2_RES comp_2(EL_CHAIN cha,int id_res,int t_s, double im, double ti)
 
 	tex.resize(512, 256);
 	print_chem(tex, cha_temp);
+	tex.numbers(10, tex.gy()-20, "это схема для тэ равному 0 с плюсом");
 	mtx.lock();
 	img.add(tex);
 	mtx.unlock();
@@ -3093,6 +3420,8 @@ COMP_2_RES comp_2(EL_CHAIN cha,int id_res,int t_s, double im, double ti)
 
 	tex.resize(512, 256);
 	print_chem(tex, cha_temp);
+	tex.numbers(10, tex.gy() - 20, "это схема при тэ стремящемуся");
+	tex.numbers(10, tex.gy() - 20 - 18, "к бесконечности");
 	mtx.lock();
 	img.add(tex);
 	mtx.unlock();
@@ -3125,7 +3454,9 @@ COMP_2_RES comp_2(EL_CHAIN cha,int id_res,int t_s, double im, double ti)
 		vz[i] = atof1(s);
 	}
 
-	tex=create_double_plot(512,512,vx,vy,vz);
+	tex = create_double_plot(1024, 512, vx, vy, vz);
+	tex.numbers(100, tex.gy() - 20, "ток реакции и сигнал на 1 графике");
+	tex.numbers(100, tex.gy() - 20 - 18, "");
 	mtx.lock();
 	img.add(tex);
 	mtx.unlock();
@@ -3161,7 +3492,7 @@ void comp_3(L_S H_S, string F1_T, string F1_S, int sgn_t, int sgn_time)
 	string H_JW, H_IM, H_RE;
 
 	//3.1. Используя найденное в 2.1 выражение HU(s) или HI(s), вычислить и построить графики АЧХ и ФЧХ 
-	//функций передачи цепи HU(j?) или HI(j?). Произвести проверку АЧХ при ? = 0 и ? ? inf.  
+	//функций передачи цепи HU(jw) или HI(jw). Произвести проверку АЧХ при w = 0 и w -> inf.  
 	H_JW = sympy_eva(H_S.s, "s", "I*w");
 	H_IM = sympy_im(H_JW);
 	H_RE = sympy_re(H_JW);
@@ -3183,8 +3514,10 @@ void comp_3(L_S H_S, string F1_T, string F1_S, int sgn_t, int sgn_time)
 	}
 
 
+	tex = create_plot(1024, 512, vx, vy, 0, 0, 0, 0);
+	tex.numbers(100, tex.gy() - 20, "ачх");
+	tex.numbers(100, tex.gy() - 20 - 18, "");
 	mtx.lock();
-	tex = create_plot(512, 256, vx, vy, 0, 0, 0, 0);
 	img.add(tex);
 	mtx.unlock();
 
@@ -3203,8 +3536,10 @@ void comp_3(L_S H_S, string F1_T, string F1_S, int sgn_t, int sgn_time)
 	}
 
 
+	tex.numbers(100, tex.gy() - 20, "фчх");
+	tex.numbers(100, tex.gy() - 20 - 18, "");
+	tex = create_plot(1024, 512, vx, vy, 0, 0, 0, 0);
 	mtx.lock();
-	tex = create_plot(512, 256, vx, vy, 0, 0, 0, 0);
 	img.add(tex);
 	mtx.unlock();
 
@@ -3216,281 +3551,6 @@ void comp_3(L_S H_S, string F1_T, string F1_S, int sgn_t, int sgn_time)
 
 	//проверка при w -> inf
 	cout << "\nACH_H [w -> inf] = " << atof1(sympy_lim(ACH_H, "w", "oo", "-")) << endl;
-
-	//3.2. Определить полосу пропускания цепи по уровню 0,707|H(jw)|[max].
-	double first, last, min = 1000000, max = 0, temp;
-
-	double x[193], x_max = 0.001, x_min = 0.001;
-	for (int i = 0; i < 193; i++)
-	{
-		if (i == 0)
-		{
-			x[i] = 0.001;
-			first = min = max = atof1(sympy_eva(ACH_H, "w", ftos(x[i])));
-		}
-		else
-		{
-			x[i] = x[i - 1] * 1.1;
-			temp = atof1(sympy_eva(ACH_H, "w", ftos(x[i])));
-			if (min > temp) { min = temp; x_min = x[i]; }
-			if (max < temp) { max = temp; x_max = x[i]; }
-		}
-
-		if (i == 192)
-			last = atof1(sympy_lim(ACH_H, "w", "oo", "-"));
-	}
-
-	//точное определение max и min
-	//определение max
-	double shag = 0.01;
-	for (; shag > 0.0001; shag /= 2)
-		if (atof1(sympy_eva(ACH_H, "w", ftos(x_max))) < atof1(sympy_eva(ACH_H, "w", ftos(x_max + shag))))
-			x_max += shag;
-		else
-			if ((x_max - shag) > 0) x_max -= shag;
-
-	max = atof1(sympy_eva(ACH_H, "w", ftos(x_max)));
-
-	//определение min
-	/*for(shag = 0.01; atof1(sympy_eva(ACH, "w", ftos(x_min))) > atof1(sympy_eva(ACH, "w", ftos(x_min + shag))); shag = x_min - x_min/1.1)
-	x_min += shag;*/
-	shag = 0.01;
-	for (; shag > 0.0001; shag /= 2)
-		if (atof1(sympy_eva(ACH_H, "w", ftos(x_min))) > atof1(sympy_eva(ACH_H, "w", ftos(x_min + shag))))
-			x_min += shag;
-		else
-			if ((x_min - shag) > 0) x_min -= shag;
-
-	min = atof1(sympy_eva(ACH_H, "w", ftos(x_min)));
-
-	cout << "\nx_max = " << x_max << " x_min = " << x_min << "\n";
-
-	/*if (first > last && (last - pogr < min && min < last + pogr) && (first - pogr < max && max < first + pogr))
-	POLOSA.id = 0;
-	if (first < last && (first - pogr < min && min < first + pogr) && (last - pogr < max && max < last + pogr))
-	POLOSA.id = 1;
-	if (first < max && (first - pogr < last && last < first + pogr) && ((first - pogr < min && min < first + pogr) || (last - pogr < min && min < last + pogr)))
-	POLOSA.id = 2;
-	if (first > min && (first - pogr < last && last < first + pogr) && ((first - pogr < max && max < first + pogr) || (last - pogr < max && max < last + pogr)))
-	POLOSA.id = 3;*/
-
-	POl_PROPUSK POLOSA;
-	bool b1 = (max / sqrt(2)) > first;
-	bool b2 = (max / sqrt(2)) > last;
-	if (b1 && b2) POLOSA.id = 2;
-	if (!b1 && b2) POLOSA.id = 0;
-	if (b1 && !b2) POLOSA.id = 1;
-	if (!b1 && !b2) POLOSA.id = 3;
-
-	double y = 0.707 * atof1(sympy_eva(ACH_H, "w", ftos(x_max)));
-	switch (POLOSA.id)
-	{
-	case 0:
-		POLOSA.w0 = 0;
-		for (shag = 0.01, POLOSA.w1 = x_max; atof1(sympy_eva(ACH_H, "w", ftos(POLOSA.w1))) > y; shag *= 1.1)
-			POLOSA.w1 += shag;
-		for (; shag > 0.0001; shag /= 2)
-			if (atof1(sympy_eva(ACH_H, "w", ftos(POLOSA.w1))) > y)
-				POLOSA.w1 += shag;
-			else
-				POLOSA.w1 -= shag;
-		break;
-
-	case 1:
-		POLOSA.w1 = -1;
-		for (shag = 0.01, POLOSA.w0 = 0.001; atof1(sympy_eva(ACH_H, "w", ftos(POLOSA.w0))) < y; shag *= 1.1)
-			POLOSA.w0 += shag;
-		for (; shag > 0.0001; shag /= 2)
-			if (atof1(sympy_eva(ACH_H, "w", ftos(POLOSA.w0))) < y)
-				POLOSA.w0 += shag;
-			else
-				POLOSA.w0 -= shag;
-		break;
-
-	case 2:
-		for (shag = 0.01, POLOSA.w0 = x_max; atof1(sympy_eva(ACH_H, "w", ftos(POLOSA.w0))) > y; shag *= 1.1)
-			POLOSA.w0 -= shag;
-		for (; shag > 0.0001; shag /= 2)
-			if (atof1(sympy_eva(ACH_H, "w", ftos(POLOSA.w0))) < y)
-				POLOSA.w0 += shag;
-			else
-				POLOSA.w0 -= shag;
-
-		for (shag = 0.01, POLOSA.w1 = x_max; atof1(sympy_eva(ACH_H, "w", ftos(POLOSA.w1))) > y; shag *= 1.1)
-			POLOSA.w1 += shag;
-		for (; shag > 0.0001; shag /= 2)
-			if (atof1(sympy_eva(ACH_H, "w", ftos(POLOSA.w1))) > y)
-				POLOSA.w1 += shag;
-			else
-				POLOSA.w1 -= shag;
-		break;
-
-	case 3:
-		for (shag = 0.01, POLOSA.w0 = 0.001; atof1(sympy_eva(ACH_H, "w", ftos(POLOSA.w0))) < y; shag *= 1.1)
-			POLOSA.w0 += shag;
-		for (; shag > 0.0001; shag /= 2)
-			if (atof1(sympy_eva(ACH_H, "w", ftos(POLOSA.w0))) > y)
-				POLOSA.w0 += shag;
-			else
-				POLOSA.w0 -= shag;
-
-		for (shag = 0.01, POLOSA.w1 = POLOSA.w0; atof1(sympy_eva(ACH_H, "w", ftos(POLOSA.w1))) < y; shag *= 1.1)
-			POLOSA.w1 += shag;
-		for (; shag > 0.0001; shag /= 2)
-			if (atof1(sympy_eva(ACH_H, "w", ftos(POLOSA.w1))) < y)
-				POLOSA.w1 += shag;
-			else
-				POLOSA.w1 -= shag;
-		break;
-	}
-
-	cout << " first = " << first << " last = " << last << " min = " << min << " max = " << max << endl;
-	POLOSA.type();
-	if (POLOSA.id != 1)
-	{
-		POLOSA.dw = POLOSA.w1 - POLOSA.w0;
-		cout << "\nПолоса пропускания dw = " << POLOSA.dw << " [ " << POLOSA.w0 << ", " << POLOSA.w1 << "]\n";
-	}
-	else
-	{
-		POLOSA.dw = -1;
-		cout << "\nПолоса пропускания dw = inf [ " << POLOSA.w0 << ", +inf ]\n";
-	}
-
-	//3.3. Найти и построить амплитудный и фазовый спектры входного одиночного импульса.
-	//Найти ширину амплитудного спектра по уровню ( )1 max0,1 F j? или критерию, предложенному преподавателем.
-	string F1_JW, F1_RE, F1_IM;
-	F1_JW = sympy_eva(F1_S, "s", "I*w");
-	F1_RE = sympy_re(F1_JW);
-	F1_IM = sympy_im(F1_JW);
-
-	string ACH_F1 = "sqrt((" + F1_IM + ")**2+(" + F1_RE + ")**2)";
-	string FCH_F1 = "atan((" + F1_IM + ")/(" + F1_RE + "))-Heaviside(-(" + F1_RE + "))*pi";
-
-	x_max = 0; y = 0;
-	for (int i = 0; i < vx.size(); i++)
-	{
-		vx[i] = i / 60.0;
-		if (i == 0) vx[i] += 0.001;
-		string s = sympy_eva(ACH_F1, "w", ftos(vx[i]));
-		//cout << "\nvx[i]: " << vx[i] << "\t| st: " << s;
-		myreplace(s, ".", ",");
-		vy[i] = atof(s.c_str());
-	}
-
-	mtx.lock();
-	tex = create_plot(512, 256, vx, vy, 0, 0, 0, 0);
-	img.add(tex);
-	mtx.unlock();
-
-	for (int i = 0; i < vx.size(); i++)
-	{
-		vx[i] = i / 60.0;
-		if (i == 0) vx[i] += 0.001;
-		string s = sympy_eva(FCH_F1, "w", ftos(vx[i]));
-		//cout << "\nvx[i]: " << vx[i] << "\t| st: " << s;
-		myreplace(s, ".", ",");
-		vy[i] = atof(s.c_str());
-		while (vy[i] > M_PI)
-			vy[i] -= M_PI * 2;
-		while (vy[i] < -M_PI)
-			vy[i] += M_PI * 2;
-	}
-
-	mtx.lock();
-	tex = create_plot(512, 256, vx, vy, 0, 0, 0, 0);
-	img.add(tex);
-	mtx.unlock();
-
-	for (int i = 0; i < 193; i++)
-	{
-		if (i == 0)
-		{
-			//x[i] = 0.001;
-			y = atof1(sympy_lim(ACH_F1, "w", "0.0001", "+"));
-			cout << "y = " << y << " x_max = " << x_max << "\n";
-		}
-		else
-		{
-			//x[i] = x[i - 1] * 1.1;
-			temp = atof1(sympy_eva(ACH_F1, "w", ftos(x[i])));
-			if (y < temp) { y = temp; x_max = x[i]; }
-		}
-	}
-
-	cout << "y = " << y << " x_max = " << x_max << "\n";
-
-	for (shag = 0.001; shag > 0.000001; shag /= 2)
-		if (atof1(sympy_eva(ACH_F1, "w", ftos(x_max))) < atof1(sympy_eva(ACH_F1, "w", ftos(x_max + shag))))
-			x_max += shag;
-		else
-			x_max -= shag;
-	y = atof1(sympy_eva(ACH_F1, "w", ftos(x_max)));
-	cout << "y = " << y << " x_max = " << x_max << "\n";
-
-	cout << "\n\nACH_F1 = " << ACH_F1;
-	cout << "\n\nFCH_F1 = " << FCH_F1 << endl;
-
-	double dw_ACH_F1;
-	y = 0.1*atof1(sympy_eva(ACH_F1, "w", ftos(x_max)));
-	cout << "0.1A = " << y << "\n";
-	dw_ACH_F1 = x_max;
-	do
-	{
-		temp = dw_ACH_F1;
-		cout << "ACH_max = " << atof1(sympy_eva(ACH_F1, "w", ftos(x_max))) << "\n";
-		for (shag = 0.01; atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1))) > atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1 + shag))); /*shag *= 1.1*/)
-		{
-			//cout << "ACH_F1_1 = " << atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1))) << "\tACH_F1_2 = " << atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1 + shag))) << "\n";
-			dw_ACH_F1 += shag;
-			//cout << "*dw_ACH_F1 = " << dw_ACH_F1 << "\n";
-			//_getch();
-		}
-		/*for(; shag > 0.0000001; shag /= 2)
-		{
-		if(atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1))) > atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1 + shag))))
-		dw_ACH_F1 += shag;
-		else
-		dw_ACH_F1 -= shag;
-		cout << "ACH_F1_1 = " << atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1))) << "\tACH_F1_2 = " << atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1 + shag))) << "\n";
-		cout << "*dw_ACH_F1 = " << dw_ACH_F1 << "\n";
-		}*/
-
-		cout << "----------\nACH_F1_1 = " << atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1))) << "\tACH_F1_2 = " << atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1 + 0.01))) << "\n";
-
-		for (shag = 0.01; atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1))) < atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1 + shag))); shag *= 1.1)
-		{
-			//cout << "ACH_F1_1 = " << atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1))) << "\tACH_F1_2 = " << atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1 + shag))) << "\n";
-			dw_ACH_F1 += shag;
-			//cout << "**dw_ACH_F1 = " << dw_ACH_F1 << "\n";
-			//_getch();
-		}
-		for (; shag > 0.000001; shag /= 2)
-			if (atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1))) < atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1 + shag))))
-				dw_ACH_F1 += shag;
-			else
-				dw_ACH_F1 -= shag;
-		if (atof1(sympy_eva(ACH_F1, "w", ftos(x_max))) < atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1)))) x_max = dw_ACH_F1;
-		cout << atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1))) << " | " << y << "\n";
-	} while (atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1))) > y);
-
-	dw_ACH_F1 = temp;
-	cout << "ACH_F1_1 = " << atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1))) << "\t dw_ACH_F1 = " << dw_ACH_F1 << "\n";
-	for (shag = 0.01; atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1))) > y; shag *= 1.1)
-	{
-		dw_ACH_F1 += shag;
-	}
-	for (; shag > 0.000001; shag /= 2)
-		if (atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1))) < y)
-			dw_ACH_F1 -= shag;
-		else
-			dw_ACH_F1 += shag;
-	cout << "ACH_max = " << atof1(sympy_eva(ACH_F1, "w", ftos(x_max))) << "\t0.1A = " << y << "\nШирина спектра dw_ACH_F1 = " << dw_ACH_F1 << "\tACH_F1 = " << atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1))) << "\n";
-	_getch();
-	//3.4. Сопоставить спектры входного импульса с частотными характеристиками цепи. Дать предварительное заключение
-	//об ожидаемых искажениях сигнала на выходе цепи. Сравнить эти качественные оценки с сигналом на выходе, полученным в п. 2.5 задания.
-	//3.5. Построить графики амплитудного и фазового спектров выходного сигнала, используя графики пп. 3.1, 3.3 задания.
-	//Проконтролировать площадь реакции по значению ее спектра при ? = 0.
 
 }
 class COMP_4_RES
@@ -3623,7 +3683,9 @@ COMP_4_RES comp_4(L_S H_S, string F1_T, string F1_S, double T)
 	vx.resize(lev);
 	for (int i = 0; i < lev; i++)
 		vx[i] = i;
-	tex = create_diskr_plot(512, 512, vx, arr_A1_A, 0, 0, 0, 0);
+	tex = create_diskr_plot(1024, 512, vx, arr_A1_A, 0, 0, 0, 0);
+	tex.numbers(100, tex.gy() - 20, "амплитудная характеристика сигнала");
+	tex.numbers(100, tex.gy() - 20 - 18, "");
 	mtx.lock();
 	img.add(tex);
 	mtx.unlock();
@@ -3632,7 +3694,9 @@ COMP_4_RES comp_4(L_S H_S, string F1_T, string F1_S, double T)
 	vx.resize(lev);
 	for (int i = 0; i < lev; i++)
 		vx[i] = i;
-	tex = create_diskr_plot(512, 512, vx, arr_A1_F, 0, 0, 0, 0);
+	tex = create_diskr_plot(1024, 512, vx, arr_A1_F, 0, 0, 0, 0);
+	tex.numbers(100, tex.gy() - 20, "частотная характеристика сигнала");
+	tex.numbers(100, tex.gy() - 20 - 18, "");
 	mtx.lock();
 	img.add(tex);
 	mtx.unlock();
@@ -3665,7 +3729,9 @@ COMP_4_RES comp_4(L_S H_S, string F1_T, string F1_S, double T)
 		vz[i] = fr;
 	}
 
-	tex = create_double_plot(512, 512, vx, vy, vz);
+	tex = create_double_plot(1024, 512, vx, vy, vz);
+	tex.numbers(100, tex.gy() - 20, "исходный сигнал");
+	tex.numbers(100, tex.gy() - 20 - 18, "и его приближение");
 	mtx.lock();
 	img.add(tex);
 	mtx.unlock();
@@ -3786,7 +3852,9 @@ COMP_4_RES comp_4(L_S H_S, string F1_T, string F1_S, double T)
 	vx.resize(lev);
 	for (int i = 0; i < lev; i++)
 		vx[i] = i;
-	tex = create_diskr_plot(512, 512, vx, arr_A2_A, 0, 0, 0, 0);
+	tex = create_diskr_plot(1024, 512, vx, arr_A2_A, 0, 0, 0, 0);
+	tex.numbers(100, tex.gy() - 20, "амплитудная характеристика выходного сигнала");
+	tex.numbers(100, tex.gy() - 20 - 18, "");
 	mtx.lock();
 	img.add(tex);
 	mtx.unlock();
@@ -3795,7 +3863,9 @@ COMP_4_RES comp_4(L_S H_S, string F1_T, string F1_S, double T)
 	vx.resize(lev);
 	for (int i = 0; i < lev; i++)
 		vx[i] = i;
-	tex = create_diskr_plot(512, 512, vx, arr_A2_F, 0, 0, 0, 0);
+	tex = create_diskr_plot(1024, 512, vx, arr_A2_F, 0, 0, 0, 0);
+	tex.numbers(100, tex.gy() - 20, "фазовая характеристика выходного сигнала");
+	tex.numbers(100, tex.gy() - 20 - 18, "");
 	mtx.lock();
 	img.add(tex);
 	mtx.unlock();
@@ -3824,7 +3894,9 @@ COMP_4_RES comp_4(L_S H_S, string F1_T, string F1_S, double T)
 		vz[i] = fr;
 	}
 
-	tex = create_plot(512, 512, vx, vz,0,0,0,0);
+	tex = create_plot(1024, 512, vx, vz,0,0,0,0);
+	tex.numbers(100, tex.gy() - 20, "выходной сигнал");
+	tex.numbers(100, tex.gy() - 20 - 18, "");
 	mtx.lock();
 	img.add(tex);
 	mtx.unlock();
@@ -4015,15 +4087,6 @@ void draw_el(EASY_TEX &tex, GR_EL &el)
 			tex.line(x1 + x2, y1 + y2, x1 + xx, y1 + yy);
 		}
 
-		dd(x1, y1, c, v*0.45);
-		dd(x2, y2, c + M_PI / 2, v*0.1);
-		tex.line(el.x1 + x1 + x2, el.y1 + y1 + y2, el.x1 + x1 - x2, el.y1 + y1 - y2);
-		dd(x1, y1, c, v*0.61);
-		dd(x2, y2, c + M_PI / 2, v*0.1);
-		tex.line(el.x1 + x1 + x2, el.y1 + y1 + y2, el.x1 + x1 - x2, el.y1 + y1 - y2);
-		dd(x1, y1, c, v*0.45);
-		dd(x2, y2, c, v*0.1);
-		tex.line(el.x1 + x1 + x2, el.y1 + y1 + y2, el.x1 + x1 - x2, el.y1 + y1 - y2);
 
 		tex.numbers((el.x1 + el.x2) / 2, (el.y1 + el.y2) / 2, ftos(el.n));
 
@@ -4054,6 +4117,8 @@ void print_chem(EASY_TEX &tex, const EL_CHAIN &cha)
 		{
 			tex.setpixel(i, r, 0, 0, 0);
 		}
+
+
 	vector<GR_EL> el;
 
 	for (int i = 0; i < cha.el.size(); i++)
@@ -4463,10 +4528,73 @@ void print_chem(EASY_TEX &tex, const EL_CHAIN &cha)
 
 }
 
+/*
+class person
+{
+public:
+	person(){};
+	explicit person(const string& name):name(name){}
+	void set_name(const string& n){ name = n; }
+	string get_name()const{ return name; };
+	void info()const
+	{
+		cout << "person name:" << name << endl;
+	}
+private:
+	string name;
+};
+
+class student :public person
+{
+public:
+	student(const string &name, const string &passed) :person(name), passed(passed){}
+	void info()const
+	{
+		cout << "student name:" << get_name() << endl;
+		cout << "passet things:" << passed << endl;
+	}
+private:
+	string passed;
+};
+
+class teacher :public person
+{
+public:
+	void addstudent(person &person);
+
+
+
+};
+
+template<class T>
+class mylist
+{
+public:
+	bool insert(const T&, size_t index);
+	T access(size_t index)const;
+private:
+	T*buf;
+	size_t bufsize_;
+};
+
+template<class T>
+class myset:
+{
+public:
+	bool insert(const T&, size_t index);
+	T access(size_t index)const;
+private:
+	T*buf;
+	size_t bufsize_;
+};
+*/
 
 int main()
 {
 	setlocale(0, "RU");
+
+
+
 	cout << "Грузись питон";
 	sympy_init();
 
@@ -4528,7 +4656,7 @@ int main()
 	input.T = input.ts * 2;
 	/**/
 
-	/**/
+	/** /
 	input.cha_str = "1 1 2 U 0  2 2 1 R 1  3 2 3 C 4  4 3 1 R 2  5 3 4 C 1  6 4 1 R 1";//13 v
 	input.el_id = 6;
 	input.t_sign = SIGN_D;
@@ -4537,7 +4665,7 @@ int main()
 	input.T = input.ts * 2;
 	/**/
 
-	/** /
+	/**/
 	input.cha_str = "1 2 1 U 0  2 2 3 R 1  3 3 1 L 4  4 3 4 R 0.5  5 4 1 L 1  6 4 1 R 1";//14 v
 	input.el_id = 6;
 	input.t_sign = SIGN_V;
@@ -4903,6 +5031,8 @@ void print_ku(const EL_CHAIN &cha, const COMP_2_RES &res2)
 
 
 	tex = create_plot(1024, 512, vx, vy, 0, 0, 0, 0);
+	tex.numbers(100, tex.gy() - 20, "аш1 от тэ через дифур");
+	tex.numbers(100, tex.gy() - 20 - 18, "");
 	mtx.lock();
 	img.add(tex);
 	mtx.unlock();
@@ -4917,6 +5047,8 @@ void print_ku(const EL_CHAIN &cha, const COMP_2_RES &res2)
 	}
 
 	tex = create_plot(1024, 512, vx, vy, 0, 0, 0, 0);
+	tex.numbers(100, tex.gy() - 20, "аш1 от тэ через лапласса");
+	tex.numbers(100, tex.gy() - 20 - 18, "");
 	mtx.lock();
 	img.add(tex);
 	mtx.unlock();
