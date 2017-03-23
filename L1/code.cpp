@@ -3464,29 +3464,57 @@ COMP_2_RES comp_2(EL_CHAIN cha,int id_res,int t_s, double im, double ti)
 	return res;
 }
 
+
+
+
+
+
 class POl_PROPUSK
 {
 public:
 	int id; //0 - низких_ч, 1 - высоких_ч, 2 - полосовой, 3 - заграждающий
 	double dw, w0, w1; //-1 - бесконечность
-	void type()
+	void show()
 	{
 		switch (id)
 		{
 		case 0:
-			cout << "Фильтр низких частот"; break;
+			cout << "Фильтр низких частот";
+			dw = w1 - w0;
+			cout << "\nПолоса пропускания dw = " << dw << " [ " << w0 << ", " << w1 << " ]\n";
+			break;
 		case 1:
-			cout << "Фильтр высоких частот"; break;
+			cout << "Фильтр высоких частот";
+			dw = -1;
+			cout << "\nПолоса пропускания dw = inf [ " << w0 << ", +inf ]\n";
+			break;
 		case 2:
-			cout << "Полосовой фильтр"; break;
+			cout << "Полосовой фильтр";
+			dw = w1 - w0;
+			cout << "\nПолоса пропускания dw = " << dw << " [ " << w0 << ", " << w1 << " ]\n";
+			break;
 		case 3:
-			cout << "Заграждающий фильтр"; break;
+			cout << "Заграждающий фильтр";
+			dw = w1 - w0;
+			cout << "\nПолоса пропускания [ 0 , " << w0 << " U " << w1 << ", +inf ]\n";
+			break;
 		}
 	}
 };
 
-void comp_3(L_S H_S, string F1_T, string F1_S, int sgn_t, int sgn_time)
+class COMP_3_RES
 {
+public:
+	string ACH_H, FCH_H;
+	double ACH_H_0, ACH_H_inf;
+	POl_PROPUSK polosa;
+	string AS_F1, FS_F1;
+	double dw_AS_F1, mid_persent, AS_F2_0;
+};
+
+COMP_3_RES comp_3(L_S H_S, string F1_T, string F1_S, int sgn_t, int sgn_time)
+{
+	COMP_3_RES RES;
 	//H_S это переходная функция тока в лапласе
 
 	string H_JW, H_IM, H_RE;
@@ -3500,13 +3528,164 @@ void comp_3(L_S H_S, string F1_T, string F1_S, int sgn_t, int sgn_time)
 	string ACH_H = "sqrt((" + H_IM + ")**2+(" + H_RE + ")**2)";
 	string FCH_H = "atan((" + H_IM + ")/(" + H_RE + "))-Heaviside(-(" + H_RE + "))*pi";
 
+
+	cout << "\n\nACH_H = " << ACH_H; //АЧХ
+	cout << "\n\nFCH_H = " << FCH_H; //ФЧХ
+
+	double ACH_H_0 = atof1(sympy_eva(ACH_H, "w", "0.0000001")), ACH_H_inf = atof1(sympy_lim(ACH_H, "w", "oo", "-"));
+	//проверка при w = 0
+	cout << "\n\nACH_H [w = 0] = " << ACH_H_0;
+
+	//проверка при w -> inf
+	cout << "\nACH_H [w -> inf] = " << ACH_H_inf << "\n";
+
+	RES.ACH_H = ACH_H;
+	RES.FCH_H = FCH_H;
+	RES.ACH_H_0 = ACH_H_0;
+	RES.ACH_H_inf = ACH_H_inf;
+
+
+
+	//3.2. Определить полосу пропускания цепи по уровню 0,707|H(jw)|[max].
+	double first, last, min = 1000000, max = 0, temp;
+
+	double x[193], x_max = 0.001, x_min = 0.001;
+	for (int i = 0; i < 193; i++)
+	{
+		if (i == 0)
+		{
+			x[i] = 0.001;
+			first = min = max = atof1(sympy_eva(ACH_H, "w", ftos(x[i])));
+		}
+		else
+		{
+			x[i] = x[i - 1] * 1.1;
+			temp = atof1(sympy_eva(ACH_H, "w", ftos(x[i])));
+			if (min > temp) { min = temp; x_min = x[i]; }
+			if (max < temp) { max = temp; x_max = x[i]; }
+		}
+
+		if (i == 192)
+			last = atof1(sympy_lim(ACH_H, "w", "oo", "-"));
+	}
+
+	//точное определение max и min
+	//определение max
+	double shag = 0.01;
+	for (; shag > 0.0001; shag /= 2)
+		if (atof1(sympy_eva(ACH_H, "w", ftos(x_max))) < atof1(sympy_eva(ACH_H, "w", ftos(x_max + shag))))
+			x_max += shag;
+		else
+			if ((x_max - shag) > 0) x_max -= shag;
+
+	max = atof1(sympy_eva(ACH_H, "w", ftos(x_max)));
+
+	//определение min
+	/*for(shag = 0.01; atof1(sympy_eva(ACH, "w", ftos(x_min))) > atof1(sympy_eva(ACH, "w", ftos(x_min + shag))); shag = x_min - x_min/1.1)
+	x_min += shag;*/
+	shag = 0.01;
+	for (; shag > 0.0001; shag /= 2)
+		if (atof1(sympy_eva(ACH_H, "w", ftos(x_min))) > atof1(sympy_eva(ACH_H, "w", ftos(x_min + shag))))
+			x_min += shag;
+		else
+			if ((x_min - shag) > 0) x_min -= shag;
+
+	min = atof1(sympy_eva(ACH_H, "w", ftos(x_min)));
+
+	//cout << "\nx_max = " << x_max << " x_min = " << x_min << "\n";
+
+	/*if (first > last && (last - pogr < min && min < last + pogr) && (first - pogr < max && max < first + pogr))
+	POLOSA.id = 0;
+	if (first < last && (first - pogr < min && min < first + pogr) && (last - pogr < max && max < last + pogr))
+	POLOSA.id = 1;
+	if (first < max && (first - pogr < last && last < first + pogr) && ((first - pogr < min && min < first + pogr) || (last - pogr < min && min < last + pogr)))
+	POLOSA.id = 2;
+	if (first > min && (first - pogr < last && last < first + pogr) && ((first - pogr < max && max < first + pogr) || (last - pogr < max && max < last + pogr)))
+	POLOSA.id = 3;*/
+
+	POl_PROPUSK POLOSA;
+	bool b1 = (max / sqrt(2)) > first;
+	bool b2 = (max / sqrt(2)) > last;
+	if (b1 && b2) POLOSA.id = 2;
+	if (!b1 && b2) POLOSA.id = 0;
+	if (b1 && !b2) POLOSA.id = 1;
+	if (!b1 && !b2) POLOSA.id = 3;
+
+	double y = 0.707 * atof1(sympy_eva(ACH_H, "w", ftos(x_max)));
+	switch (POLOSA.id)
+	{
+	case 0:
+		POLOSA.w0 = 0;
+		for (shag = 0.01, POLOSA.w1 = x_max; atof1(sympy_eva(ACH_H, "w", ftos(POLOSA.w1))) > y; shag *= 1.1)
+			POLOSA.w1 += shag;
+		for (; shag > 0.0001; shag /= 2)
+			if (atof1(sympy_eva(ACH_H, "w", ftos(POLOSA.w1))) > y)
+				POLOSA.w1 += shag;
+			else
+				POLOSA.w1 -= shag;
+		break;
+
+	case 1:
+		POLOSA.w1 = -1;
+		for (shag = 0.01, POLOSA.w0 = 0.001; atof1(sympy_eva(ACH_H, "w", ftos(POLOSA.w0))) < y; shag *= 1.1)
+			POLOSA.w0 += shag;
+		for (; shag > 0.0001; shag /= 2)
+			if (atof1(sympy_eva(ACH_H, "w", ftos(POLOSA.w0))) < y)
+				POLOSA.w0 += shag;
+			else
+				POLOSA.w0 -= shag;
+		break;
+
+	case 2:
+		for (shag = 0.01, POLOSA.w0 = x_max; atof1(sympy_eva(ACH_H, "w", ftos(POLOSA.w0))) > y; shag *= 1.1)
+			POLOSA.w0 -= shag;
+		for (; shag > 0.0001; shag /= 2)
+			if (atof1(sympy_eva(ACH_H, "w", ftos(POLOSA.w0))) < y)
+				POLOSA.w0 += shag;
+			else
+				POLOSA.w0 -= shag;
+
+		for (shag = 0.01, POLOSA.w1 = x_max; atof1(sympy_eva(ACH_H, "w", ftos(POLOSA.w1))) > y; shag *= 1.1)
+			POLOSA.w1 += shag;
+		for (; shag > 0.0001; shag /= 2)
+			if (atof1(sympy_eva(ACH_H, "w", ftos(POLOSA.w1))) > y)
+				POLOSA.w1 += shag;
+			else
+				POLOSA.w1 -= shag;
+		break;
+
+	case 3:
+		for (shag = 0.01, POLOSA.w0 = 0.001; atof1(sympy_eva(ACH_H, "w", ftos(POLOSA.w0))) < y; shag *= 1.1)
+			POLOSA.w0 += shag;
+		for (; shag > 0.0001; shag /= 2)
+			if (atof1(sympy_eva(ACH_H, "w", ftos(POLOSA.w0))) > y)
+				POLOSA.w0 += shag;
+			else
+				POLOSA.w0 -= shag;
+
+		for (shag = 0.01, POLOSA.w1 = POLOSA.w0; atof1(sympy_eva(ACH_H, "w", ftos(POLOSA.w1))) < y; shag *= 1.1)
+			POLOSA.w1 += shag;
+		for (; shag > 0.0001; shag /= 2)
+			if (atof1(sympy_eva(ACH_H, "w", ftos(POLOSA.w1))) < y)
+				POLOSA.w1 += shag;
+			else
+				POLOSA.w1 -= shag;
+		break;
+	}
+
+	//cout << " first = " << first << " last = " << last << " min = " << min << " max = " << max << endl;
+	POLOSA.show();
+
+	RES.polosa = POLOSA;
+
+
 	vector<double> vx, vy;
 	EASY_TEX tex;
 	vx.resize(200);
 	vy.resize(200);
 	for (int i = 0; i < vx.size(); i++)
 	{
-		vx[i] = i / 60.0;
+		vx[i] = i / 200.0*(2 * max(POLOSA.w0, POLOSA.w1));
 		string s = sympy_eva(ACH_H, "w", ftos(vx[i]));
 		//cout << "st:" << s;
 		myreplace(s, ".", ",");
@@ -3524,7 +3703,7 @@ void comp_3(L_S H_S, string F1_T, string F1_S, int sgn_t, int sgn_time)
 
 	for (int i = 0; i < vx.size(); i++)
 	{
-		vx[i] = i / 60.0;
+		vx[i] = i / 200.0*(2 * max(POLOSA.w0, POLOSA.w1));
 		string s = sympy_eva(FCH_H, "w", ftos(vx[i]));
 		//cout << "st:" << s;
 		myreplace(s, ".", ",");
@@ -3536,23 +3715,278 @@ void comp_3(L_S H_S, string F1_T, string F1_S, int sgn_t, int sgn_time)
 	}
 
 
+	tex = create_plot(1024, 512, vx, vy, 0, 0, 0, 0);
 	tex.numbers(100, tex.gy() - 20, "фчх");
 	tex.numbers(100, tex.gy() - 20 - 18, "");
-	tex = create_plot(1024, 512, vx, vy, 0, 0, 0, 0);
 	mtx.lock();
 	img.add(tex);
 	mtx.unlock();
 
-	cout << "\n\nACH_H = " << ACH_H; //АЧХ
-	cout << "\n\nFCH_H = " << FCH_H; //ФЧХ
 
-	//проверка при w = 0
-	cout << "\n\nACH_H [w = 0] = " << atof1(sympy_eva(ACH_H, "w", "0.0000001"));
 
-	//проверка при w -> inf
-	cout << "\nACH_H [w -> inf] = " << atof1(sympy_lim(ACH_H, "w", "oo", "-")) << endl;
+	//3.3. Найти и построить амплитудный и фазовый спектры входного одиночного импульса.
+	//Найти ширину амплитудного спектра по уровню ( )1 max0,1 F j? или критерию, предложенному преподавателем.
+	string F1_JW, F1_RE, F1_IM;
+	F1_JW = sympy_eva(F1_S, "s", "I*w");
+	F1_RE = sympy_re(F1_JW);
+	F1_IM = sympy_im(F1_JW);
 
+	string ACH_F1 = "sqrt((" + F1_IM + ")**2+(" + F1_RE + ")**2)";
+	string FCH_F1 = "atan((" + F1_IM + ")/(" + F1_RE + "))-Heaviside(-(" + F1_RE + "))*pi";
+
+	x_max = 0; y = 0;
+	for (int i = 0; i < vx.size(); i++)
+	{
+		//vx[i] = i / 60.0;
+		if (i == 0) vx[i] += 0.0001;
+		string s = sympy_eva(ACH_F1, "w", ftos(vx[i]));
+		//cout << "\nvx[i]: " << vx[i] << "\t| st: " << s;
+		myreplace(s, ".", ",");
+		vy[i] = atof(s.c_str());
+	}
+
+	tex = create_plot(1024, 512, vx, vy, 0, 0, 0, 0);
+	tex.numbers(100, tex.gy() - 20, "ас ф1");
+	tex.numbers(100, tex.gy() - 20 - 18, "");
+	mtx.lock();
+	img.add(tex);
+	mtx.unlock();
+
+	for (int i = 0; i < vx.size(); i++)
+	{
+		//vx[i] = i / 60.0;
+		//if(i == 0) vx[i] += 0.001;
+		string s = sympy_eva(FCH_F1, "w", ftos(vx[i]));
+		//cout << "\nvx[i]: " << vx[i] << "\t| st: " << s;
+		myreplace(s, ".", ",");
+		vy[i] = atof(s.c_str());
+		while (vy[i] > M_PI)
+			vy[i] -= M_PI * 2;
+		while (vy[i] < -M_PI)
+			vy[i] += M_PI * 2;
+	}
+
+	tex = create_plot(1024, 512, vx, vy, 0, 0, 0, 0);
+	tex.numbers(100, tex.gy() - 20, "фс ф1");
+	tex.numbers(100, tex.gy() - 20 - 18, "");
+	mtx.lock();
+	img.add(tex);
+	mtx.unlock();
+
+	int i_max;
+	for (int i = 0; i < 193; i++)
+	{
+		if (i == 0)
+		{
+			y = atof1(sympy_eva(ACH_F1, "w", ftos(x[i])));
+		}
+		else
+		{
+			temp = atof1(sympy_eva(ACH_F1, "w", ftos(x[i])));
+			if (y < temp) { y = temp; x_max = x[i]; i_max = i; }
+		}
+	}
+
+	//cout << "y = " << y << " x_max = " << x_max << "\n";
+	shag = 0.001;
+	if (x_max == 0)
+	{
+		if (atof1(sympy_lim(ACH_F1, "w", ftos(x_max), "+")) < atof1(sympy_lim(ACH_F1, "w", ftos(x_max + shag), "+")))
+			x_max += shag;
+		else
+			x_max -= shag;
+		shag /= 2;
+	}
+	for (; shag > 0.00001; shag /= 2)
+		if (atof1(sympy_eva(ACH_F1, "w", ftos(x_max))) < atof1(sympy_eva(ACH_F1, "w", ftos(x_max + shag))))
+			x_max += shag;
+		else
+			x_max -= shag;
+	y = atof1(sympy_lim(ACH_F1, "w", ftos(x_max), "+"));
+	//cout << "y = " << y << " x_max = " << x_max << "\n";
+
+	cout << "\n\nAS_F1 = " << ACH_F1;
+	cout << "\n\nFS_F1 = " << FCH_F1 << "\n\n";
+
+	double dw_ACH_F1;
+	y = 0.1*atof1(sympy_eva(ACH_F1, "w", ftos(x_max)));
+	//cout << "0.1A = " << y << "\n";
+	dw_ACH_F1 = x_max;
+	do
+	{
+		temp = dw_ACH_F1;
+		//cout << "ACH_max = " << atof1(sympy_eva(ACH_F1, "w", ftos(x_max))) << "\n";
+		for (shag = 0.1; atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1))) > atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1 + shag))); /*shag *= 1.1*/)
+		{
+			//cout << "ACH_F1_1 = " << atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1))) << "\tACH_F1_2 = " << atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1 + shag))) << "\n";
+			dw_ACH_F1 += shag;
+			//cout << "*dw_ACH_F1 = " << dw_ACH_F1 << "\n";
+		}
+
+		//cout << "----------\nACH_F1_1 = " << atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1))) << "\tACH_F1_2 = " << atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1 + 0.01))) << "\n";
+
+		for (shag = 0.1; atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1))) < atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1 + shag))); /*shag *= 1.1*/)
+		{
+			//cout << "ACH_F1_1 = " << atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1))) << "\tACH_F1_2 = " << atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1 + shag))) << "\n";
+			dw_ACH_F1 += shag;
+			//cout << "**dw_ACH_F1 = " << dw_ACH_F1 << "\n";
+		}
+		for (; shag > 0.00001; shag /= 2)
+			if (atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1))) < atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1 + shag))))
+				dw_ACH_F1 += shag;
+			else
+				dw_ACH_F1 -= shag;
+		if (atof1(sympy_eva(ACH_F1, "w", ftos(x_max))) < atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1)))) x_max = dw_ACH_F1;
+		//cout << atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1))) << " | " << y << "\n";
+	} while (atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1))) > y);
+
+	dw_ACH_F1 = temp;
+	//cout << "ACH_F1_1 = " << atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1))) << "\t dw_ACH_F1 = " << dw_ACH_F1 << "\n";
+	for (shag = 0.01; atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1))) > y; shag *= 1.1)
+	{
+		dw_ACH_F1 += shag;
+	}
+	for (; shag > 0.000001; shag /= 2)
+		if (atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1))) < y)
+			dw_ACH_F1 -= shag;
+		else
+			dw_ACH_F1 += shag;
+	cout << "ACH_max = " << atof1(sympy_eva(ACH_F1, "w", ftos(x_max))) << "\t0.1A = " << y << "\nШирина спектра dw_ACH_F1 = " << dw_ACH_F1 << "\tACH_F1 = " << atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1))) << "\n";
+
+	RES.dw_AS_F1 = dw_ACH_F1;
+
+
+
+
+
+	//3.4. Сопоставить спектры входного импульса с частотными характеристиками цепи. Дать предварительное заключение
+	//об ожидаемых искажениях сигнала на выходе цепи. Сравнить эти качественные оценки с сигналом на выходе, полученным в п. 2.5 задания.
+
+	//Приближённая оценка реакции по значению АЧХ цепи на нулевой частоте
+	if (-0.0001 < ACH_H_0 && ACH_H_0 < 0.0001)
+		cout << "Суммарная площадь реакции равна нулю\n";
+	else
+		cout << "Площадь реакции в " << ACH_H_0 << " раз отличается от площади воздействия\n";
+
+	//Приближённая оценка реакции по значению АЧХ цепи на бесконечной частоте
+	if (-0.0001 < ACH_H_inf && ACH_H_inf < 0.0001)
+		cout << "Скачок воздействия не пройдёт на выход\n";
+	else
+		cout << "Скачок реакции в " << ACH_H_inf << " раз отличается от скачка воздействия\n";
+
+	//Оценка по АЧХ цепи и АС воздействия
+	/*if (POLOSA.id == 0)
+	{
+	if (dw_ACH_F1 < POLOSA.w1)
+	cout << "Отсутствие изменения формы сигнала на выходе\n";
+	if (dw_ACH_F1 > POLOSA.w1 && dw_ACH_F1 < (POLOSA.w1 + 0.25*dw_ACH_F1))
+	cout << "Незначительные изменения формы сигнала на выходе\n";
+	else
+	cout << "На выходе будет выражен эффект интегрирования\n";
+	}
+
+	if (POLOSA.id == 1)
+	{
+	if (dw_ACH_F1 > POLOSA.w1 + 1.75*POLOSA.w1)
+	cout << "Отсутствие изменения формы сигнала на выходе\n";
+	else
+	{
+	if (dw_ACH_F1 > POLOSA.w1 && dw_ACH_F1 < (POLOSA.w1 + 1.75*POLOSA.w1))
+	cout << "Незначительные изменения формы сигнала на выходе\n";
+	else
+	cout << "На выходе будет выражен эффект дифференцирования\n";
+	}
+	}
+
+	/*if (POLOSA.id == 2)
+	{
+	if (dw_ACH_F1 > POLOSA.w1 + 1.75*POLOSA.w1)
+	cout << "Отсутствие изменения формы сигнала на выходе\n";
+	if (dw_ACH_F1 > POLOSA.w1 || dw_ACH_F1 < (POLOSA.w1 + 1.75*POLOSA.w1))
+	cout << "Незначительные изменения формы сигнала на выходе\n";
+	else
+	cout << "На выходе будет выражен эффект дифференцирования\n";
+	}*/
+
+	double w[200], q = dw_ACH_F1 / 100, mid_persent = 0;
+	cout << "q = " << q << "\n";
+	w[0] = 0.00001;
+	/*mid_persent = atof1(sympy_eva(ACH_F1, "w", "0.00001")) / (atof1(sympy_eva(ACH_H, "w", "0.00001")) * atof1(sympy_eva(ACH_F1, "w", "0.00001")));
+	cout << "w[0] = " << w[0] << "\n";
+	cout << "mid_persent = " << atof1(sympy_eva(ACH_F1, "w", "0.00001")) << " / ( " << atof1(sympy_eva(ACH_H, "w", "0.00001")) << " * " << atof1(sympy_eva(ACH_F1, "w", "0.00001")) << " )\n";
+	_getch();*/
+	for (int i = 1; i < 200; i++)
+	{
+		w[i] = w[i - 1] + q;
+		/*
+		cout << "w[" << i << "] = " << w[i] << "\n";
+		cout << "mid_persent = " << mid_persent << " + " << atof1(sympy_eva(ACH_F1, "w", ftos(w[i]))) << " / ( " << atof1(sympy_eva(ACH_H, "w", ftos(w[i]))) << " * " << atof1(sympy_eva(ACH_F1, "w", ftos(w[i]))) << " )\n";
+		*/
+		mid_persent = mid_persent + atof1(sympy_eva(ACH_F1, "w", ftos(w[i]))) / (atof1(sympy_eva(ACH_H, "w", ftos(w[i]))) * atof1(sympy_eva(ACH_F1, "w", ftos(w[i]))));
+	}
+	mid_persent = mid_persent / 2;
+	cout << "mid_persent[AS_F1/AS_F2] = " << mid_persent << " %\n";
+	RES.mid_persent = mid_persent;
+
+
+
+
+	//3.5. Построить графики амплитудного и фазового спектров выходного сигнала, используя графики пп. 3.1, 3.3 задания.
+	//Проконтролировать площадь реакции по значению ее спектра при w = 0.
+	for (int i = 0; i < vx.size(); i++)
+	{
+		//vx[i] = i / 60.0;
+		//if(i == 0) vx[i] += 0.001;
+		string s = ftos(atof1(sympy_eva(ACH_H, "w", ftos(vx[i]))) * atof1(sympy_eva(ACH_F1, "w", ftos(vx[i]))));
+		//cout << "st:" << s;
+		myreplace(s, ".", ",");
+		vy[i] = atof(s.c_str());
+	}
+
+	tex = create_plot(1024, 512, vx, vy, 0, 0, 0, 0);
+	tex.numbers(100, tex.gy() - 20, "ас ф2");
+	tex.numbers(100, tex.gy() - 20 - 18, "");
+	mtx.lock();
+	img.add(tex);
+	mtx.unlock();
+
+
+	for (int i = 0; i < vx.size(); i++)
+	{
+		//vx[i] = i / 60.0;
+		//if(i == 0) vx[i] += 0.001;
+		string s = ftos(atof1(sympy_eva(FCH_H, "w", ftos(vx[i]))) + atof1(sympy_eva(FCH_F1, "w", ftos(vx[i]))));
+		//cout << "st:" << s;
+		myreplace(s, ".", ",");
+		vy[i] = atof(s.c_str());
+		while (vy[i] > M_PI)
+			vy[i] -= M_PI * 2;
+		while (vy[i] < -M_PI)
+			vy[i] += M_PI * 2;
+	}
+
+	tex = create_plot(1024, 512, vx, vy, 0, 0, 0, 0);
+	tex.numbers(100, tex.gy() - 20, "фс ф2");
+	tex.numbers(100, tex.gy() - 20 - 18, "");
+	mtx.lock();
+	img.add(tex);
+	mtx.unlock();
+
+	cout << "\nПостроены AS_F2, FS_F2.\n";
+	double w0_AS_F2 = atof1(sympy_eva(ACH_H, "w", "0.0001")) * atof1(sympy_eva(ACH_F1, "w", "0.0001"));
+	cout << "AS_F2[w = 0] = " << w0_AS_F2 << "\n";
+
+	RES.AS_F2_0 = w0_AS_F2;
+	_getch();
+	return RES;
 }
+
+
+
+
+
+
+
 class COMP_4_RES
 {
 public:
@@ -4777,7 +5211,7 @@ int main()
 	mtx.unlock();
 */
 
-	//comp_3(res2.h1_s*(L_S)"s", res2.f1_t, res2.f1_s,input.t_sign,input.ts);
+	auto res3 = comp_3(res2.h1_s*(L_S)"s", res2.f1_t, res2.f1_s, input.t_sign, input.ts);
 
 	auto res4 = comp_4(res2.h1_s*(L_S)"s", res2.f1_t, res2.f1_s, input.T);
 
