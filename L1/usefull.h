@@ -144,6 +144,8 @@ typedef vector<complex<double>> VecC;
 
 
 
+bool SaveArrFile(const TCHAR* filename, const __int32* arr,
+	int width, int height, int bpp = 24);
 string ftos(float number);
 double atof1(string s);
 string comp_to_s(complex<double> v);

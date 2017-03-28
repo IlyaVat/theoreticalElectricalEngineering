@@ -11,7 +11,6 @@
 #include "py_sympy.h"
 #include "samrrr_bibl.h"
 
-
 #define _DEBUG
 
 #define EL_K 0
@@ -2110,6 +2109,10 @@ public:
 			data[i] = ((i/3+i/3/x)%2)<<7;//шахматное поле
 		}
 	}
+	const vector<byte> gdata()
+	{
+		return data;
+	}
 	void setpixel(int _x, int _y, byte _r, byte _g, byte _b)
 	{
 		if (_x < 0 || _y < 0 || _x >= x || _y >= y)
@@ -3011,6 +3014,8 @@ void task_graphix()
 	int tex_ssy = 0;
 	int lasttime = time(nullptr);
 
+	int imgz = 0;
+
 	while (1)
 	{
 
@@ -3027,6 +3032,22 @@ void task_graphix()
 		glColor3f(1,1,1);
 
 		mtx.lock();
+
+		for (; imgz < img.a.size(); imgz++)
+		{
+			string ttt;
+			ttt = "img" + ftos(imgz) + ".bmp";
+			vector<byte> v,v1;
+			v1=v = img.a[imgz].gdata();
+			for (int r = 0; r < img.a[imgz].gy(); r++)
+				for (int i = 0; i < img.a[imgz].gx(); i++)
+				{
+					v[(i + r*img.a[imgz].gx()) * 3] = v1[(i + (img.a[imgz].gy() - r - 1)*img.a[imgz].gx()) * 3];
+					v[(i + r*img.a[imgz].gx()) * 3+1] = v1[(i + (img.a[imgz].gy() - r - 1)*img.a[imgz].gx()) * 3+1];
+					v[(i + r*img.a[imgz].gx()) * 3+2] = v1[(i + (img.a[imgz].gy() - r - 1)*img.a[imgz].gx()) * 3+2];
+				}
+			SaveArrFile(wstring(ttt.begin(), ttt.end()).c_str(), (int *)v.data(), img.a[imgz].gx(), img.a[imgz].gy(),24);
+		}
 
 		int yy = 0;
 		for (int i = 0; i < img.a.size(); i++)
@@ -3512,7 +3533,8 @@ public:
 	double ACH_H_0, ACH_H_inf;
 	POl_PROPUSK polosa;
 	string AS_F1, FS_F1;
-	double dw_AS_F1, mid_persent, AS_F2_0;
+	double dw_AS_F1, mid_persent, isk_persent, AS_F2_0;
+	string p34;
 };
 
 COMP_3_RES comp_3(L_S H_S, string F1_T, string F1_S, int sgn_t, double sgn_time)
@@ -3866,17 +3888,31 @@ COMP_3_RES comp_3(L_S H_S, string F1_T, string F1_S, int sgn_t, double sgn_time)
 	//3.4. Сопоставить спектры входного импульса с частотными характеристиками цепи. Дать предварительное заключение
 	//об ожидаемых искажениях сигнала на выходе цепи. Сравнить эти качественные оценки с сигналом на выходе, полученным в п. 2.5 задания.
 
+	RES.p34 = "";
+
 	//Приближённая оценка реакции по значению АЧХ цепи на нулевой частоте
 	if (-0.0001 < ACH_H_0 && ACH_H_0 < 0.0001)
+	{
+		RES.p34 += "Суммарная площадь реакции равна нулю\n";
 		cout << "Суммарная площадь реакции равна нулю\n";
+	}
 	else
+	{
+		RES.p34 += "Площадь реакции в " + ftos(ACH_H_inf) + " раз отличается от площади воздействия\n";
 		cout << "Площадь реакции в " << ACH_H_0 << " раз отличается от площади воздействия\n";
+	}
 
 	//Приближённая оценка реакции по значению АЧХ цепи на бесконечной частоте
 	if (-0.0001 < ACH_H_inf && ACH_H_inf < 0.0001)
+	{
+		RES.p34 += "Скачок воздействия не пройдёт на выход\n";
 		cout << "Скачок воздействия не пройдёт на выход\n";
+	}
 	else
+	{
+		RES.p34 += "Скачок реакции в " + ftos(ACH_H_inf) + " раз отличается от скачка воздействия\n";
 		cout << "Скачок реакции в " << ACH_H_inf << " раз отличается от скачка воздействия\n";
+	}
 
 	//Оценка по АЧХ цепи и АС воздействия
 
@@ -3899,7 +3935,33 @@ COMP_3_RES comp_3(L_S H_S, string F1_T, string F1_S, int sgn_t, double sgn_time)
 	mid_persent = mid_persent * 100 / Ew;
 	cout << "mid_persent[AS_F2/AS_F1] = " << mid_persent << " %\n";
 	RES.mid_persent = mid_persent;
+	RES.p34 += "Примерный процент искажения по амплитуде:" + ftos(100-mid_persent) + "\n";
 
+	q = RES.dw_AS_F1 / 100;
+	mid_persent = 0;
+	Ew = 0;
+
+	cout << "q = " << q << "\n";
+	w[0] = 0;
+	double angdiff;
+	for (int i = 1; i < 200; i++)
+	{
+		w[i] = w[i - 1] + q;
+		//min(abs(1 - A1 / A2) * 2 + angdiff(ф1 - ф2) / 90, 1) 
+		angdiff = (-1)*atof1(sympy_eva(FCH_H, "w", ftos(w[i])));
+		while (angdiff > M_PI)
+			angdiff -= M_PI * 2;
+		while (angdiff < -M_PI)
+			angdiff += M_PI * 2;
+		mid_persent = mid_persent + (atof1(sympy_eva(ACH_F1, "w", ftos(w[i]))) / w[i]) * min(abs(1 - atof1(sympy_eva(ACH_H, "w", ftos(w[i]))) / (RES.max_ACH)) * 2 + angdiff / 90, 1);
+		Ew += atof1(sympy_eva(ACH_F1, "w", ftos(w[i]))) / w[i];
+	}
+	mid_persent = mid_persent * 100 / Ew;
+	cout << "mid_persent = " << mid_persent << " %\n";
+	
+	RES.p34 += "Примерное искажение :" + ftos(mid_persent) + "\n";
+
+	RES.isk_persent = mid_persent;
 
 
 	//3.5. Построить графики амплитудного и фазового спектров выходного сигнала, используя графики пп. 3.1, 3.3 задания.
@@ -3966,8 +4028,8 @@ COMP_3_RES comp_3(L_S H_S, string F1_T, string F1_S, int sgn_t, double sgn_time)
 class COMP_4_RES
 {
 public:
-	string Ak;
-	string lev;
+	double Ak;
+	int lev;
 };
 
 COMP_4_RES comp_4(L_S H_S, string F1_T, string F1_S, double T)
@@ -5015,7 +5077,7 @@ int main()
 	//th.join();
 	//system("pause");
 	sympy_sim("1+3");
-	cout << endl << "Грузись питон";
+	//cout << endl << "Грузись питон";
 	//call_python_sympy("sin(t)+1");
 	//puts("L: sin(t)");
 	//puts(sympy_lap("sin(t)").data());
@@ -5035,14 +5097,14 @@ int main()
 	//	"0+(10/s)*exp(-s*(0))+(-20/s)*exp(-s*(10))+(10/s)*exp(-s*(20))",
 	//	40);
 
-
+	/** /   //что это?
 	input.cha_str = "1 4 1 I 0  2 3 4 R 0.5  3 1 4 R 2  4 1 2 L 2  5 2 3 R 1  6 3 4 C 4";
 	input.el_id = 2;
 	input.t_sign = SIGN_T;
 	input.ts = 20;
 	input.as = 10;
 	input.T = 40;
-
+	/**/
 
 	/** /
 	input.cha_str = "1 1 4 U 0  2 2 4 R 1  3 1 3 R 1  4 3 4 R 1  5 1 3 L 1  6 3 2 L 0.25";//14 var
@@ -5053,42 +5115,128 @@ int main()
 	input.T = 10;
 	/**/
 
-	/** /
-	input.cha_str = "1 2 1 U 0  2 2 3 C 4  3 3 1 R 1  4 3 4 C 1  5 4 1 R 0.5  6 4 1 R 1";//2 v
-	input.el_id = 6;
-	input.t_sign = SIGN_D;
-	input.ts = 0.1;
-	input.as = 20;
-	input.T = input.ts * 2;
+	int va = 0;
+
+	cout << "Доступны варианты 2 13 14 " << endl;
+	cout << "Введите номер варианта:" << endl;
+	cin >> va;
 	/**/
+	if (va == 2)
+	{
+		input.cha_str = "1 2 1 U 0  2 2 3 C 4  3 3 1 R 1  4 3 4 C 1  5 4 1 R 0.5  6 1 4 R 1";//2 v
+		input.el_id = 6;
+		input.t_sign = SIGN_D;
+		input.ts = 0.1;
+		input.as = 20;
+		input.T = input.ts * 2;
+	}
+	/**/
+
+	/**/
+	if (va == 13)
+	{
+		input.cha_str = "1 1 2 U 0  2 2 1 R 1  3 2 3 C 4  4 3 1 R 2  5 3 4 C 1  6 1 4 R 1";//13 v
+		input.el_id = 6;
+		input.t_sign = SIGN_D;
+		input.ts = 0.5;
+		input.as = 2;
+		input.T = input.ts * 2;
+	}
+	/**/
+
+	/**/
+	if (va == 14)
+	{
+		input.cha_str = "1 2 1 U 0  2 2 3 R 1  3 3 1 L 4  4 3 4 R 0.5  5 4 1 L 1  6 4 1 R 1";//14 v
+		input.el_id = 6;
+		input.t_sign = SIGN_V;
+		input.ts = 0.5;
+		input.as = 20;
+		input.T = input.ts * 2;
+	}
+	/**/
+
+	int inn;
+
+	cout << "U - ит" << endl;
+	cout << "I - ин" << endl;
+	cout << "R - резистор" << endl;
+	cout << "C - C-элемент" << endl;
+	cout << "L - L-элемент" << endl;
+	cout << "K - кз" << endl;
+	cout << "H - хх" << endl;
+	cout << "сейчас строка цепи:" << endl;
+	cout << input.cha_str << endl;
+	cout << "Сменить?(0-нет 1-да):";
+	cin >> inn;
+	if (inn)
+	{
+		cout << "вводите:";
+		cin >> input.cha_str;
+	}
+	cout << "сейчас номер элемента реакции:" << endl;
+	cout << input.el_id << endl;
+	cout << "Сменить?(0-нет 1-да):";
+	cin >> inn;
+	if (inn)
+	{
+		cout << "вводите:";
+		cin >> input.el_id;
+	}
+	cout << "A 1-недоступно"<<endl;
+	cout << "Б 2-недоступно" << endl;
+	cout << "В 3 пирамида" << endl;
+	cout << "Г 4-недоступно" << endl;
+	cout << "Д 5 анти ступени" << endl;
+
+	cout << "сейчас тип сигнала:" << endl;
+	cout << input.t_sign << endl;
+	cout << "Сменить?(0-нет 1-да):";
+	cin >> inn;
+	if (inn)
+	{
+		cout << "вводите:";
+		cin >> input.t_sign;
+	}
+	cout << "t сигнала:" << endl;
+	cout << input.ts << endl;
+	cout << "Сменить?(0-нет 1-да):";
+	cin >> inn;
+	if (inn)
+	{
+		cout << "вводите:";
+		cin >> input.ts;
+	}
+	cout << "А сигнала:" << endl;
+	cout << input.as << endl;
+	cout << "Сменить?(0-нет 1-да):";
+	cin >> inn;
+	if (inn)
+	{
+		cout << "вводите:";
+		cin >> input.as;
+	}
+	cout << "период Т:" << endl;
+	cout << input.T << endl;
+	cout << "Сменить?(0-нет 1-да):";
+	cin >> inn;
+	if (inn)
+	{
+		cout << "вводите:";
+		cin >> input.T;
+	}
+
 
 	/** /
-	input.cha_str = "1 1 2 U 0  2 2 1 R 1  3 2 3 C 4  4 3 1 R 2  5 3 4 C 1  6 4 1 R 1";//13 v
-	input.el_id = 6;
-	input.t_sign = SIGN_D;
-	input.ts = 0.5;
-	input.as = 5;
-	input.T = input.ts * 2;
-	/**/
-
-	/**/
-	input.cha_str = "1 2 1 U 0  2 2 3 R 1  3 3 1 L 4  4 3 4 R 0.5  5 4 1 L 1  6 4 1 R 1";//14 v
-	input.el_id = 6;
-	input.t_sign = SIGN_V;
-	input.ts = 0.5;
-	input.as = 20;
-	input.T = input.ts * 2;
-	/**/
-
-
-	/** /
-	input.cha_str = "1 2 1 U 0  2 2 3 C 4  3 3 1 R 1  4 3 4 C 1  5 4 1 R 0.5  6 4 1 R 1";//
-	input.el_id = 6;
-	input.t_sign = SIGN_V;
+	input.cha_str = "1 1 4 U 0  2 0 0 R 1  3 1 2 R 1  4 2 3 R 1  5 2 4 C 1  6 3 4 C 0.25  7 3 4 R 1";//
+	input.el_id = 7;
+	input.t_sign = SIGN_Z;
 	input.ts = 1;
 	input.as = 1;
 	input.T = input.ts * 2;
 	/**/
+
+	//
 
 	/*
 	for (auto i = A.begin_row(); i != A.end_row(); i++)
@@ -5491,13 +5639,14 @@ void print_ku(const EL_CHAIN &cha, const COMP_2_RES &res2, const COMP_3_RES &res
 
 	cout << "3.3. Найти и построить амплитудный и фазовый спектры входного" << endl;
 	cout << "одиночного импульса.Найти ширину амплитудного спектра по 0,1 max(F(jw))." << endl;
-	cout << "A(w)=" << res3.AS_F1;
-	cout << "F(w)=" << res3.FS_F1;
-	cout << "dw=" << res3.dw_AS_F1;
+	cout << "A(w)=" << res3.AS_F1<<endl;
+	cout << "F(w)=" << res3.FS_F1 << endl;
+	cout << "dw=" << res3.dw_AS_F1 << endl;
 
 	cout << "3.4. Сопоставить спектры входного импульса с частотными характеристиками цепи." << endl;
 	cout << "Дать предварительное заключение об ожидаемых искажениях сигнала на выходе цепи." << endl;
 	cout << "Сравнить эти качественные оценки с сигналом на выходе, полученным в п. 2.5 задания." << endl;
+	cout << res3.p34;
 
 	cout << "3.5. Построить графики амплитудного и фазового спектров выходного сигнала, используя" << endl;
 	cout << "графики пп. 3.1, 3.3 задания. Проконтролировать площадь реакции по значению ее спектра при w = 0." << endl;
@@ -5514,9 +5663,9 @@ void print_ku(const EL_CHAIN &cha, const COMP_2_RES &res2, const COMP_3_RES &res
 	cout << "амплитудный и фазовый дискретные спектры." << endl;
 	cout << "4.2. Построить на одном графике заданный входной периодический сигнал и его аппроксимацию" << endl;
 	cout << "отрезком ряда Фурье. Число гармоник отрезка ряда Фурье определяется по уровню 0,1 Akm" << endl;
+	cout << ", где Akm – максимальная составляющая амплитудного спектра.";
 	cout << "Akm:" << res4.Ak << endl;
 	cout << "Выбрано гармоник:" << res4.lev << endl;
-	cout << ", где Akm – максимальная составляющая амплитудного спектра.";
 	cout << "4.3. Используя рассчитанные в п. 3.1 задания АЧХ и ФЧХ, найти реакцию цепи в виде отрезка" << endl;
 	cout << "ряда Фурье с числом гармоник, определенным для входного сигнала.";
 	cout << "4.4. Построить амплитудный и фазовый дискретные спектры выходного сигнала. Построить" << endl;
