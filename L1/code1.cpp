@@ -1,4 +1,4 @@
-#undef _DEBUG
+п»ї#undef _DEBUG
 #include <python.h>
 #pragma comment( lib, "python36.lib" )
 
@@ -10,6 +10,7 @@
 #include "el_cha.h"
 #include "py_sympy.h"
 #include "samrrr_bibl.h"
+
 
 #define _DEBUG
 
@@ -380,7 +381,7 @@ public:
 			podc.comp_par_1_iu_uns();
 
 
-			//в цепи подц есть только 1 источник с id_cl[i]
+			//РІ С†РµРїРё РїРѕРґС† РµСЃС‚СЊ С‚РѕР»СЊРєРѕ 1 РёСЃС‚РѕС‡РЅРёРє СЃ id_cl[i]
 
 			for (int r = 0; r < ur_so.id_cl.size(); r++)
 			{
@@ -443,7 +444,7 @@ public:
 			podc.comp_par_1_iu_uns();
 
 
-			//в цепи подц есть только 1 источник с id_cl[i]
+			//РІ С†РµРїРё РїРѕРґС† РµСЃС‚СЊ С‚РѕР»СЊРєРѕ 1 РёСЃС‚РѕС‡РЅРёРє СЃ id_cl[i]
 
 			for (int r = 0; r < ur_so.id_cl.size(); r++)
 			{
@@ -522,7 +523,7 @@ public:
 	{
 		
 
-		//h1 (от ступеньки)
+		//h1 (РѕС‚ СЃС‚СѓРїРµРЅСЊРєРё)
 
 		//A+B=f0
 		//Al+bl=f'0
@@ -562,7 +563,7 @@ public:
 		for (int r = 0; r < vec_pr_zero.size(); r++)
 		{
 			vec_pr_zero[r].resize(ur_so.id_cl.size());
-			//как хорошо что есть закон коммутации
+			//РєР°Рє С…РѕСЂРѕС€Рѕ С‡С‚Рѕ РµСЃС‚СЊ Р·Р°РєРѕРЅ РєРѕРјРјСѓС‚Р°С†РёРё
 			if (r == 0)
 			{
 				for (int o = 0; o < vec_pr_zero.size(); o++)
@@ -576,7 +577,7 @@ public:
 			}
 			if (r >= 2)
 			{
-				//vec_pr_zero[r] = ur_so.A*vec_pr_zero[r-1];//ну наверно это работает но никакой информации в интернете я не нашёл
+				//vec_pr_zero[r] = ur_so.A*vec_pr_zero[r-1];//РЅСѓ РЅР°РІРµСЂРЅРѕ СЌС‚Рѕ СЂР°Р±РѕС‚Р°РµС‚ РЅРѕ РЅРёРєР°РєРѕР№ РёРЅС„РѕСЂРјР°С†РёРё РІ РёРЅС‚РµСЂРЅРµС‚Рµ СЏ РЅРµ РЅР°С€С‘Р»
 			}
 			
 
@@ -591,7 +592,7 @@ public:
 		vector<int>ignoer(n);
 		int is_need_symp = 0;
 
-		//надо бы сначала комплексники по парам разбить а то в цепи 4 порядка имеется небольшой шанс багульки
+		//РЅР°РґРѕ Р±С‹ СЃРЅР°С‡Р°Р»Р° РєРѕРјРїР»РµРєСЃРЅРёРєРё РїРѕ РїР°СЂР°Рј СЂР°Р·Р±РёС‚СЊ Р° С‚Рѕ РІ С†РµРїРё 4 РїРѕСЂСЏРґРєР° РёРјРµРµС‚СЃСЏ РЅРµР±РѕР»СЊС€РѕР№ С€Р°РЅСЃ Р±Р°РіСѓР»СЊРєРё
 		for (int i = 0; i < n; i++)
 		{
 			if (abs(l_s[i].imag()) != 0)
@@ -644,8 +645,8 @@ public:
 		for (int num_cl = 0; num_cl < ur_so.id_cl.size(); num_cl++)
 		{
 			l_arr = l_arr_b;
-			//A-суб лямда матрица
-			//B-вектор производных в нуле
+			//A-СЃСѓР± Р»СЏРјРґР° РјР°С‚СЂРёС†Р°
+			//B-РІРµРєС‚РѕСЂ РїСЂРѕРёР·РІРѕРґРЅС‹С… РІ РЅСѓР»Рµ
 			for (int i = 0; i < n; i++)
 			{
 				B[i] = vec_pr_zero[i][num_cl];
@@ -737,7 +738,7 @@ public:
 
 		}
 
-		//теперь переменные состояния посчитаны но ежели попадутся 2 одинаковые лямды....
+		//С‚РµРїРµСЂСЊ РїРµСЂРµРјРµРЅРЅС‹Рµ СЃРѕСЃС‚РѕСЏРЅРёСЏ РїРѕСЃС‡РёС‚Р°РЅС‹ РЅРѕ РµР¶РµР»Рё РїРѕРїР°РґСѓС‚СЃСЏ 2 РѕРґРёРЅР°РєРѕРІС‹Рµ Р»СЏРјРґС‹....
 		for (int num_cl = 0; num_cl < ur_so.id_cl.size(); num_cl++)
 		{
 			cout << "\n" << per_s[num_cl].cool_str;
@@ -782,7 +783,7 @@ public:
 			podc.comp_par_1_iu_uns();
 
 
-			//в цепи подц есть только 1 источник с id_cl[i]
+			//РІ С†РµРїРё РїРѕРґС† РµСЃС‚СЊ С‚РѕР»СЊРєРѕ 1 РёСЃС‚РѕС‡РЅРёРє СЃ id_cl[i]
 
 
 			//h1_1.k_per_s[i] = podc.el[ur_so.id_ui[i]].I;
@@ -834,7 +835,7 @@ public:
 			podc.comp_par_1_iu_uns();
 
 
-			//в цепи подц есть только 1 источник с id_cl[i]
+			//РІ С†РµРїРё РїРѕРґС† РµСЃС‚СЊ С‚РѕР»СЊРєРѕ 1 РёСЃС‚РѕС‡РЅРёРє СЃ id_cl[i]
 
 			//h1_1.k_per_s[i] = podc.el[ur_so.id_ui[i]].I;
 			h1_1.k_u = podc.el[id_res].I;
@@ -897,13 +898,13 @@ public:
 
 		}
 
-		//id_uzl-массив номеров существующих узлов
-		//последний узел имеет потенциал 0 а с остальными мы и будем работать
+		//id_uzl-РјР°СЃСЃРёРІ РЅРѕРјРµСЂРѕРІ СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёС… СѓР·Р»РѕРІ
+		//РїРѕСЃР»РµРґРЅРёР№ СѓР·РµР» РёРјРµРµС‚ РїРѕС‚РµРЅС†РёР°Р» 0 Р° СЃ РѕСЃС‚Р°Р»СЊРЅС‹РјРё РјС‹ Рё Р±СѓРґРµРј СЂР°Р±РѕС‚Р°С‚СЊ
 		/*
-		проводимость есть: 1/R
-		проводимость хх=0
-		проводимость кз-значит ошибка в пропуске узлов
-		кз это же ИН....
+		РїСЂРѕРІРѕРґРёРјРѕСЃС‚СЊ РµСЃС‚СЊ: 1/R
+		РїСЂРѕРІРѕРґРёРјРѕСЃС‚СЊ С…С…=0
+		РїСЂРѕРІРѕРґРёРјРѕСЃС‚СЊ РєР·-Р·РЅР°С‡РёС‚ РѕС€РёР±РєР° РІ РїСЂРѕРїСѓСЃРєРµ СѓР·Р»РѕРІ
+		РєР· СЌС‚Рѕ Р¶Рµ РРќ....
 
 
 
@@ -937,9 +938,9 @@ public:
 
 		}
 
-		//id_uzl-массив номеров существующих узлов
-		//prop_uzl-массив номеров МНИМЫХ узлов
-		//get_r_uzl даёт реальный узел
+		//id_uzl-РјР°СЃСЃРёРІ РЅРѕРјРµСЂРѕРІ СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёС… СѓР·Р»РѕРІ
+		//prop_uzl-РјР°СЃСЃРёРІ РЅРѕРјРµСЂРѕРІ РњРќРРњР«РҐ СѓР·Р»РѕРІ
+		//get_r_uzl РґР°С‘С‚ СЂРµР°Р»СЊРЅС‹Р№ СѓР·РµР»
 
 		int baz_uzl;
 		int skip_uzl;
@@ -1285,6 +1286,72 @@ public:
 	}
 
 };
+
+
+static struct PyModuleDef spammodule = {
+	PyModuleDef_HEAD_INIT,
+	"spam",   /* name of module */
+	NULL, /* module documentation, may be NULL */
+	-1,       /* size of per-interpreter state of the module,
+			  or -1 if the module keeps state in global variables. */
+			  NULL
+};
+static PyObject *SpamError;
+
+static PyObject *
+spam_system(PyObject *self, PyObject *args)
+{
+	const char *command;
+	int sts;
+
+	if (!PyArg_ParseTuple(args, "s", &command))
+		return NULL;
+	sts = system(command);
+	if (sts < 0) {
+		PyErr_SetString(SpamError, "System command failed");
+		return NULL;
+	}
+	return PyLong_FromLong(sts);
+}
+
+PyMODINIT_FUNC
+PyInit_spam(void)
+{
+	PyObject *m;
+
+	m = PyModule_Create(&spammodule);
+	if (m == NULL)
+		return NULL;
+
+	SpamError = PyErr_NewException("spam.error", NULL, NULL);
+	Py_INCREF(SpamError);
+	PyModule_AddObject(m, "error", SpamError);
+	return m;
+}
+
+static PyObject *my_callback = NULL;
+
+static PyObject *
+my_set_callback(PyObject *dummy, PyObject *args)
+{
+	PyObject *result = NULL;
+	PyObject *temp;
+
+	if (PyArg_ParseTuple(args, "O:set_callback", &temp)) {
+		if (!PyCallable_Check(temp)) {
+			PyErr_SetString(PyExc_TypeError, "parameter must be callable");
+			return NULL;
+		}
+		Py_XINCREF(temp);         /* Add a reference to new callback */
+		Py_XDECREF(my_callback);  /* Dispose of previous callback */
+		my_callback = temp;       /* Remember new callback */
+		/* Boilerplate to return "None" */
+		Py_INCREF(Py_None);
+		result = Py_None;
+	}
+	return result;
+}
+
 
 
 
@@ -1965,7 +2032,7 @@ void put_icon()
 	glRotatef(angle, 0, 1, 0);
 
 		glColor3f((rand() % 10) / 10.0, (rand() % 10) / 10.0, (rand() % 10) / 10.0);
-		//треугольник
+		//С‚СЂРµСѓРіРѕР»СЊРЅРёРє
 		glBegin(GL_POLYGON);
 		glVertex3f(0, 1, 0);
 		glVertex3f(-1, -1, 0);
@@ -2040,12 +2107,8 @@ public:
 
 		for (int i = 0; i < data.size(); i++)
 		{
-			data[i] = ((i/3+i/3/x)%2)<<7;//шахматное поле
+			data[i] = ((i/3+i/3/x)%2)<<7;//С€Р°С…РјР°С‚РЅРѕРµ РїРѕР»Рµ
 		}
-	}
-	const vector<byte> gdata()
-	{
-		return data;
 	}
 	void setpixel(int _x, int _y, byte _r, byte _g, byte _b)
 	{
@@ -2422,42 +2485,42 @@ public:
 			}
 			else
 			{
-				//ё= -72
+				//С‘= -72
 				switch (s[i])
 				{
-				case 'а':id = 0; break;
-				case 'б':id = 1; break;
-				case 'в':id = 2; break;
-				case 'г':id = 3; break;
-				case 'д':id = 4; break;
-				case 'е':id = 5; break;
-				case 'ё':id = 6; break;
-				case 'ж':id = 7; break;
-				case 'з':id = 8; break;
-				case 'и':id = 9; break;
-				case 'й':id = 10; break;
-				case 'к':id = 11; break;
-				case 'л':id = 12; break;
-				case 'м':id = 13; break;
-				case 'н':id = 14; break;
-				case 'о':id = 15; break;
-				case 'п':id = 16; break;
-				case 'р':id = 17; break;
-				case 'с':id = 18; break;
-				case 'т':id = 19; break;
-				case 'у':id = 20; break;
-				case 'ф':id = 21; break;
-				case 'х':id = 22; break;
-				case 'ц':id = 23; break;
-				case 'ч':id = 24; break;
-				case 'ш':id = 25; break;
-				case 'щ':id = 26; break;
-				case 'ь':id = 27; break;
-				case 'ы':id = 28; break;
-				case 'ъ':id = 29; break;
-				case 'э':id = 30; break;
-				case 'ю':id = 31; break;
-				case 'я':id = 32; break;
+				case 'Р°':id = 0; break;
+				case 'Р±':id = 1; break;
+				case 'РІ':id = 2; break;
+				case 'Рі':id = 3; break;
+				case 'Рґ':id = 4; break;
+				case 'Рµ':id = 5; break;
+				case 'С‘':id = 6; break;
+				case 'Р¶':id = 7; break;
+				case 'Р·':id = 8; break;
+				case 'Рё':id = 9; break;
+				case 'Р№':id = 10; break;
+				case 'Рє':id = 11; break;
+				case 'Р»':id = 12; break;
+				case 'Рј':id = 13; break;
+				case 'РЅ':id = 14; break;
+				case 'Рѕ':id = 15; break;
+				case 'Рї':id = 16; break;
+				case 'СЂ':id = 17; break;
+				case 'СЃ':id = 18; break;
+				case 'С‚':id = 19; break;
+				case 'Сѓ':id = 20; break;
+				case 'С„':id = 21; break;
+				case 'С…':id = 22; break;
+				case 'С†':id = 23; break;
+				case 'С‡':id = 24; break;
+				case 'С€':id = 25; break;
+				case 'С‰':id = 26; break;
+				case 'СЊ':id = 27; break;
+				case 'С‹':id = 28; break;
+				case 'СЉ':id = 29; break;
+				case 'СЌ':id = 30; break;
+				case 'СЋ':id = 31; break;
+				case 'СЏ':id = 32; break;
 				}
 
 
@@ -2497,7 +2560,7 @@ public:
 		if ((y1 - y2) * 0 != 0 || (x1 - x2) * 0 != 0)
 			return;
 
-		if (abs(x1 - x2) > abs(y1 - y2))//горизонтальная линия
+		if (abs(x1 - x2) > abs(y1 - y2))//РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅР°СЏ Р»РёРЅРёСЏ
 		{
 			double a = (y2-y1)/(x2-x1);
 			double b = y1-a*x1;
@@ -2660,7 +2723,7 @@ EASY_TEX create_double_plot(int tx, int ty, vector<double> vx, vector<double> vy
 			tex.setpixel(i, r, 0, 0, 0);
 
 
-	//теперь выведем циферки и оси
+	//С‚РµРїРµСЂСЊ РІС‹РІРµРґРµРј С†РёС„РµСЂРєРё Рё РѕСЃРё
 
 	double sx, sy;
 	int porx, pory;
@@ -2766,7 +2829,7 @@ EASY_TEX create_plot(int tx, int ty, vector<double> vx, vector<double> vy, doubl
 			tex.setpixel(i, r, 0, 0, 0);
 
 
-	//теперь выведем циферки и оси
+	//С‚РµРїРµСЂСЊ РІС‹РІРµРґРµРј С†РёС„РµСЂРєРё Рё РѕСЃРё
 
 	double sx, sy;
 	int porx, pory;
@@ -2869,7 +2932,7 @@ EASY_TEX create_diskr_plot(int tx, int ty, vector<double> vx, vector<double> vy,
 			tex.setpixel(i, r, 0, 0, 0);
 
 
-	//теперь выведем циферки и оси
+	//С‚РµРїРµСЂСЊ РІС‹РІРµРґРµРј С†РёС„РµСЂРєРё Рё РѕСЃРё
 
 	double sx, sy;
 	int porx, pory;
@@ -2948,8 +3011,6 @@ void task_graphix()
 	int tex_ssy = 0;
 	int lasttime = time(nullptr);
 
-	int imgz = 0;
-
 	while (1)
 	{
 
@@ -2966,22 +3027,6 @@ void task_graphix()
 		glColor3f(1,1,1);
 
 		mtx.lock();
-
-		for (; imgz < img.a.size(); imgz++)
-		{
-			string ttt;
-			ttt = "img" + ftos(imgz) + ".bmp";
-			vector<byte> v,v1;
-			v1=v = img.a[imgz].gdata();
-			for (int r = 0; r < img.a[imgz].gy(); r++)
-				for (int i = 0; i < img.a[imgz].gx(); i++)
-				{
-					v[(i + r*img.a[imgz].gx()) * 3] = v1[(i + (img.a[imgz].gy() - r - 1)*img.a[imgz].gx()) * 3];
-					v[(i + r*img.a[imgz].gx()) * 3+1] = v1[(i + (img.a[imgz].gy() - r - 1)*img.a[imgz].gx()) * 3+1];
-					v[(i + r*img.a[imgz].gx()) * 3+2] = v1[(i + (img.a[imgz].gy() - r - 1)*img.a[imgz].gx()) * 3+2];
-				}
-			SaveArrFile(wstring(ttt.begin(), ttt.end()).c_str(), (int *)v.data(), img.a[imgz].gx(), img.a[imgz].gy(),24);
-		}
 
 		int yy = 0;
 		for (int i = 0; i < img.a.size(); i++)
@@ -3083,7 +3128,7 @@ COMP_2_RES comp_2(EL_CHAIN cha,int id_res,int t_s, double im, double ti)
 
 	tex.resize(512, 256);
 	print_chem(tex, cha_temp);
-	tex.numbers(10, tex.gy() - 20, "это схема при эс равному нулю");
+	tex.numbers(10, tex.gy() - 20, "СЌС‚Рѕ СЃС…РµРјР° РїСЂРё СЌСЃ СЂР°РІРЅРѕРјСѓ РЅСѓР»СЋ");
 	mtx.lock();
 	img.add(tex);
 	mtx.unlock();
@@ -3100,8 +3145,8 @@ COMP_2_RES comp_2(EL_CHAIN cha,int id_res,int t_s, double im, double ti)
 
 	tex.resize(512, 256);
 	print_chem(tex, cha_temp);
-	tex.numbers(10, tex.gy() - 20, "это схема при эс стремящемуся");
-	tex.numbers(10, tex.gy() - 20-18, "к бесконечности");
+	tex.numbers(10, tex.gy() - 20, "СЌС‚Рѕ СЃС…РµРјР° РїСЂРё СЌСЃ СЃС‚СЂРµРјСЏС‰РµРјСѓСЃСЏ");
+	tex.numbers(10, tex.gy() - 20-18, "Рє Р±РµСЃРєРѕРЅРµС‡РЅРѕСЃС‚Рё");
 	mtx.lock();
 	img.add(tex);
 	mtx.unlock();
@@ -3199,13 +3244,13 @@ COMP_2_RES comp_2(EL_CHAIN cha,int id_res,int t_s, double im, double ti)
 
 
 
-	if (t_s == SIGN_D)//2 анти ступени
+	if (t_s == SIGN_D)//2 Р°РЅС‚Рё СЃС‚СѓРїРµРЅРё
 	{
 		a_t.resize(3);
 		a_l.resize(3);
 		a_res.resize(3);
 		t_sdv.resize(3);
-		//сдвиг по времени на программном уровне для более красивого вывода
+		//СЃРґРІРёРі РїРѕ РІСЂРµРјРµРЅРё РЅР° РїСЂРѕРіСЂР°РјРјРЅРѕРј СѓСЂРѕРІРЅРµ РґР»СЏ Р±РѕР»РµРµ РєСЂР°СЃРёРІРѕРіРѕ РІС‹РІРѕРґР°
 		a_t[0] = "Heaviside(t)*(" + ftos(im) + ")";
 		t_sdv[0] = 0;
 		a_t[1] = "-Heaviside(t) * 2 * (" + ftos(im) + ")";
@@ -3220,13 +3265,13 @@ COMP_2_RES comp_2(EL_CHAIN cha,int id_res,int t_s, double im, double ti)
 		//cout << "\n" << b_l;
 	}
 
-	if (t_s == SIGN_V)//пирамидка
+	if (t_s == SIGN_V)//РїРёСЂР°РјРёРґРєР°
 	{
 		a_t.resize(3);
 		a_l.resize(3);
 		a_res.resize(3);
 		t_sdv.resize(3);
-		//сдвиг по времени на программном уровне для более красивого вывода
+		//СЃРґРІРёРі РїРѕ РІСЂРµРјРµРЅРё РЅР° РїСЂРѕРіСЂР°РјРјРЅРѕРј СѓСЂРѕРІРЅРµ РґР»СЏ Р±РѕР»РµРµ РєСЂР°СЃРёРІРѕРіРѕ РІС‹РІРѕРґР°
 		a_t[0] = "Heaviside(t)*t*(" + ftos(im / ti * 2) + ")";
 		t_sdv[0] = 0;
 		a_t[1] = "-Heaviside(t) * t * 2 * (" + ftos(im / ti * 2) + ")";
@@ -3241,13 +3286,13 @@ COMP_2_RES comp_2(EL_CHAIN cha,int id_res,int t_s, double im, double ti)
 		//cout << "\n" << b_l;
 	}
 
-	if (t_s == SIGN_Z)//cтупенька
+	if (t_s == SIGN_Z)//cС‚СѓРїРµРЅСЊРєР°
 	{
 		a_t.resize(2);
 		a_l.resize(2);
 		a_res.resize(2);
 		t_sdv.resize(2);
-		//сдвиг по времени на программном уровне для более красивого вывода
+		//СЃРґРІРёРі РїРѕ РІСЂРµРјРµРЅРё РЅР° РїСЂРѕРіСЂР°РјРјРЅРѕРј СѓСЂРѕРІРЅРµ РґР»СЏ Р±РѕР»РµРµ РєСЂР°СЃРёРІРѕРіРѕ РІС‹РІРѕРґР°
 		a_t[0] = "Heaviside(t)*(" + ftos(im ) + ")";
 		t_sdv[0] = 0;
 		a_t[1] = "-Heaviside(t)* (" + ftos(im) + ")";
@@ -3297,7 +3342,7 @@ COMP_2_RES comp_2(EL_CHAIN cha,int id_res,int t_s, double im, double ti)
 		L_S temp;
 		temp = (a_l[i] * H).s;
 
-		//Формула сдвига лапласса
+		//Р¤РѕСЂРјСѓР»Р° СЃРґРІРёРіР° Р»Р°РїР»Р°СЃСЃР°
 		//f(t-a)=exp(-a*s)*F(s)
 
 		if (i > 0)
@@ -3322,11 +3367,11 @@ COMP_2_RES comp_2(EL_CHAIN cha,int id_res,int t_s, double im, double ti)
 	for (int i = 0; i < a_t.size(); i++)
 	{
 		string temp = a_res[i];
-		myreplace(temp, "exp", "hidden_exp");//этот симпи не должен изгаживать экспоненты
+		myreplace(temp, "exp", "hidden_exp");//СЌС‚РѕС‚ СЃРёРјРїРё РЅРµ РґРѕР»Р¶РµРЅ РёР·РіР°Р¶РёРІР°С‚СЊ СЌРєСЃРїРѕРЅРµРЅС‚С‹
 		temp = sympy_sim(temp);
 		myreplace(temp, "hidden_exp", "exp");
 
-		//тэшку только в конце переписываем а то скобки раскроются
+		//С‚СЌС€РєСѓ С‚РѕР»СЊРєРѕ РІ РєРѕРЅС†Рµ РїРµСЂРµРїРёСЃС‹РІР°РµРј Р° С‚Рѕ СЃРєРѕР±РєРё СЂР°СЃРєСЂРѕСЋС‚СЃСЏ
 		if (t_sdv[i] != 0)
 			myreplace(temp, "t", "(t-" + ftos(t_sdv[i]) + ")");
 
@@ -3342,8 +3387,8 @@ COMP_2_RES comp_2(EL_CHAIN cha,int id_res,int t_s, double im, double ti)
 		myreplace(a_res[i], "t", "(t-" + ftos(t_sdv[i]) + ")");
 	}
 
-	//Определить переходную ( ) 1 h t характеристику цепи, сравнить с найденной в п. 1.2 задания. 
-	//Проверить ( ) 1 0h и ( ) 1h ? по аналитическому выражению ( ) 1 h t и непосредственно по схеме цепи. 
+	//РћРїСЂРµРґРµР»РёС‚СЊ РїРµСЂРµС…РѕРґРЅСѓСЋ ( ) 1 h t С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРєСѓ С†РµРїРё, СЃСЂР°РІРЅРёС‚СЊ СЃ РЅР°Р№РґРµРЅРЅРѕР№ РІ Рї. 1.2 Р·Р°РґР°РЅРёСЏ. 
+	//РџСЂРѕРІРµСЂРёС‚СЊ ( ) 1 0h Рё ( ) 1h ? РїРѕ Р°РЅР°Р»РёС‚РёС‡РµСЃРєРѕРјСѓ РІС‹СЂР°Р¶РµРЅРёСЋ ( ) 1 h t Рё РЅРµРїРѕСЃСЂРµРґСЃС‚РІРµРЅРЅРѕ РїРѕ СЃС…РµРјРµ С†РµРїРё. 
 
 
 	cha_temp = cha;
@@ -3355,7 +3400,7 @@ COMP_2_RES comp_2(EL_CHAIN cha,int id_res,int t_s, double im, double ti)
 
 	tex.resize(512, 256);
 	print_chem(tex, cha_temp);
-	tex.numbers(10, tex.gy()-20, "это схема для тэ равному 0 с плюсом");
+	tex.numbers(10, tex.gy()-20, "СЌС‚Рѕ СЃС…РµРјР° РґР»СЏ С‚СЌ СЂР°РІРЅРѕРјСѓ 0 СЃ РїР»СЋСЃРѕРј");
 	mtx.lock();
 	img.add(tex);
 	mtx.unlock();
@@ -3376,8 +3421,8 @@ COMP_2_RES comp_2(EL_CHAIN cha,int id_res,int t_s, double im, double ti)
 
 	tex.resize(512, 256);
 	print_chem(tex, cha_temp);
-	tex.numbers(10, tex.gy() - 20, "это схема при тэ стремящемуся");
-	tex.numbers(10, tex.gy() - 20 - 18, "к бесконечности");
+	tex.numbers(10, tex.gy() - 20, "СЌС‚Рѕ СЃС…РµРјР° РїСЂРё С‚СЌ СЃС‚СЂРµРјСЏС‰РµРјСѓСЃСЏ");
+	tex.numbers(10, tex.gy() - 20 - 18, "Рє Р±РµСЃРєРѕРЅРµС‡РЅРѕСЃС‚Рё");
 	mtx.lock();
 	img.add(tex);
 	mtx.unlock();
@@ -3411,7 +3456,7 @@ COMP_2_RES comp_2(EL_CHAIN cha,int id_res,int t_s, double im, double ti)
 	}
 
 	tex = create_double_plot(1024, 512, vx, vy, vz);
-	tex.numbers(100, tex.gy() - 20, "ток реакции и сигнал на 1 графике");
+	tex.numbers(100, tex.gy() - 20, "С‚РѕРє СЂРµР°РєС†РёРё Рё СЃРёРіРЅР°Р» РЅР° 1 РіСЂР°С„РёРєРµ");
 	tex.numbers(100, tex.gy() - 20 - 18, "");
 	mtx.lock();
 	img.add(tex);
@@ -3428,32 +3473,31 @@ COMP_2_RES comp_2(EL_CHAIN cha,int id_res,int t_s, double im, double ti)
 class POl_PROPUSK
 {
 public:
-	int id; //0 - низких_ч, 1 - высоких_ч, 2 - полосовой, 3 - заграждающий
-	double w0, w1; //-1 - бесконечность
-	void show()const
+	int id; //0 - РЅРёР·РєРёС…_С‡, 1 - РІС‹СЃРѕРєРёС…_С‡, 2 - РїРѕР»РѕСЃРѕРІРѕР№, 3 - Р·Р°РіСЂР°Р¶РґР°СЋС‰РёР№
+	double dw, w0, w1; //-1 - Р±РµСЃРєРѕРЅРµС‡РЅРѕСЃС‚СЊ
+	void show()
 	{
-		double dw;
 		switch (id)
 		{
 		case 0:
-			cout << "Фильтр низких частот";
+			cout << "Р¤РёР»СЊС‚СЂ РЅРёР·РєРёС… С‡Р°СЃС‚РѕС‚";
 			dw = w1 - w0;
-			cout << "\nПолоса пропускания dw = " << dw << " [ " << w0 << ", " << w1 << " ]\n";
+			cout << "\nРџРѕР»РѕСЃР° РїСЂРѕРїСѓСЃРєР°РЅРёСЏ dw = " << dw << " [ " << w0 << ", " << w1 << " ]\n";
 			break;
 		case 1:
-			cout << "Фильтр высоких частот";
+			cout << "Р¤РёР»СЊС‚СЂ РІС‹СЃРѕРєРёС… С‡Р°СЃС‚РѕС‚";
 			dw = -1;
-			cout << "\nПолоса пропускания dw = inf [ " << w0 << ", +inf ]\n";
+			cout << "\nРџРѕР»РѕСЃР° РїСЂРѕРїСѓСЃРєР°РЅРёСЏ dw = inf [ " << w0 << ", +inf ]\n";
 			break;
 		case 2:
-			cout << "Полосовой фильтр";
+			cout << "РџРѕР»РѕСЃРѕРІРѕР№ С„РёР»СЊС‚СЂ";
 			dw = w1 - w0;
-			cout << "\nПолоса пропускания dw = " << dw << " [ " << w0 << ", " << w1 << " ]\n";
+			cout << "\nРџРѕР»РѕСЃР° РїСЂРѕРїСѓСЃРєР°РЅРёСЏ dw = " << dw << " [ " << w0 << ", " << w1 << " ]\n";
 			break;
 		case 3:
-			cout << "Заграждающий фильтр";
+			cout << "Р—Р°РіСЂР°Р¶РґР°СЋС‰РёР№ С„РёР»СЊС‚СЂ";
 			dw = w1 - w0;
-			cout << "\nПолоса пропускания [ 0 , " << w0 << " U " << w1 << ", +inf ]\n";
+			cout << "\nРџРѕР»РѕСЃР° РїСЂРѕРїСѓСЃРєР°РЅРёСЏ [ 0 , " << w0 << " U " << w1 << ", +inf ]\n";
 			break;
 		}
 	}
@@ -3463,23 +3507,21 @@ class COMP_3_RES
 {
 public:
 	string ACH_H, FCH_H;
-	double max_ACH;
 	double ACH_H_0, ACH_H_inf;
 	POl_PROPUSK polosa;
 	string AS_F1, FS_F1;
-	double dw_AS_F1, mid_persent, isk_persent, AS_F2_0;
-	string p34;
+	double dw_AS_F1, mid_persent, AS_F2_0;
 };
 
 COMP_3_RES comp_3(L_S H_S, string F1_T, string F1_S, int sgn_t, double sgn_time)
 {
 	COMP_3_RES RES;
-	//H_S это переходная функция тока в лапласе
+	//H_S СЌС‚Рѕ РїРµСЂРµС…РѕРґРЅР°СЏ С„СѓРЅРєС†РёСЏ С‚РѕРєР° РІ Р»Р°РїР»Р°СЃРµ
 
 	string H_JW, H_IM, H_RE;
 
-	//3.1. Используя найденное в 2.1 выражение HU(s) или HI(s), вычислить и построить графики АЧХ и ФЧХ 
-	//функций передачи цепи HU(jw) или HI(jw). Произвести проверку АЧХ при w = 0 и w -> inf.  
+	//3.1. РСЃРїРѕР»СЊР·СѓСЏ РЅР°Р№РґРµРЅРЅРѕРµ РІ 2.1 РІС‹СЂР°Р¶РµРЅРёРµ HU(s) РёР»Рё HI(s), РІС‹С‡РёСЃР»РёС‚СЊ Рё РїРѕСЃС‚СЂРѕРёС‚СЊ РіСЂР°С„РёРєРё РђР§РҐ Рё Р¤Р§РҐ 
+	//С„СѓРЅРєС†РёР№ РїРµСЂРµРґР°С‡Рё С†РµРїРё HU(jw) РёР»Рё HI(jw). РџСЂРѕРёР·РІРµСЃС‚Рё РїСЂРѕРІРµСЂРєСѓ РђР§РҐ РїСЂРё w = 0 Рё w -> inf.  
 	H_JW = sympy_eva(H_S.s, "s", "I*w");
 	H_IM = sympy_im(H_JW);
 	H_RE = sympy_re(H_JW);
@@ -3488,14 +3530,14 @@ COMP_3_RES comp_3(L_S H_S, string F1_T, string F1_S, int sgn_t, double sgn_time)
 	string FCH_H = "atan((" + H_IM + ")/(" + H_RE + "))-Heaviside(-(" + H_RE + "))*pi";
 
 
-	cout << "\n\nACH_H = " << ACH_H; //АЧХ
-	cout << "\n\nFCH_H = " << FCH_H; //ФЧХ
+	cout << "\n\nACH_H = " << ACH_H; //РђР§РҐ
+	cout << "\n\nFCH_H = " << FCH_H; //Р¤Р§РҐ
 
 	double ACH_H_0 = atof1(sympy_eva(ACH_H, "w", "0.0000001")), ACH_H_inf = atof1(sympy_lim(ACH_H, "w", "oo", "-"));
-	//проверка при w = 0
+	//РїСЂРѕРІРµСЂРєР° РїСЂРё w = 0
 	cout << "\n\nACH_H [w = 0] = " << ACH_H_0;
 
-	//проверка при w -> inf
+	//РїСЂРѕРІРµСЂРєР° РїСЂРё w -> inf
 	cout << "\nACH_H [w -> inf] = " << ACH_H_inf << "\n";
 
 	RES.ACH_H = ACH_H;
@@ -3505,7 +3547,7 @@ COMP_3_RES comp_3(L_S H_S, string F1_T, string F1_S, int sgn_t, double sgn_time)
 
 
 
-	//3.2. Определить полосу пропускания цепи по уровню 0,707|H(jw)|[max].
+	//3.2. РћРїСЂРµРґРµР»РёС‚СЊ РїРѕР»РѕСЃСѓ РїСЂРѕРїСѓСЃРєР°РЅРёСЏ С†РµРїРё РїРѕ СѓСЂРѕРІРЅСЋ 0,707|H(jw)|[max].
 	double first, last, min = 1000000, max = 0, temp;
 
 	double x[193], x_max = 0.001, x_min = 0.001;
@@ -3528,8 +3570,8 @@ COMP_3_RES comp_3(L_S H_S, string F1_T, string F1_S, int sgn_t, double sgn_time)
 			last = atof1(sympy_lim(ACH_H, "w", "oo", "-"));
 	}
 
-	//точное определение max и min
-	//определение max
+	//С‚РѕС‡РЅРѕРµ РѕРїСЂРµРґРµР»РµРЅРёРµ max Рё min
+	//РѕРїСЂРµРґРµР»РµРЅРёРµ max
 	double shag = 0.01;
 	for (; shag > 0.0001; shag /= 2)
 		if (atof1(sympy_eva(ACH_H, "w", ftos(x_max))) < atof1(sympy_eva(ACH_H, "w", ftos(x_max + shag))))
@@ -3539,7 +3581,7 @@ COMP_3_RES comp_3(L_S H_S, string F1_T, string F1_S, int sgn_t, double sgn_time)
 
 	max = atof1(sympy_eva(ACH_H, "w", ftos(x_max)));
 
-	//определение min
+	//РѕРїСЂРµРґРµР»РµРЅРёРµ min
 	/*for(shag = 0.01; atof1(sympy_eva(ACH, "w", ftos(x_min))) > atof1(sympy_eva(ACH, "w", ftos(x_min + shag))); shag = x_min - x_min/1.1)
 	x_min += shag;*/
 	shag = 0.01;
@@ -3569,8 +3611,6 @@ COMP_3_RES comp_3(L_S H_S, string F1_T, string F1_S, int sgn_t, double sgn_time)
 	if (!b1 && b2) POLOSA.id = 0;
 	if (b1 && !b2) POLOSA.id = 1;
 	if (!b1 && !b2) POLOSA.id = 3;
-
-	RES.max_ACH = atof1(sympy_eva(ACH_H, "w", ftos(x_max)));
 
 	double y = 0.707 * atof1(sympy_eva(ACH_H, "w", ftos(x_max)));
 	switch (POLOSA.id)
@@ -3657,7 +3697,7 @@ COMP_3_RES comp_3(L_S H_S, string F1_T, string F1_S, int sgn_t, double sgn_time)
 
 
 	tex = create_plot(1024, 512, vx, vy, 0, 0, 0, 0);
-	tex.numbers(100, tex.gy() - 20, "ачх");
+	tex.numbers(100, tex.gy() - 20, "Р°С‡С…");
 	tex.numbers(100, tex.gy() - 20 - 18, "");
 	mtx.lock();
 	img.add(tex);
@@ -3681,7 +3721,7 @@ COMP_3_RES comp_3(L_S H_S, string F1_T, string F1_S, int sgn_t, double sgn_time)
 
 
 	tex = create_plot(1024, 512, vx, vy, 0, 0, 0, 0);
-	tex.numbers(100, tex.gy() - 20, "фчх");
+	tex.numbers(100, tex.gy() - 20, "С„С‡С…");
 	tex.numbers(100, tex.gy() - 20 - 18, "");
 	mtx.lock();
 	img.add(tex);
@@ -3689,8 +3729,8 @@ COMP_3_RES comp_3(L_S H_S, string F1_T, string F1_S, int sgn_t, double sgn_time)
 
 
 
-	//3.3. Найти и построить амплитудный и фазовый спектры входного одиночного импульса.
-	//Найти ширину амплитудного спектра по уровню ( )1 max0,1 F j? или критерию, предложенному преподавателем.
+	//3.3. РќР°Р№С‚Рё Рё РїРѕСЃС‚СЂРѕРёС‚СЊ Р°РјРїР»РёС‚СѓРґРЅС‹Р№ Рё С„Р°Р·РѕРІС‹Р№ СЃРїРµРєС‚СЂС‹ РІС…РѕРґРЅРѕРіРѕ РѕРґРёРЅРѕС‡РЅРѕРіРѕ РёРјРїСѓР»СЊСЃР°.
+	//РќР°Р№С‚Рё С€РёСЂРёРЅСѓ Р°РјРїР»РёС‚СѓРґРЅРѕРіРѕ СЃРїРµРєС‚СЂР° РїРѕ СѓСЂРѕРІРЅСЋ ( )1 max0,1 F j? РёР»Рё РєСЂРёС‚РµСЂРёСЋ, РїСЂРµРґР»РѕР¶РµРЅРЅРѕРјСѓ РїСЂРµРїРѕРґР°РІР°С‚РµР»РµРј.
 	string F1_JW, F1_RE, F1_IM;
 	F1_JW = sympy_eva(F1_S, "s", "I*w");
 	F1_RE = sympy_re(F1_JW);
@@ -3770,7 +3810,7 @@ COMP_3_RES comp_3(L_S H_S, string F1_T, string F1_S, int sgn_t, double sgn_time)
 				dw_ACH_F1 -= shag;
 			else
 				dw_ACH_F1 += shag;
-		cout << "ACH_max = " << atof1(sympy_eva(ACH_F1, "w", ftos(x_max))) << "\t0.1A = " << y << "\nШирина спектра dw_ACH_F1 = " << dw_ACH_F1 << "\tACH_F1 = " << atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1))) << "\n";
+		cout << "ACH_max = " << atof1(sympy_eva(ACH_F1, "w", ftos(x_max))) << "\t0.1A = " << y << "\nРЁРёСЂРёРЅР° СЃРїРµРєС‚СЂР° dw_ACH_F1 = " << dw_ACH_F1 << "\tACH_F1 = " << atof1(sympy_eva(ACH_F1, "w", ftos(dw_ACH_F1))) << "\n";
 
 		RES.dw_AS_F1 = dw_ACH_F1;
 
@@ -3788,7 +3828,7 @@ COMP_3_RES comp_3(L_S H_S, string F1_T, string F1_S, int sgn_t, double sgn_time)
 	}
 
 	tex = create_plot(1024, 512, vx, vy, 0, 0, 0, 0);
-	tex.numbers(100, tex.gy() - 20, "ас ф1");
+	tex.numbers(100, tex.gy() - 20, "Р°СЃ С„1");
 	tex.numbers(100, tex.gy() - 20 - 18, "");
 	mtx.lock();
 	img.add(tex);
@@ -3811,7 +3851,7 @@ COMP_3_RES comp_3(L_S H_S, string F1_T, string F1_S, int sgn_t, double sgn_time)
 	}
 
 	tex = create_plot(1024, 512, vx, vy, 0, 0, 0, 0);
-	tex.numbers(100, tex.gy() - 20, "фс ф1");
+	tex.numbers(100, tex.gy() - 20, "С„СЃ С„1");
 	tex.numbers(100, tex.gy() - 20 - 18, "");
 	mtx.lock();
 	img.add(tex);
@@ -3819,36 +3859,22 @@ COMP_3_RES comp_3(L_S H_S, string F1_T, string F1_S, int sgn_t, double sgn_time)
 
 
 
-	//3.4. Сопоставить спектры входного импульса с частотными характеристиками цепи. Дать предварительное заключение
-	//об ожидаемых искажениях сигнала на выходе цепи. Сравнить эти качественные оценки с сигналом на выходе, полученным в п. 2.5 задания.
+	//3.4. РЎРѕРїРѕСЃС‚Р°РІРёС‚СЊ СЃРїРµРєС‚СЂС‹ РІС…РѕРґРЅРѕРіРѕ РёРјРїСѓР»СЊСЃР° СЃ С‡Р°СЃС‚РѕС‚РЅС‹РјРё С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРєР°РјРё С†РµРїРё. Р”Р°С‚СЊ РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕРµ Р·Р°РєР»СЋС‡РµРЅРёРµ
+	//РѕР± РѕР¶РёРґР°РµРјС‹С… РёСЃРєР°Р¶РµРЅРёСЏС… СЃРёРіРЅР°Р»Р° РЅР° РІС‹С…РѕРґРµ С†РµРїРё. РЎСЂР°РІРЅРёС‚СЊ СЌС‚Рё РєР°С‡РµСЃС‚РІРµРЅРЅС‹Рµ РѕС†РµРЅРєРё СЃ СЃРёРіРЅР°Р»РѕРј РЅР° РІС‹С…РѕРґРµ, РїРѕР»СѓС‡РµРЅРЅС‹Рј РІ Рї. 2.5 Р·Р°РґР°РЅРёСЏ.
 
-	RES.p34 = "";
-
-	//Приближённая оценка реакции по значению АЧХ цепи на нулевой частоте
+	//РџСЂРёР±Р»РёР¶С‘РЅРЅР°СЏ РѕС†РµРЅРєР° СЂРµР°РєС†РёРё РїРѕ Р·РЅР°С‡РµРЅРёСЋ РђР§РҐ С†РµРїРё РЅР° РЅСѓР»РµРІРѕР№ С‡Р°СЃС‚РѕС‚Рµ
 	if (-0.0001 < ACH_H_0 && ACH_H_0 < 0.0001)
-	{
-		RES.p34 += "Суммарная площадь реакции равна нулю\n";
-		cout << "Суммарная площадь реакции равна нулю\n";
-	}
+		cout << "РЎСѓРјРјР°СЂРЅР°СЏ РїР»РѕС‰Р°РґСЊ СЂРµР°РєС†РёРё СЂР°РІРЅР° РЅСѓР»СЋ\n";
 	else
-	{
-		RES.p34 += "Площадь реакции в " + ftos(ACH_H_inf) + " раз отличается от площади воздействия\n";
-		cout << "Площадь реакции в " << ACH_H_0 << " раз отличается от площади воздействия\n";
-	}
+		cout << "РџР»РѕС‰Р°РґСЊ СЂРµР°РєС†РёРё РІ " << ACH_H_0 << " СЂР°Р· РѕС‚Р»РёС‡Р°РµС‚СЃСЏ РѕС‚ РїР»РѕС‰Р°РґРё РІРѕР·РґРµР№СЃС‚РІРёСЏ\n";
 
-	//Приближённая оценка реакции по значению АЧХ цепи на бесконечной частоте
+	//РџСЂРёР±Р»РёР¶С‘РЅРЅР°СЏ РѕС†РµРЅРєР° СЂРµР°РєС†РёРё РїРѕ Р·РЅР°С‡РµРЅРёСЋ РђР§РҐ С†РµРїРё РЅР° Р±РµСЃРєРѕРЅРµС‡РЅРѕР№ С‡Р°СЃС‚РѕС‚Рµ
 	if (-0.0001 < ACH_H_inf && ACH_H_inf < 0.0001)
-	{
-		RES.p34 += "Скачок воздействия не пройдёт на выход\n";
-		cout << "Скачок воздействия не пройдёт на выход\n";
-	}
+		cout << "РЎРєР°С‡РѕРє РІРѕР·РґРµР№СЃС‚РІРёСЏ РЅРµ РїСЂРѕР№РґС‘С‚ РЅР° РІС‹С…РѕРґ\n";
 	else
-	{
-		RES.p34 += "Скачок реакции в " + ftos(ACH_H_inf) + " раз отличается от скачка воздействия\n";
-		cout << "Скачок реакции в " << ACH_H_inf << " раз отличается от скачка воздействия\n";
-	}
+		cout << "РЎРєР°С‡РѕРє СЂРµР°РєС†РёРё РІ " << ACH_H_inf << " СЂР°Р· РѕС‚Р»РёС‡Р°РµС‚СЃСЏ РѕС‚ СЃРєР°С‡РєР° РІРѕР·РґРµР№СЃС‚РІРёСЏ\n";
 
-	//Оценка по АЧХ цепи и АС воздействия
+	//РћС†РµРЅРєР° РїРѕ РђР§РҐ С†РµРїРё Рё РђРЎ РІРѕР·РґРµР№СЃС‚РІРёСЏ
 
 	double w[200], q = RES.dw_AS_F1 / 100, mid_persent = 0, Ew = 0;
 	cout << "q = " << q << "\n";
@@ -3869,37 +3895,11 @@ COMP_3_RES comp_3(L_S H_S, string F1_T, string F1_S, int sgn_t, double sgn_time)
 	mid_persent = mid_persent * 100 / Ew;
 	cout << "mid_persent[AS_F2/AS_F1] = " << mid_persent << " %\n";
 	RES.mid_persent = mid_persent;
-	RES.p34 += "Примерный процент искажения по амплитуде:" + ftos(100-mid_persent) + "\n";
-
-	q = RES.dw_AS_F1 / 100;
-	mid_persent = 0;
-	Ew = 0;
-
-	cout << "q = " << q << "\n";
-	w[0] = 0;
-	double angdiff;
-	for (int i = 1; i < 200; i++)
-	{
-		w[i] = w[i - 1] + q;
-		//min(abs(1 - A1 / A2) * 2 + angdiff(ф1 - ф2) / 90, 1) 
-		angdiff = (-1)*atof1(sympy_eva(FCH_H, "w", ftos(w[i])));
-		while (angdiff > M_PI)
-			angdiff -= M_PI * 2;
-		while (angdiff < -M_PI)
-			angdiff += M_PI * 2;
-		mid_persent = mid_persent + (atof1(sympy_eva(ACH_F1, "w", ftos(w[i]))) / w[i]) * min(abs(1 - atof1(sympy_eva(ACH_H, "w", ftos(w[i]))) / (RES.max_ACH)) * 2 + angdiff / 90, 1);
-		Ew += atof1(sympy_eva(ACH_F1, "w", ftos(w[i]))) / w[i];
-	}
-	mid_persent = mid_persent * 100 / Ew;
-	cout << "mid_persent = " << mid_persent << " %\n";
-	
-	RES.p34 += "Примерное искажение :" + ftos(mid_persent) + "\n";
-
-	RES.isk_persent = mid_persent;
 
 
-	//3.5. Построить графики амплитудного и фазового спектров выходного сигнала, используя графики пп. 3.1, 3.3 задания.
-	//Проконтролировать площадь реакции по значению ее спектра при w = 0.
+
+	//3.5. РџРѕСЃС‚СЂРѕРёС‚СЊ РіСЂР°С„РёРєРё Р°РјРїР»РёС‚СѓРґРЅРѕРіРѕ Рё С„Р°Р·РѕРІРѕРіРѕ СЃРїРµРєС‚СЂРѕРІ РІС‹С…РѕРґРЅРѕРіРѕ СЃРёРіРЅР°Р»Р°, РёСЃРїРѕР»СЊР·СѓСЏ РіСЂР°С„РёРєРё РїРї. 3.1, 3.3 Р·Р°РґР°РЅРёСЏ.
+	//РџСЂРѕРєРѕРЅС‚СЂРѕР»РёСЂРѕРІР°С‚СЊ РїР»РѕС‰Р°РґСЊ СЂРµР°РєС†РёРё РїРѕ Р·РЅР°С‡РµРЅРёСЋ РµРµ СЃРїРµРєС‚СЂР° РїСЂРё w = 0.
 	for (int i = 0; i < vx.size(); i++)
 	{
 		//vx[i] = i / 60.0;
@@ -3914,7 +3914,7 @@ COMP_3_RES comp_3(L_S H_S, string F1_T, string F1_S, int sgn_t, double sgn_time)
 	}
 
 	tex = create_plot(1024, 512, vx, vy, 0, 0, 0, 0);
-	tex.numbers(100, tex.gy() - 20, "ас ф2");
+	tex.numbers(100, tex.gy() - 20, "Р°СЃ С„2");
 	tex.numbers(100, tex.gy() - 20 - 18, "");
 	mtx.lock();
 	img.add(tex);
@@ -3938,13 +3938,13 @@ COMP_3_RES comp_3(L_S H_S, string F1_T, string F1_S, int sgn_t, double sgn_time)
 	}
 
 	tex = create_plot(1024, 512, vx, vy, 0, 0, 0, 0);
-	tex.numbers(100, tex.gy() - 20, "фс ф2");
+	tex.numbers(100, tex.gy() - 20, "С„СЃ С„2");
 	tex.numbers(100, tex.gy() - 20 - 18, "");
 	mtx.lock();
 	img.add(tex);
 	mtx.unlock();
 
-	cout << "\nПостроены AS_F2, FS_F2.\n";
+	cout << "\nРџРѕСЃС‚СЂРѕРµРЅС‹ AS_F2, FS_F2.\n";
 	double w0_AS_F2 = atof1(sympy_eva(ACH_H, "w", "0.0001")) * atof1(sympy_eva(ACH_F1, "w", "0.0001"));
 	cout << "AS_F2[w = 0] = " << w0_AS_F2 << "\n";
 
@@ -3962,8 +3962,13 @@ COMP_3_RES comp_3(L_S H_S, string F1_T, string F1_S, int sgn_t, double sgn_time)
 class COMP_4_RES
 {
 public:
-	double Ak;
-	int lev;
+	string Ak;
+	string f1_A, f1_F;
+	string f2_A, f2_F;
+	string h1_A, h1_F;
+	string s0, s9, s0s, s9s;
+	string h1_0, h1_9, h1_0s, h1_9s;
+	vector<complex<double>> v_polus, v_zero;
 };
 
 COMP_4_RES comp_4(L_S H_S, string F1_T, string F1_S, double T)
@@ -3977,7 +3982,7 @@ COMP_4_RES comp_4(L_S H_S, string F1_T, string F1_S, double T)
 
 	cout << F1_T << endl;
 	cout << F1_S << endl;
-	//H_S это переходная функция тока в лапласе
+	//H_S СЌС‚Рѕ РїРµСЂРµС…РѕРґРЅР°СЏ С„СѓРЅРєС†РёСЏ С‚РѕРєР° РІ Р»Р°РїР»Р°СЃРµ
 	string H_JW, H_IM, H_RE;
 
 	H_JW = sympy_eva(H_S.s, "s", "I*w");
@@ -3996,9 +4001,9 @@ COMP_4_RES comp_4(L_S H_S, string F1_T, string F1_S, double T)
 
 	
 
-	//4.1.Разложить в ряд Фурье заданный входной периодический сигнал.Построить его амплитудный и фазовый дискретные спектры. 
-	//res.f1_A = "sqrt((" + A1_IM + ")**2+(" + A1_RE + ")**2)";
-	//res.f1_F = "atan((" + A1_IM + ")/(" + A1_RE + "))-Heaviside(-(" + A1_RE + "))*pi";
+	//4.1.Р Р°Р·Р»РѕР¶РёС‚СЊ РІ СЂСЏРґ Р¤СѓСЂСЊРµ Р·Р°РґР°РЅРЅС‹Р№ РІС…РѕРґРЅРѕР№ РїРµСЂРёРѕРґРёС‡РµСЃРєРёР№ СЃРёРіРЅР°Р».РџРѕСЃС‚СЂРѕРёС‚СЊ РµРіРѕ Р°РјРїР»РёС‚СѓРґРЅС‹Р№ Рё С„Р°Р·РѕРІС‹Р№ РґРёСЃРєСЂРµС‚РЅС‹Рµ СЃРїРµРєС‚СЂС‹. 
+	res.f1_A = "sqrt((" + A1_IM + ")**2+(" + A1_RE + ")**2)";
+	res.f1_F = "atan((" + A1_IM + ")/(" + A1_RE + "))-Heaviside(-(" + A1_RE + "))*pi";
 
 	vector<double> arr_IM(50);
 	vector<double> arr_RE(50);
@@ -4009,7 +4014,7 @@ COMP_4_RES comp_4(L_S H_S, string F1_T, string F1_S, double T)
 		if (i != 0)
 			temp = sympy_eva(F1_K, "k", ftos(i));
 		else
-			temp = sympy_lim(F1_K, "k", ftos(0.001),"+");//иногда степени ехр различаются на 0.0000001 и из-за этого вылезает оо
+			temp = sympy_lim(F1_K, "k", ftos(0.001),"+");//РёРЅРѕРіРґР° СЃС‚РµРїРµРЅРё РµС…СЂ СЂР°Р·Р»РёС‡Р°СЋС‚СЃСЏ РЅР° 0.0000001 Рё РёР·-Р·Р° СЌС‚РѕРіРѕ РІС‹Р»РµР·Р°РµС‚ РѕРѕ
 
 		arr_RE[i] = atof1(sympy_re(temp));
 		if (arr_RE[i] != 0)
@@ -4081,13 +4086,11 @@ COMP_4_RES comp_4(L_S H_S, string F1_T, string F1_S, double T)
 		}
 	}
 
-	res.Ak = Amax;
-	res.lev = lev;
 	vx.resize(lev);
 	for (int i = 0; i < lev; i++)
 		vx[i] = i;
 	tex = create_diskr_plot(1024, 512, vx, arr_A1_A, 0, 0, 0, 0);
-	tex.numbers(100, tex.gy() - 20, "амплитудная характеристика сигнала");
+	tex.numbers(100, tex.gy() - 20, "Р°РјРїР»РёС‚СѓРґРЅР°СЏ С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРєР° СЃРёРіРЅР°Р»Р°");
 	tex.numbers(100, tex.gy() - 20 - 18, "");
 	mtx.lock();
 	img.add(tex);
@@ -4098,14 +4101,14 @@ COMP_4_RES comp_4(L_S H_S, string F1_T, string F1_S, double T)
 	for (int i = 0; i < lev; i++)
 		vx[i] = i;
 	tex = create_diskr_plot(1024, 512, vx, arr_A1_F, 0, 0, 0, 0);
-	tex.numbers(100, tex.gy() - 20, "частотная характеристика сигнала");
+	tex.numbers(100, tex.gy() - 20, "С‡Р°СЃС‚РѕС‚РЅР°СЏ С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРєР° СЃРёРіРЅР°Р»Р°");
 	tex.numbers(100, tex.gy() - 20 - 18, "");
 	mtx.lock();
 	img.add(tex);
 	mtx.unlock();
-	//4.2.Построить на одном графике заданный входной периодический сигнал и его аппроксимацию отрезком ряда Фурье.Число гармоник 
-	//отрезка ряда Фурье определяется по уровню 0, 1 km A, где km A – максимальная составляющая амплитудного спектра, 
-	//или по другому критерию, предложенному преподавателем. 
+	//4.2.РџРѕСЃС‚СЂРѕРёС‚СЊ РЅР° РѕРґРЅРѕРј РіСЂР°С„РёРєРµ Р·Р°РґР°РЅРЅС‹Р№ РІС…РѕРґРЅРѕР№ РїРµСЂРёРѕРґРёС‡РµСЃРєРёР№ СЃРёРіРЅР°Р» Рё РµРіРѕ Р°РїРїСЂРѕРєСЃРёРјР°С†РёСЋ РѕС‚СЂРµР·РєРѕРј СЂСЏРґР° Р¤СѓСЂСЊРµ.Р§РёСЃР»Рѕ РіР°СЂРјРѕРЅРёРє 
+	//РѕС‚СЂРµР·РєР° СЂСЏРґР° Р¤СѓСЂСЊРµ РѕРїСЂРµРґРµР»СЏРµС‚СЃСЏ РїРѕ СѓСЂРѕРІРЅСЋ 0, 1 km A, РіРґРµ km A вЂ“ РјР°РєСЃРёРјР°Р»СЊРЅР°СЏ СЃРѕСЃС‚Р°РІР»СЏСЋС‰Р°СЏ Р°РјРїР»РёС‚СѓРґРЅРѕРіРѕ СЃРїРµРєС‚СЂР°, 
+	//РёР»Рё РїРѕ РґСЂСѓРіРѕРјСѓ РєСЂРёС‚РµСЂРёСЋ, РїСЂРµРґР»РѕР¶РµРЅРЅРѕРјСѓ РїСЂРµРїРѕРґР°РІР°С‚РµР»РµРј. 
 
 
 	vx.resize(200);
@@ -4121,7 +4124,7 @@ COMP_4_RES comp_4(L_S H_S, string F1_T, string F1_S, double T)
 		vy[i] = atof1(s);
 
 		double fr = arr_A1_A[0]/2;
-		for (int r = 1; r < lev; r++)//есть способ лучше но и так сойдёт ещё можно протейлорить косинус
+		for (int r = 1; r < lev; r++)//РµСЃС‚СЊ СЃРїРѕСЃРѕР± Р»СѓС‡С€Рµ РЅРѕ Рё С‚Р°Рє СЃРѕР№РґС‘С‚ РµС‰С‘ РјРѕР¶РЅРѕ РїСЂРѕС‚РµР№Р»РѕСЂРёС‚СЊ РєРѕСЃРёРЅСѓСЃ
 		{
 			double temp;
 			temp = 1 / T * 2 * r *M_PI* vx[i] + arr_A1_F[r];
@@ -4133,14 +4136,14 @@ COMP_4_RES comp_4(L_S H_S, string F1_T, string F1_S, double T)
 	}
 
 	tex = create_double_plot(1024, 512, vx, vy, vz);
-	tex.numbers(100, tex.gy() - 20, "исходный сигнал");
-	tex.numbers(100, tex.gy() - 20 - 18, "и его приближение");
+	tex.numbers(100, tex.gy() - 20, "РёСЃС…РѕРґРЅС‹Р№ СЃРёРіРЅР°Р»");
+	tex.numbers(100, tex.gy() - 20 - 18, "Рё РµРіРѕ РїСЂРёР±Р»РёР¶РµРЅРёРµ");
 	mtx.lock();
 	img.add(tex);
 	mtx.unlock();
 
-	//4.3.Используя рассчитанные в п. 3.1 задания АЧХ и ФЧХ, найти реакцию цепи в виде отрезка ряда Фурье с 
-	//числом гармоник, определенным для входного сигнала. 
+	//4.3.РСЃРїРѕР»СЊР·СѓСЏ СЂР°СЃСЃС‡РёС‚Р°РЅРЅС‹Рµ РІ Рї. 3.1 Р·Р°РґР°РЅРёСЏ РђР§РҐ Рё Р¤Р§РҐ, РЅР°Р№С‚Рё СЂРµР°РєС†РёСЋ С†РµРїРё РІ РІРёРґРµ РѕС‚СЂРµР·РєР° СЂСЏРґР° Р¤СѓСЂСЊРµ СЃ 
+	//С‡РёСЃР»РѕРј РіР°СЂРјРѕРЅРёРє, РѕРїСЂРµРґРµР»РµРЅРЅС‹Рј РґР»СЏ РІС…РѕРґРЅРѕРіРѕ СЃРёРіРЅР°Р»Р°. 
 
 	vector<double> arr_A2_A(50);
 	vector<double> arr_A2_F(50);
@@ -4256,7 +4259,7 @@ COMP_4_RES comp_4(L_S H_S, string F1_T, string F1_S, double T)
 	for (int i = 0; i < lev; i++)
 		vx[i] = i;
 	tex = create_diskr_plot(1024, 512, vx, arr_A2_A, 0, 0, 0, 0);
-	tex.numbers(100, tex.gy() - 20, "амплитудная характеристика выходного сигнала");
+	tex.numbers(100, tex.gy() - 20, "Р°РјРїР»РёС‚СѓРґРЅР°СЏ С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРєР° РІС‹С…РѕРґРЅРѕРіРѕ СЃРёРіРЅР°Р»Р°");
 	tex.numbers(100, tex.gy() - 20 - 18, "");
 	mtx.lock();
 	img.add(tex);
@@ -4267,7 +4270,7 @@ COMP_4_RES comp_4(L_S H_S, string F1_T, string F1_S, double T)
 	for (int i = 0; i < lev; i++)
 		vx[i] = i;
 	tex = create_diskr_plot(1024, 512, vx, arr_A2_F, 0, 0, 0, 0);
-	tex.numbers(100, tex.gy() - 20, "фазовая характеристика выходного сигнала");
+	tex.numbers(100, tex.gy() - 20, "С„Р°Р·РѕРІР°СЏ С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРєР° РІС‹С…РѕРґРЅРѕРіРѕ СЃРёРіРЅР°Р»Р°");
 	tex.numbers(100, tex.gy() - 20 - 18, "");
 	mtx.lock();
 	img.add(tex);
@@ -4298,15 +4301,15 @@ COMP_4_RES comp_4(L_S H_S, string F1_T, string F1_S, double T)
 	}
 
 	tex = create_plot(1024, 512, vx, vz,0,0,0,0);
-	tex.numbers(100, tex.gy() - 20, "выходной сигнал");
+	tex.numbers(100, tex.gy() - 20, "РІС‹С…РѕРґРЅРѕР№ СЃРёРіРЅР°Р»");
 	tex.numbers(100, tex.gy() - 20 - 18, "");
 	mtx.lock();
 	img.add(tex);
 	mtx.unlock();
 
-	//4.4.Построить амплитудный и фазовый дискретные спектры выходного сигнала.Построить график 
-	//выходного сигнала, найденного в п. 4.3 задания, в одном масштабе рядом с графиком аппроксимированного входного сигнала. 
-	//4.5.Дать заключение об искажении сигнала на выходе цепи.
+	//4.4.РџРѕСЃС‚СЂРѕРёС‚СЊ Р°РјРїР»РёС‚СѓРґРЅС‹Р№ Рё С„Р°Р·РѕРІС‹Р№ РґРёСЃРєСЂРµС‚РЅС‹Рµ СЃРїРµРєС‚СЂС‹ РІС‹С…РѕРґРЅРѕРіРѕ СЃРёРіРЅР°Р»Р°.РџРѕСЃС‚СЂРѕРёС‚СЊ РіСЂР°С„РёРє 
+	//РІС‹С…РѕРґРЅРѕРіРѕ СЃРёРіРЅР°Р»Р°, РЅР°Р№РґРµРЅРЅРѕРіРѕ РІ Рї. 4.3 Р·Р°РґР°РЅРёСЏ, РІ РѕРґРЅРѕРј РјР°СЃС€С‚Р°Р±Рµ СЂСЏРґРѕРј СЃ РіСЂР°С„РёРєРѕРј Р°РїРїСЂРѕРєСЃРёРјРёСЂРѕРІР°РЅРЅРѕРіРѕ РІС…РѕРґРЅРѕРіРѕ СЃРёРіРЅР°Р»Р°. 
+	//4.5.Р”Р°С‚СЊ Р·Р°РєР»СЋС‡РµРЅРёРµ РѕР± РёСЃРєР°Р¶РµРЅРёРё СЃРёРіРЅР°Р»Р° РЅР° РІС‹С…РѕРґРµ С†РµРїРё.
 
 
 	return res;
@@ -4997,7 +5000,8 @@ int main()
 	setlocale(0, "RU");
 
 
-	cout << "Грузись питон"<<endl;
+
+	cout << "Р“СЂСѓР·РёСЃСЊ РїРёС‚РѕРЅ";
 	sympy_init();
 
 
@@ -5011,7 +5015,7 @@ int main()
 	//th.join();
 	//system("pause");
 	sympy_sim("1+3");
-	//cout << endl << "Грузись питон";
+	cout << endl << "Р“СЂСѓР·РёСЃСЊ РїРёС‚РѕРЅ";
 	//call_python_sympy("sin(t)+1");
 	//puts("L: sin(t)");
 	//puts(sympy_lap("sin(t)").data());
@@ -5031,14 +5035,14 @@ int main()
 	//	"0+(10/s)*exp(-s*(0))+(-20/s)*exp(-s*(10))+(10/s)*exp(-s*(20))",
 	//	40);
 
-	/** /   //что это?
+
 	input.cha_str = "1 4 1 I 0  2 3 4 R 0.5  3 1 4 R 2  4 1 2 L 2  5 2 3 R 1  6 3 4 C 4";
 	input.el_id = 2;
 	input.t_sign = SIGN_T;
 	input.ts = 20;
 	input.as = 10;
 	input.T = 40;
-	/**/
+
 
 	/** /
 	input.cha_str = "1 1 4 U 0  2 2 4 R 1  3 1 3 R 1  4 3 4 R 1  5 1 3 L 1  6 3 2 L 0.25";//14 var
@@ -5049,132 +5053,42 @@ int main()
 	input.T = 10;
 	/**/
 
-	int va = 0;
-
-	cout << "Доступны варианты 2 13 14 " << endl;
-	cout << "Введите номер варианта:" << endl;
-	cin >> va;
-	/**/
-	if (va == 2)
-	{
-		input.cha_str = "1 2 1 U 0  2 2 3 C 4  3 3 1 R 1  4 3 4 C 1  5 4 1 R 0.5  6 1 4 R 1";//2 v
-		input.el_id = 6;
-		input.t_sign = SIGN_D;
-		input.ts = 0.1;
-		input.as = 20;
-		input.T = input.ts * 2;
-	}
+	/** /
+	input.cha_str = "1 2 1 U 0  2 2 3 C 4  3 3 1 R 1  4 3 4 C 1  5 4 1 R 0.5  6 4 1 R 1";//2 v
+	input.el_id = 6;
+	input.t_sign = SIGN_D;
+	input.ts = 0.1;
+	input.as = 20;
+	input.T = input.ts * 2;
 	/**/
 
-	/**/
-	if (va == 13)
-	{
-		input.cha_str = "1 1 2 U 0  2 2 1 R 1  3 2 3 C 4  4 3 1 R 2  5 3 4 C 1  6 1 4 R 1";//13 v
-		input.el_id = 6;
-		input.t_sign = SIGN_D;
-		input.ts = 0.5;
-		input.as = 2;
-		input.T = input.ts * 2;
-	}
+	/** /
+	input.cha_str = "1 1 2 U 0  2 2 1 R 1  3 2 3 C 4  4 3 1 R 2  5 3 4 C 1  6 4 1 R 1";//13 v
+	input.el_id = 6;
+	input.t_sign = SIGN_D;
+	input.ts = 0.5;
+	input.as = 5;
+	input.T = input.ts * 2;
 	/**/
 
 	/**/
-	if (va == 14)
-	{
-		input.cha_str = "1 2 1 U 0  2 2 3 R 1  3 3 1 L 4  4 3 4 R 0.5  5 4 1 L 1  6 4 1 R 1";//14 v
-		input.el_id = 6;
-		input.t_sign = SIGN_V;
-		input.ts = 0.5;
-		input.as = 20;
-		input.T = input.ts * 2;
-	}
+	input.cha_str = "1 2 1 U 0  2 2 3 R 1  3 3 1 L 4  4 3 4 R 0.5  5 4 1 L 1  6 4 1 R 1";//14 v
+	input.el_id = 6;
+	input.t_sign = SIGN_V;
+	input.ts = 0.5;
+	input.as = 20;
+	input.T = input.ts * 2;
 	/**/
-
-	int inn;
-
-	cout << "U - ит" << endl;
-	cout << "I - ин" << endl;
-	cout << "R - резистор" << endl;
-	cout << "C - C-элемент" << endl;
-	cout << "L - L-элемент" << endl;
-	cout << "K - кз" << endl;
-	cout << "H - хх" << endl;
-	cout << "сейчас строка цепи:" << endl;
-	cout << input.cha_str << endl;
-	cout << "Сменить?(0-нет 1-да):";
-	cin >> inn;
-	if (inn)
-	{
-		cout << "вводите:";
-		char buf[1000];
-		gets_s(buf);
-		gets_s(buf);
-		input.cha_str = buf;
-
-	}
-	cout << "сейчас номер элемента реакции:" << endl;
-	cout << input.el_id << endl;
-	cout << "Сменить?(0-нет 1-да):";
-	cin >> inn;
-	if (inn)
-	{
-		cout << "вводите:";
-		cin >> input.el_id;
-	}
-	cout << "A 1-недоступно"<<endl;
-	cout << "Б 2-недоступно" << endl;
-	cout << "В 3 пирамида" << endl;
-	cout << "Г 4-недоступно" << endl;
-	cout << "Д 5 анти ступени" << endl;
-
-	cout << "сейчас тип сигнала:" << endl;
-	cout << input.t_sign << endl;
-	cout << "Сменить?(0-нет 1-да):";
-	cin >> inn;
-	if (inn)
-	{
-		cout << "вводите:";
-		cin >> input.t_sign;
-	}
-	cout << "t сигнала:" << endl;
-	cout << input.ts << endl;
-	cout << "Сменить?(0-нет 1-да):";
-	cin >> inn;
-	if (inn)
-	{
-		cout << "вводите:";
-		cin >> input.ts;
-	}
-	cout << "А сигнала:" << endl;
-	cout << input.as << endl;
-	cout << "Сменить?(0-нет 1-да):";
-	cin >> inn;
-	if (inn)
-	{
-		cout << "вводите:";
-		cin >> input.as;
-	}
-	cout << "период Т:" << endl;
-	cout << input.T << endl;
-	cout << "Сменить?(0-нет 1-да):";
-	cin >> inn;
-	if (inn)
-	{
-		cout << "вводите:";
-		cin >> input.T;
-	}
 
 
 	/** /
-	input.cha_str = "1 1 4 U 0  2 0 0 R 1  3 1 2 R 1  4 2 3 R 1  5 2 4 C 1  6 3 4 C 0.25  7 3 4 R 1";//
-	input.el_id = 7;
-	input.t_sign = SIGN_Z;
+	input.cha_str = "1 2 1 U 0  2 2 3 C 4  3 3 1 R 1  4 3 4 C 1  5 4 1 R 0.5  6 4 1 R 1";//
+	input.el_id = 6;
+	input.t_sign = SIGN_V;
 	input.ts = 1;
 	input.as = 1;
 	input.T = input.ts * 2;
 	/**/
-
-	//
 
 	/*
 	for (auto i = A.begin_row(); i != A.end_row(); i++)
@@ -5190,14 +5104,14 @@ int main()
 
 
 
-	//EL_CHAIN cha_t("1 1 3 R 4  2 1 2 R 2  3 3 2 U 8  4 1 4 R 2  5 2 5 R 4  6 4 5 R 2  7 3 5 K 0");I(U)=4 Rэ=2
+	//EL_CHAIN cha_t("1 1 3 R 4  2 1 2 R 2  3 3 2 U 8  4 1 4 R 2  5 2 5 R 4  6 4 5 R 2  7 3 5 K 0");I(U)=4 RСЌ=2
 	//EL_CHAIN cha_t("1 1 5 R 4000  2 5 6 R 10000  3 2 6 R 11000  4 3 7 U 6  5 4 8 R 2000  6 2 1 K 0  7 3 2 K 0  8 3 4 K 0  9 6 7 K 0  10 8 7 K 0");
 	//EL_CHAIN cha_t("1 1 3 I 0.016 2 1 2 R 15000  3 2 3 R 9000  4 2 3 R 6000  5 2 3 R 17000 ");//idz3
 	//cha_t.comp_par_1_iu_uns();
 	//EL_CHAIN cha("1 1 4 U 0  2 2 4 R 1  3 1 3 R 1  4 3 2 R 1  6 3 4 C 1  5 4 2 C 0.25"); // v1 lin(62)
 	//EL_CHAIN cha("1 1 3 I 0.018  2 1 3 R 20000  3 3 4 R 8000  4 1 4 R 14000  5 4 5 R 7000  6 1 5 R 4000  7 1 2 L 0.004  8 5 2 C 0.000014 ");
 
-	//Сначала ввод входных данных
+	//РЎРЅР°С‡Р°Р»Р° РІРІРѕРґ РІС…РѕРґРЅС‹С… РґР°РЅРЅС‹С…
 
 	//POLY p1, p2;
 	//	f = "(s**2 + 33*s + 238)/((1*s**3 +30*s**2 + 300*s + 1000))";
@@ -5225,10 +5139,10 @@ int main()
 	mtx.unlock();
 	//EL_CHAIN cha("1 1 4 U 0  2 2 4 R 1  3 1 3 R 1  4 3 4 R 1  5 1 3 L 1  6 3 2 L 0.25");//from 14V
 
-	//подсчёт уравнений состояния 
+	//РїРѕРґСЃС‡С‘С‚ СѓСЂР°РІРЅРµРЅРёР№ СЃРѕСЃС‚РѕСЏРЅРёСЏ 
 	cha.comp_ur_so();
 
-	//h1 аналитически
+	//h1 Р°РЅР°Р»РёС‚РёС‡РµСЃРєРё
 	cha.comp_h1(input.el_id);
 
 	/*
@@ -5241,16 +5155,16 @@ int main()
 
 
 
-	//h1 по лаплассовски
+	//h1 РїРѕ Р»Р°РїР»Р°СЃСЃРѕРІСЃРєРё
 	
 	//(238 + 33 s + s^2)/(1000 + 300 s + 30 s^2 + s^3)
 	//cha.h1_2.str_l = ((L_S)("(409600.0*s**2 + 4915200.0*s + 49152000.0)/(s*(128000.0*s**2 + 512000.0*s + 13312000.0))") );
 	//cha.h1_2.sym_str = ((L_S)("(409600.0*s**2 + 4915200.0*s + 49152000.0)/(s*(128000.0*s**2 + 512000.0*s + 13312000.0))")).s;
 	//sympy_lap("Heaviside(t)*(10)");
 	*/
-	//H1  и какойто сигнал
+	//H1  Рё РєР°РєРѕР№С‚Рѕ СЃРёРіРЅР°Р»
 	auto res2 = comp_2(cha, input.el_id, input.t_sign, input.as, input.ts);
-	///вход2
+	///РІС…РѕРґ2
 
 	/*
 	for (int i = 0; i < vx.size(); i++)
@@ -5304,6 +5218,7 @@ int main()
 			ch = getch();
 	} while (ch != 13);
 
+
 	return 0;
 }
 
@@ -5312,12 +5227,12 @@ int main()
 void print_ku(const EL_CHAIN &cha, const COMP_2_RES &res2, const COMP_3_RES &res3, const COMP_4_RES &res4)
 {
 	system("cls");
-	cout << "1. Анализ цепи во временной области." << endl;
-	cout << "1.1. Составить уравнения состояния цепи для t >= 0. " << endl;
-	cout << "Для составления уравнений состояния следует заменить L->ИТ C->ИН и выразить через них U/I для заменённых элементов" << endl;
-	cout << "Получившиеся I(t)/U(t) надо разделить на C/L чтобы получить U'(t)/I'(t)" << endl;
-	cout << "Результат можно записать в матричном виде:" << endl;
-	cout << "[f'пс(t)]=[A][fпс(t)]+[B][f1(t)]" << endl;
+	cout << "1. РђРЅР°Р»РёР· С†РµРїРё РІРѕ РІСЂРµРјРµРЅРЅРѕР№ РѕР±Р»Р°СЃС‚Рё." << endl;
+	cout << "1.1. РЎРѕСЃС‚Р°РІРёС‚СЊ СѓСЂР°РІРЅРµРЅРёСЏ СЃРѕСЃС‚РѕСЏРЅРёСЏ С†РµРїРё РґР»СЏ t >= 0. " << endl;
+	cout << "Р”Р»СЏ СЃРѕСЃС‚Р°РІР»РµРЅРёСЏ СѓСЂР°РІРЅРµРЅРёР№ СЃРѕСЃС‚РѕСЏРЅРёСЏ СЃР»РµРґСѓРµС‚ Р·Р°РјРµРЅРёС‚СЊ L->РРў C->РРќ Рё РІС‹СЂР°Р·РёС‚СЊ С‡РµСЂРµР· РЅРёС… U/I РґР»СЏ Р·Р°РјРµРЅС‘РЅРЅС‹С… СЌР»РµРјРµРЅС‚РѕРІ" << endl;
+	cout << "РџРѕР»СѓС‡РёРІС€РёРµСЃСЏ I(t)/U(t) РЅР°РґРѕ СЂР°Р·РґРµР»РёС‚СЊ РЅР° C/L С‡С‚РѕР±С‹ РїРѕР»СѓС‡РёС‚СЊ U'(t)/I'(t)" << endl;
+	cout << "Р РµР·СѓР»СЊС‚Р°С‚ РјРѕР¶РЅРѕ Р·Р°РїРёСЃР°С‚СЊ РІ РјР°С‚СЂРёС‡РЅРѕРј РІРёРґРµ:" << endl;
+	cout << "[f'РїСЃ(t)]=[A][fРїСЃ(t)]+[B][f1(t)]" << endl;
 	cout << "[A]:" << endl;
 	cout << cha.ur_so.A << endl;
 	cout << "[B]:" << endl;
@@ -5343,7 +5258,7 @@ void print_ku(const EL_CHAIN &cha, const COMP_2_RES &res2, const COMP_3_RES &res
 
 
 
-	cout << "[f'пс(t)]:" << endl;
+	cout << "[f'РїСЃ(t)]:" << endl;
 	cout << f_str << endl;
 
 	f_str.resize(cha.ur_so.id_cl.size(), 1);
@@ -5360,7 +5275,7 @@ void print_ku(const EL_CHAIN &cha, const COMP_2_RES &res2, const COMP_3_RES &res
 		f_str[i][0] = f_str[i][0] + ftos(cha.ur_so.id_cl[i]) + "(t)";
 	}
 
-	cout << "[fпс(t)]:" << endl;
+	cout << "[fРїСЃ(t)]:" << endl;
 	cout << f_str << endl;
 
 
@@ -5382,26 +5297,26 @@ void print_ku(const EL_CHAIN &cha, const COMP_2_RES &res2, const COMP_3_RES &res
 	cout << f_str << endl;
 
 
-	cout << "1.2. По уравнениям состояния аналитическим расчетом во временной области найти переходную характеристику h1(t) для реакции и построить ее график." << endl;
+	cout << "1.2. РџРѕ СѓСЂР°РІРЅРµРЅРёСЏРј СЃРѕСЃС‚РѕСЏРЅРёСЏ Р°РЅР°Р»РёС‚РёС‡РµСЃРєРёРј СЂР°СЃС‡РµС‚РѕРј РІРѕ РІСЂРµРјРµРЅРЅРѕР№ РѕР±Р»Р°СЃС‚Рё РЅР°Р№С‚Рё РїРµСЂРµС…РѕРґРЅСѓСЋ С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРєСѓ h1(t) РґР»СЏ СЂРµР°РєС†РёРё Рё РїРѕСЃС‚СЂРѕРёС‚СЊ РµРµ РіСЂР°С„РёРє." << endl;
 
-	cout << "Для начала находим собственные числа матрицы A" << endl;
+	cout << "Р”Р»СЏ РЅР°С‡Р°Р»Р° РЅР°С…РѕРґРёРј СЃРѕР±СЃС‚РІРµРЅРЅС‹Рµ С‡РёСЃР»Р° РјР°С‚СЂРёС†С‹ A" << endl;
 	for (int i = 0; i < cha.per_s[0].lamd.size(); i++)
 		cout << "l" + ftos(i + 1) << "=" << comp_to_s(cha.per_s[0].lamd[i]) << endl;
 
-	cout << "Теперь мы знаем что реакция на б(t) имеет такой вид:" << endl;
+	cout << "РўРµРїРµСЂСЊ РјС‹ Р·РЅР°РµРј С‡С‚Рѕ СЂРµР°РєС†РёСЏ РЅР° Р±(t) РёРјРµРµС‚ С‚Р°РєРѕР№ РІРёРґ:" << endl;
 	cout << cha.obs_vid << endl;
 
-	cout << "Соответственно зная что переходные процессы затухают можно из уравнения состояния можно вычислить fпс(inf):" << endl;
-	cout << "ННУ дают возможность также вычислить fпс(0) f'пс(0)" << endl;
-	cout << "и составить такую систему линейных уравнений:" << endl;
-	cout << "A*fl1(0)+B*fl2(0)=fпс(0)-fпс(inf)" << endl;
-	cout << "A*fl1'(0)+B*fl2'(0)=fпс'(0)" << endl;
+	cout << "РЎРѕРѕС‚РІРµС‚СЃС‚РІРµРЅРЅРѕ Р·РЅР°СЏ С‡С‚Рѕ РїРµСЂРµС…РѕРґРЅС‹Рµ РїСЂРѕС†РµСЃСЃС‹ Р·Р°С‚СѓС…Р°СЋС‚ РјРѕР¶РЅРѕ РёР· СѓСЂР°РІРЅРµРЅРёСЏ СЃРѕСЃС‚РѕСЏРЅРёСЏ РјРѕР¶РЅРѕ РІС‹С‡РёСЃР»РёС‚СЊ fРїСЃ(inf):" << endl;
+	cout << "РќРќРЈ РґР°СЋС‚ РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ С‚Р°РєР¶Рµ РІС‹С‡РёСЃР»РёС‚СЊ fРїСЃ(0) f'РїСЃ(0)" << endl;
+	cout << "Рё СЃРѕСЃС‚Р°РІРёС‚СЊ С‚Р°РєСѓСЋ СЃРёСЃС‚РµРјСѓ Р»РёРЅРµР№РЅС‹С… СѓСЂР°РІРЅРµРЅРёР№:" << endl;
+	cout << "A*fl1(0)+B*fl2(0)=fРїСЃ(0)-fРїСЃ(inf)" << endl;
+	cout << "A*fl1'(0)+B*fl2'(0)=fРїСЃ'(0)" << endl;
 
-	cout << "Соответственно решив данную систему для всех переменных состояния получаем:" << endl;
+	cout << "РЎРѕРѕС‚РІРµС‚СЃС‚РІРµРЅРЅРѕ СЂРµС€РёРІ РґР°РЅРЅСѓСЋ СЃРёСЃС‚РµРјСѓ РґР»СЏ РІСЃРµС… РїРµСЂРµРјРµРЅРЅС‹С… СЃРѕСЃС‚РѕСЏРЅРёСЏ РїРѕР»СѓС‡Р°РµРј:" << endl;
 	for (int i = 0; i < cha.per_s.size(); i++)
 		cout << cha.per_s[i].cool_str << endl;
 
-	cout << "Выразим требуемое I через переменные состояния и источник" << endl;
+	cout << "Р’С‹СЂР°Р·РёРј С‚СЂРµР±СѓРµРјРѕРµ I С‡РµСЂРµР· РїРµСЂРµРјРµРЅРЅС‹Рµ СЃРѕСЃС‚РѕСЏРЅРёСЏ Рё РёСЃС‚РѕС‡РЅРёРє" << endl;
 	cout << ("h1(t)=I(t)=");
 
 
@@ -5438,25 +5353,25 @@ void print_ku(const EL_CHAIN &cha, const COMP_2_RES &res2, const COMP_3_RES &res
 	cout << endl;
 
 
-	cout << "2. Анализ цепи операторным методом при действии одиночного импульса на входе." << endl;
-	cout << "2.1. В соответствии с номером выполняемого варианта определить функцию передачи напряжений или токов. Осуществить проверку функции передачи при s = 0 и ; s -> inf представить соответствующие этим значениям схемы замещения цепи. " << endl;
+	cout << "2. РђРЅР°Р»РёР· С†РµРїРё РѕРїРµСЂР°С‚РѕСЂРЅС‹Рј РјРµС‚РѕРґРѕРј РїСЂРё РґРµР№СЃС‚РІРёРё РѕРґРёРЅРѕС‡РЅРѕРіРѕ РёРјРїСѓР»СЊСЃР° РЅР° РІС…РѕРґРµ." << endl;
+	cout << "2.1. Р’ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ РЅРѕРјРµСЂРѕРј РІС‹РїРѕР»РЅСЏРµРјРѕРіРѕ РІР°СЂРёР°РЅС‚Р° РѕРїСЂРµРґРµР»РёС‚СЊ С„СѓРЅРєС†РёСЋ РїРµСЂРµРґР°С‡Рё РЅР°РїСЂСЏР¶РµРЅРёР№ РёР»Рё С‚РѕРєРѕРІ. РћСЃСѓС‰РµСЃС‚РІРёС‚СЊ РїСЂРѕРІРµСЂРєСѓ С„СѓРЅРєС†РёРё РїРµСЂРµРґР°С‡Рё РїСЂРё s = 0 Рё ; s -> inf РїСЂРµРґСЃС‚Р°РІРёС‚СЊ СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РёРµ СЌС‚РёРј Р·РЅР°С‡РµРЅРёСЏРј СЃС…РµРјС‹ Р·Р°РјРµС‰РµРЅРёСЏ С†РµРїРё. " << endl;
 	cout << "H1I(S):" << endl;
 	cout << res2.h1_s << endl;
 
 	cout << "H1I(0):" << endl;
 	cout << res2.s0 << endl;
 
-	cout << "H1I(0) по схеме:" << endl;
+	cout << "H1I(0) РїРѕ СЃС…РµРјРµ:" << endl;
 	cout << res2.s0 << endl;
 
 	cout << "H1I(inf):" << endl;
 	cout << res2.s9s << endl;
 
-	cout << "H1I(inf) по схеме:" << endl;
+	cout << "H1I(inf) РїРѕ СЃС…РµРјРµ:" << endl;
 	cout << res2.s9 << endl;
 
 
-	cout << "2.2. Найти нули и полюсы функции передачи и показать их расположение на плоскости комплексной частоты. По значениям полюсов функции передачи дать заключение о характере и практической длительности переходного процесса. " << endl;
+	cout << "2.2. РќР°Р№С‚Рё РЅСѓР»Рё Рё РїРѕР»СЋСЃС‹ С„СѓРЅРєС†РёРё РїРµСЂРµРґР°С‡Рё Рё РїРѕРєР°Р·Р°С‚СЊ РёС… СЂР°СЃРїРѕР»РѕР¶РµРЅРёРµ РЅР° РїР»РѕСЃРєРѕСЃС‚Рё РєРѕРјРїР»РµРєСЃРЅРѕР№ С‡Р°СЃС‚РѕС‚С‹. РџРѕ Р·РЅР°С‡РµРЅРёСЏРј РїРѕР»СЋСЃРѕРІ С„СѓРЅРєС†РёРё РїРµСЂРµРґР°С‡Рё РґР°С‚СЊ Р·Р°РєР»СЋС‡РµРЅРёРµ Рѕ С…Р°СЂР°РєС‚РµСЂРµ Рё РїСЂР°РєС‚РёС‡РµСЃРєРѕР№ РґР»РёС‚РµР»СЊРЅРѕСЃС‚Рё РїРµСЂРµС…РѕРґРЅРѕРіРѕ РїСЂРѕС†РµСЃСЃР°. " << endl;
 
 	cout << "POL:";
 	for (int i = 0; i < res2.v_polus.size(); i++)
@@ -5468,28 +5383,28 @@ void print_ku(const EL_CHAIN &cha, const COMP_2_RES &res2, const COMP_3_RES &res
 		cout << comp_to_s(res2.v_zero[i]);
 	cout << endl;
 
-	cout << "2.3. Определить переходную h1(t) характеристику цепи, сравнить с найденной в п. 1.2 задания. Проверить h1(0) и h1(inf) по аналитическому выражению h1(t) и непосредственно по схеме цепи." << endl;
+	cout << "2.3. РћРїСЂРµРґРµР»РёС‚СЊ РїРµСЂРµС…РѕРґРЅСѓСЋ h1(t) С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРєСѓ С†РµРїРё, СЃСЂР°РІРЅРёС‚СЊ СЃ РЅР°Р№РґРµРЅРЅРѕР№ РІ Рї. 1.2 Р·Р°РґР°РЅРёСЏ. РџСЂРѕРІРµСЂРёС‚СЊ h1(0) Рё h1(inf) РїРѕ Р°РЅР°Р»РёС‚РёС‡РµСЃРєРѕРјСѓ РІС‹СЂР°Р¶РµРЅРёСЋ h1(t) Рё РЅРµРїРѕСЃСЂРµРґСЃС‚РІРµРЅРЅРѕ РїРѕ СЃС…РµРјРµ С†РµРїРё." << endl;
 	cout << res2.h1_t << endl;
 
 	cout << "h1I(0):" << endl;
 	cout << res2.h1_0s << endl;
 
-	cout << "h1I(0) по схеме:" << endl;
+	cout << "h1I(0) РїРѕ СЃС…РµРјРµ:" << endl;
 	cout << res2.h1_0 << endl;
 
 	cout << "h1I(inf):" << endl;
 	cout << res2.h1_9s << endl;
 
-	cout << "h1I(inf) по схеме:" << endl;
+	cout << "h1I(inf) РїРѕ СЃС…РµРјРµ:" << endl;
 	cout << res2.h1_9 << endl;
 
-	cout << "2.4. Определить изображение по Лапласу входного одиночного импульса." << endl;
+	cout << "2.4. РћРїСЂРµРґРµР»РёС‚СЊ РёР·РѕР±СЂР°Р¶РµРЅРёРµ РїРѕ Р›Р°РїР»Р°СЃСѓ РІС…РѕРґРЅРѕРіРѕ РѕРґРёРЅРѕС‡РЅРѕРіРѕ РёРјРїСѓР»СЊСЃР°." << endl;
 	cout << "F1(S):" << endl;
 	cout << res2.f1_s << endl;
 	cout << "f1(t):" << endl;
 	cout << res2.f1_t << endl;
 
-	cout << "2.5. Определить изображение выходного сигнала и далее найти реакцию I2(t) или U2(t) во временной области. Построить графики входного и выходного сигналов на одном рисунке." << endl;
+	cout << "2.5. РћРїСЂРµРґРµР»РёС‚СЊ РёР·РѕР±СЂР°Р¶РµРЅРёРµ РІС‹С…РѕРґРЅРѕРіРѕ СЃРёРіРЅР°Р»Р° Рё РґР°Р»РµРµ РЅР°Р№С‚Рё СЂРµР°РєС†РёСЋ I2(t) РёР»Рё U2(t) РІРѕ РІСЂРµРјРµРЅРЅРѕР№ РѕР±Р»Р°СЃС‚Рё. РџРѕСЃС‚СЂРѕРёС‚СЊ РіСЂР°С„РёРєРё РІС…РѕРґРЅРѕРіРѕ Рё РІС‹С…РѕРґРЅРѕРіРѕ СЃРёРіРЅР°Р»РѕРІ РЅР° РѕРґРЅРѕРј СЂРёСЃСѓРЅРєРµ." << endl;
 	cout << "F2(S):" << endl;
 	cout << res2.f2_s << endl;
 	cout << "f2(t):" << endl;
@@ -5507,14 +5422,14 @@ void print_ku(const EL_CHAIN &cha, const COMP_2_RES &res2, const COMP_3_RES &res
 
 
 
-	//h1 по лаплассовски
+	//h1 РїРѕ Р»Р°РїР»Р°СЃСЃРѕРІСЃРєРё
 
 	//(238 + 33 s + s^2)/(1000 + 300 s + 30 s^2 + s^3)
 	//cha.h1_2.str_l = ((L_S)("(409600.0*s**2 + 4915200.0*s + 49152000.0)/(s*(128000.0*s**2 + 512000.0*s + 13312000.0))") );
 	//cha.h1_2.sym_str = ((L_S)("(409600.0*s**2 + 4915200.0*s + 49152000.0)/(s*(128000.0*s**2 + 512000.0*s + 13312000.0))")).s;
 	//sympy_lap("Heaviside(t)*(10)");
-	//H1  и какойто сигнал
-	///вход2
+	//H1  Рё РєР°РєРѕР№С‚Рѕ СЃРёРіРЅР°Р»
+	///РІС…РѕРґ2
 
 	vector<double> vx, vy, vz;
 	EASY_TEX tex;
@@ -5532,7 +5447,7 @@ void print_ku(const EL_CHAIN &cha, const COMP_2_RES &res2, const COMP_3_RES &res
 
 
 	tex = create_plot(1024, 512, vx, vy, 0, 0, 0, 0);
-	tex.numbers(100, tex.gy() - 20, "аш1 от тэ через дифур");
+	tex.numbers(100, tex.gy() - 20, "Р°С€1 РѕС‚ С‚СЌ С‡РµСЂРµР· РґРёС„СѓСЂ");
 	tex.numbers(100, tex.gy() - 20 - 18, "");
 	mtx.lock();
 	img.add(tex);
@@ -5548,7 +5463,7 @@ void print_ku(const EL_CHAIN &cha, const COMP_2_RES &res2, const COMP_3_RES &res
 	}
 
 	tex = create_plot(1024, 512, vx, vy, 0, 0, 0, 0);
-	tex.numbers(100, tex.gy() - 20, "аш1 от тэ через лапласса");
+	tex.numbers(100, tex.gy() - 20, "Р°С€1 РѕС‚ С‚СЌ С‡РµСЂРµР· Р»Р°РїР»Р°СЃСЃР°");
 	tex.numbers(100, tex.gy() - 20 - 18, "");
 	mtx.lock();
 	img.add(tex);
@@ -5559,57 +5474,19 @@ void print_ku(const EL_CHAIN &cha, const COMP_2_RES &res2, const COMP_3_RES &res
 
 
 
-	cout << "3.1. Используя найденное в 2.1 выражение H(s)," << endl;
-	cout << "вычислить и построить графики АЧХ и ФЧХ функций передачи цепи H(jw)." << endl;
-	cout << "Произвести проверку АЧХ при w = 0 и w -> inf." << endl;
+	cout << "3.1. РСЃРїРѕР»СЊР·СѓСЏ РЅР°Р№РґРµРЅРЅРѕРµ РІ 2.1 РІС‹СЂР°Р¶РµРЅРёРµ H(s)," << endl;
+	cout << "РІС‹С‡РёСЃР»РёС‚СЊ Рё РїРѕСЃС‚СЂРѕРёС‚СЊ РіСЂР°С„РёРєРё РђР§РҐ Рё Р¤Р§РҐ С„СѓРЅРєС†РёР№ РїРµСЂРµРґР°С‡Рё С†РµРїРё H(jw)." << endl;
+	cout << "РџСЂРѕРёР·РІРµСЃС‚Рё РїСЂРѕРІРµСЂРєСѓ РђР§РҐ РїСЂРё w = 0 Рё w -> inf." << endl;
 
-	cout << "АЧХ:" << res3.ACH_H;
-	cout << "ФЧХ:" << res3.FCH_H;
-	cout << "АЧХ(0):" << res3.ACH_H_0;
-	cout << "АЧХ(0) по схеме:" << res2.h1_0;
-	cout << "АЧХ(inf):" << res3.ACH_H_inf;
-	cout << "АЧХ(inf) по схеме:" << res2.h1_9;
+	cout << "" << res3.ACH_H;
+	cout << "" << res3.FCH_H;
+	cout << "" << res3.ACH_H_0;
+	cout << "" << res2.h1_0;
+	cout << "" << res3.ACH_H_inf;
+	cout << "" << res2.h1_9;
 
-	cout << "3.2. Определить полосу пропускания цепи по уровню 0,707 max|H(jw)|." << endl;
-	cout << "max(A(w))" << res3.max_ACH << endl;
-	res3.polosa.show();
+	cout << "3.2. РћРїСЂРµРґРµР»РёС‚СЊ РїРѕР»РѕСЃСѓ РїСЂРѕРїСѓСЃРєР°РЅРёСЏ С†РµРїРё РїРѕ СѓСЂРѕРІРЅСЋ 0,707 max(H(jw))." << endl;
 
-	cout << "3.3. Найти и построить амплитудный и фазовый спектры входного" << endl;
-	cout << "одиночного импульса.Найти ширину амплитудного спектра по 0,1 max(F(jw))." << endl;
-	cout << "A(w)=" << res3.AS_F1<<endl;
-	cout << "F(w)=" << res3.FS_F1 << endl;
-	cout << "dw=" << res3.dw_AS_F1 << endl;
-
-	cout << "3.4. Сопоставить спектры входного импульса с частотными характеристиками цепи." << endl;
-	cout << "Дать предварительное заключение об ожидаемых искажениях сигнала на выходе цепи." << endl;
-	cout << "Сравнить эти качественные оценки с сигналом на выходе, полученным в п. 2.5 задания." << endl;
-	cout << res3.p34;
-
-	cout << "3.5. Построить графики амплитудного и фазового спектров выходного сигнала, используя" << endl;
-	cout << "графики пп. 3.1, 3.3 задания. Проконтролировать площадь реакции по значению ее спектра при w = 0." << endl;
-	cout << "Значение спектра при w = 0:" << res3.AS_F2_0 << endl;
-
-
-
-
-
-	cout << "4. Анализ цепи частотным методом при периодическом воздействии. На вход цепи подан" << endl;
-	cout << "сигнал в виде периодической последовательности импульсов напряжения или тока.";
-
-	cout << "4.1.Разложить в ряд Фурье заданный входной периодический сигнал.Построить его" << endl;
-	cout << "амплитудный и фазовый дискретные спектры." << endl;
-	cout << "4.2. Построить на одном графике заданный входной периодический сигнал и его аппроксимацию" << endl;
-	cout << "отрезком ряда Фурье. Число гармоник отрезка ряда Фурье определяется по уровню 0,1 Akm" << endl;
-	cout << ", где Akm – максимальная составляющая амплитудного спектра.";
-	cout << "Akm:" << res4.Ak << endl;
-	cout << "Выбрано гармоник:" << res4.lev << endl;
-	cout << "4.3. Используя рассчитанные в п. 3.1 задания АЧХ и ФЧХ, найти реакцию цепи в виде отрезка" << endl;
-	cout << "ряда Фурье с числом гармоник, определенным для входного сигнала.";
-	cout << "4.4. Построить амплитудный и фазовый дискретные спектры выходного сигнала. Построить" << endl;
-	cout << "график выходного сигнала, найденного в п. 4.3 задания, в одном масштабе рядом" << endl;
-	cout << "с графиком аппроксимированного входного сигнала." << endl;
-	cout << "4.5. Дать заключение об искажении сигнала на выходе цепи. " << endl;
-	cout << "";
 }
 
 
