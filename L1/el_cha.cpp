@@ -265,14 +265,14 @@ void EL_CHAIN_L::comp_par_1_iu_uns()
 			baz_uzl = get_r_uzl(prop_uzl, el[i].p1);
 
 			UZL_P_L puz;
-			puz.id_uz = el[i].p1;
-			puz.id_ss = el[i].p1;
+			puz.id_uz = get_r_uzl(prop_uzl, el[i].p1);
+			puz.id_ss = get_r_uzl(prop_uzl, el[i].p1);
 			puz.val_add = 0;
 
 			prop_uzl.push_back(puz);
-			int o = 0;
+			int o = -1;
 			for (int r = 0; r < id_uzl.size(); r++)
-				if (id_uzl[r] == el[i].p1)
+				if (id_uzl[r] == get_r_uzl(prop_uzl, el[i].p1))
 					o = r;
 			id_uzl.erase(id_uzl.begin() + o);
 

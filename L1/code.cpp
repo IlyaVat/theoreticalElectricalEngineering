@@ -74,6 +74,10 @@ VecC get_l(Matrix A)
 }
 
 
+class EL_CHAIN;
+
+void outche(EL_CHAIN& cha);
+
 
 vector < string > split_command(string str)
 {
@@ -377,8 +381,14 @@ public:
 
 			int id = ur_so.id_cl[i];
 
+
+
 			podc.comp_par_1_iu_uns();
 
+
+			//outche(podc);
+
+			//getch();
 
 			//в цепи подц есть только 1 источник с id_cl[i]
 
@@ -951,14 +961,14 @@ public:
 				baz_uzl = get_r_uzl(prop_uzl, el[i].p1);
 
 				UZL_P puz;
-				puz.id_uz = el[i].p1;
-				puz.id_ss = el[i].p1;
+				puz.id_uz = get_r_uzl(prop_uzl, el[i].p1);
+				puz.id_ss = get_r_uzl(prop_uzl, el[i].p1);
 				puz.val_add = 0;
 
 				prop_uzl.push_back(puz);
-				int o = 0;
+				int o = -1;
 				for (int r = 0; r < id_uzl.size(); r++)
-					if (id_uzl[r] == el[i].p1)
+					if (id_uzl[r] == get_r_uzl(prop_uzl, el[i].p1))
 						o = r;
 				id_uzl.erase(id_uzl.begin() + o);
 
@@ -4123,12 +4133,8 @@ COMP_4_RES comp_4(L_S H_S, string F1_T, string F1_S, double T)
 		double fr = arr_A1_A[0]/2;
 		for (int r = 1; r < lev; r++)//есть способ лучше но и так сойдёт ещё можно протейлорить косинус
 		{
-			double temp;
-			temp = 1 / T * 2 * r *M_PI* vx[i] + arr_A1_F[r];
-			temp= cos(1 / T * 2 * r *M_PI* vx[i] + arr_A1_F[r]);
 			fr = fr + arr_A1_A[r] * cos(1 / T * 2 * r *M_PI* vx[i] + arr_A1_F[r]);
 		}
-		//s = fr;
 		vz[i] = fr;
 	}
 
@@ -4288,9 +4294,6 @@ COMP_4_RES comp_4(L_S H_S, string F1_T, string F1_S, double T)
 		fr = arr_A2_A[0] / 2;
 		for (int r = 1; r < lev; r++)
 		{
-			double temp;
-			temp = 1 / T * 2 * r *M_PI* vx[i] + arr_A2_F[r];
-			temp = cos(1 / T * 2 * r *M_PI* vx[i] + arr_A2_F[r]);
 			fr = fr + arr_A2_A[r] * cos(1 / T * 2 * r *M_PI* vx[i] + arr_A2_F[r]);
 		}
 		//s = fr;
@@ -4777,10 +4780,12 @@ void print_chem(EASY_TEX &tex, const EL_CHAIN &cha)
 			else
 			{
 				//pos[curr_t].next_pos(ssx,ssy);
+
 				if (pos[curr_t].t == 4)
 				{
+					if (curr_t <= 0)
+						return;
 					curr_t--;
-
 					is_see_pos[el[curr_t].p1]--;
 					is_see_pos[el[curr_t].p2]--;
 
@@ -5000,7 +5005,31 @@ int main()
 	cout << "Грузись питон"<<endl;
 	sympy_init();
 
+	{
+		int inn;
+		cout << "Сосчитать какуюнить резестивную цепь с одним источником?(0-нет 1-да):";
+		cin >> inn;
+		if (inn)
+		{
+			cout << "EX: 1 4 1 I 0  2 3 4 R 0.5  3 1 4 R 2  4 1 2 L 2  5 2 3 R 1  6 3 4 C 4" << endl;
 
+			cout << "вводите:";
+			char buf[1000];
+			gets_s(buf, 1000);
+			gets_s(buf,1000);
+
+			string s = buf;
+
+			//EL_CHAIN cha("1 1 5 U 0  2 1 2 R 0.0625  3 2 5 R 0.25  4 2 3 L 0.025  5 3 5 C 0.4  6 3 4 R 0.25  7 4 5 R 1");//from MU
+
+			EL_CHAIN cha(s);//from MU
+
+			cha.comp_par_1_iu_uns();
+			getch();
+
+		}
+
+	}
 
 
 	thread th(task_graphix);
@@ -5010,7 +5039,7 @@ int main()
 	//comp_4((string)"2.0/(4.0*s**2 + 8.0*s + 3.5)");
 	//th.join();
 	//system("pause");
-	sympy_sim("1+3");
+	//sympy_sim("1+3");
 	//cout << endl << "Грузись питон";
 	//call_python_sympy("sin(t)+1");
 	//puts("L: sin(t)");
@@ -5018,10 +5047,6 @@ int main()
 	//puts("S: (100*s-s**2)*(100+30*s-10)");
 	//puts(sympy_sim("(100*s-s**2)*(100+30*s-10)").data());
 
-	MATRIX<double> mm(4, 3);
-	mm[1][0] = 1;
-	//cout << mm;
-	//system("pause");
 	KU_INP input;
 
 
@@ -5031,7 +5056,7 @@ int main()
 	//	"0+(10/s)*exp(-s*(0))+(-20/s)*exp(-s*(10))+(10/s)*exp(-s*(20))",
 	//	40);
 
-	/** /   //что это?
+	/** /   //что это? тестовый вариант наверно
 	input.cha_str = "1 4 1 I 0  2 3 4 R 0.5  3 1 4 R 2  4 1 2 L 2  5 2 3 R 1  6 3 4 C 4";
 	input.el_id = 2;
 	input.t_sign = SIGN_T;
@@ -5051,10 +5076,20 @@ int main()
 
 	int va = 0;
 
-	cout << "Доступны варианты 2 13 14 " << endl;
+	cout << "Доступны варианты 0 2 7 13 14 " << endl;
 	cout << "Введите номер варианта:" << endl;
 	cin >> va;
-	/**/
+	
+	
+	if (va == 0)
+	{
+		input.cha_str = "1 4 1 I 0  2 3 4 R 0.5  3 1 4 R 2  4 1 2 L 2  5 2 3 R 1  6 3 4 C 4";
+		input.el_id = 2;
+		input.t_sign = SIGN_T;
+		input.ts = 20;
+		input.as = 10;
+		input.T = 40;
+	}
 	if (va == 2)
 	{
 		input.cha_str = "1 2 1 U 0  2 2 3 C 4  3 3 1 R 1  4 3 4 C 1  5 4 1 R 0.5  6 1 4 R 1";//2 v
@@ -5064,21 +5099,24 @@ int main()
 		input.as = 20;
 		input.T = input.ts * 2;
 	}
-	/**/
-
-	/**/
-	if (va == 13)
+	if (va == 7)
 	{
-		input.cha_str = "1 1 2 U 0  2 2 1 R 1  3 2 3 C 4  4 3 1 R 2  5 3 4 C 1  6 1 4 R 1";//13 v
+		input.cha_str = "1 1 2 I 0  2 2 1 R 2  3 2 3 L 1  4 3 1 L 4  5 3 4 R 2  6 1 4 R 1";//13 v
 		input.el_id = 6;
 		input.t_sign = SIGN_D;
-		input.ts = 0.5;
-		input.as = 2;
+		input.ts = 2;
+		input.as = 5;
 		input.T = input.ts * 2;
 	}
-	/**/
-
-	/**/
+	if (va == 13)
+	{
+		input.cha_str = "1 1 2 I 0  2 2 1 R 1  3 2 3 C 4  4 3 1 R 2  5 3 4 C 1  6 1 4 R 1";//13 v
+		input.el_id = 6;
+		input.t_sign = SIGN_D;
+		input.ts = 1;
+		input.as = 5;
+		input.T = input.ts * 2;
+	}
 	if (va == 14)
 	{
 		input.cha_str = "1 2 1 U 0  2 2 3 R 1  3 3 1 L 4  4 3 4 R 0.5  5 4 1 L 1  6 4 1 R 1";//14 v
@@ -5088,7 +5126,6 @@ int main()
 		input.as = 20;
 		input.T = input.ts * 2;
 	}
-	/**/
 
 	int inn;
 
@@ -5212,10 +5249,7 @@ int main()
 	
 
 
-	vector<double> vx, vy;
 	EASY_TEX tex;
-	vx.resize(200);
-	vy.resize(200);
 
 
 	tex.resize(512, 256);
@@ -5615,3 +5649,15 @@ void print_ku(const EL_CHAIN &cha, const COMP_2_RES &res2, const COMP_3_RES &res
 
 
 
+
+void outche(EL_CHAIN& cha)
+{
+	EASY_TEX tex;
+
+
+	tex.resize(512, 256);
+	print_chem(tex, cha);
+	mtx.lock();
+	img.add(tex);
+	mtx.unlock();
+}
