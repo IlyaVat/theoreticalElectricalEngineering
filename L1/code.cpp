@@ -4022,10 +4022,7 @@ COMP_4_RES comp_4(L_S H_S, string F1_T, string F1_S, double T)
 			temp = sympy_lim(F1_K, "k", ftos(0.001),"+");//иногда степени ехр различаются на 0.0000001 и из-за этого вылезает оо
 
 		arr_RE[i] = atof1(sympy_re(temp));
-		if (arr_RE[i] != 0)
-			arr_IM[i] = atof1(sympy_im(temp));
-		else
-			arr_IM[i] = 0;
+		arr_IM[i] = atof1(sympy_im(temp));
 
 	}
 
